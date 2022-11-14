@@ -1,19 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using DataSourceSyeew.Entities.InterfacesEntities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataSourceSyeew.Entities
+namespace DataSourceSyeew.Entities.InterfacesEntities
 {
-    public class QuantitativeData : IQuantitativeData
+    public interface IQuantitativeData
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public Guid IdQuantitativeData { get; set; }
 
         public int IdMatrix { get; set; }
-            
+
         public string MatrixName { get; set; }
-            
+
         public TypeOfCompany TypeOfCompany { get; set; }
 
         public int IdCat { get; set; }
@@ -31,7 +31,7 @@ namespace DataSourceSyeew.Entities
 
         public double FattIvato { get; set; }
 
-        public float Qta { get; set; }  
+        public float Qta { get; set; }
 
         public float Worked { get; set; }
 
