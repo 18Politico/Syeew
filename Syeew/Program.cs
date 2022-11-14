@@ -1,4 +1,6 @@
 using DataSourceSyeew;
+using DataSourceSyeew.Repositories;
+using DataSourceSyeew.Repositories.InterfacesRepositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +15,10 @@ builder.Services.AddDbContext<SyeewContext>(options =>
             .UseSqlServer(builder.Configuration.GetConnectionString("Syeew"));
 });
 
+builder.Services.AddScoped<IQuantitativeDataRepository, QuantitativeDataRepository>();
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
