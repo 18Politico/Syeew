@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataSourceSyeew.Repositories.InterfacesRepositories
 {
-    public interface IQuantitativeDataRepository : IDisposable
+    public interface IQuantitativeDataRepository : IRepository<QuantitativeData>
     {
         Task<List<QuantitativeData>> GetQuantitativeDatas();
     }

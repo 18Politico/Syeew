@@ -1,11 +1,6 @@
 ﻿using DataSourceSyeew.Entities;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataSourceSyeew.Repositories
 {
@@ -42,5 +37,12 @@ namespace DataSourceSyeew.Repositories
         {
             return await _context.QuantitativeDatas.ToListAsync();
         }
+
+        public async Task<List<QuantitativeData>> GetBy(Func<QuantitativeData, ValueTask<bool>> predicate)
+        {
+            return await _context.QuantitativeDatas.AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
+        }
     }
+
+    
 }

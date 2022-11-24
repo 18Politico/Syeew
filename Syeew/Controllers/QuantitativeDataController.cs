@@ -18,9 +18,20 @@ namespace Syeew.Controllers
         }
 
         [HttpGet]
-        public async Task<List<QuantitativeData>> GetQuantitativeDatas()
+        public async Task<ActionResult<List<QuantitativeData>>> GetQuantitativeDatas()
         {
-            return await _quantitativeDataRepository.GetQuantitativeDatas();
+            try
+            {
+                return Ok(await _quantitativeDataRepository.GetQuantitativeDatas());
+            }
+            catch (Exception)
+            {
+                return (OkObjectResult)StatusCode(StatusCodes.Status500InternalServerError, "Error");   
+            }
+            finally
+            {
+                _quantitativeDataRepository.Dispose();
+            }
         }
 
     }
