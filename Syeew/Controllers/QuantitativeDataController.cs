@@ -27,7 +27,24 @@ namespace Syeew.Controllers
             }
             catch (Exception)
             {
-                return (OkObjectResult)StatusCode(StatusCodes.Status500InternalServerError, "Error");   
+                return /*(OkObjectResult)*/StatusCode(StatusCodes.Status500InternalServerError, "Error");   
+            }
+            finally
+            {
+                _quantitativeDataRepository.Dispose();
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<QuantitativeData>> InsertQuantitativeData([FromBody] QuantitativeData quantitativeData)
+        {
+            try
+            {
+                return Ok(await _quantitativeDataRepository.Add(quantitativeData));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
             }
             finally
             {

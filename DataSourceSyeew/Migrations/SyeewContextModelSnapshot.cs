@@ -44,7 +44,7 @@ namespace DataSourceSyeew.Migrations
                     b.Property<int>("IdCat")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdMatrix")
+                    b.Property<int>("IdMatrice")
                         .HasColumnType("int");
 
                     b.Property<string>("Idx")
@@ -54,7 +54,10 @@ namespace DataSourceSyeew.Migrations
                     b.Property<float>("Iva")
                         .HasColumnType("real");
 
-                    b.Property<string>("MatrixName")
+                    b.Property<float>("Lavorato")
+                        .HasColumnType("real");
+
+                    b.Property<string>("MatriceNome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -66,9 +69,6 @@ namespace DataSourceSyeew.Migrations
 
                     b.Property<int>("TypeOfCompany")
                         .HasColumnType("int");
-
-                    b.Property<float>("Worked")
-                        .HasColumnType("real");
 
                     b.HasKey("IdQuantitativeData");
 

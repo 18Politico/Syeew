@@ -16,8 +16,8 @@ namespace DataSourceSyeew.Migrations
                 columns: table => new
                 {
                     IdQuantitativeData = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdMatrix = table.Column<int>(type: "int", nullable: false),
-                    MatrixName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdMatrice = table.Column<int>(type: "int", nullable: false),
+                    MatriceNome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfCompany = table.Column<int>(type: "int", nullable: false),
                     IdCat = table.Column<int>(type: "int", nullable: false),
                     Cat1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -27,7 +27,7 @@ namespace DataSourceSyeew.Migrations
                     Iva = table.Column<float>(type: "real", nullable: false),
                     FattIvato = table.Column<double>(type: "float", nullable: false),
                     Qta = table.Column<float>(type: "real", nullable: false),
-                    Worked = table.Column<float>(type: "real", nullable: false),
+                    Lavorato = table.Column<float>(type: "real", nullable: false),
                     Dim = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>

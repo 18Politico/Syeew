@@ -42,6 +42,14 @@ namespace DataSourceSyeew.Repositories
         {
             return await _context.QuantitativeDatas.AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
         }
+
+        public async Task<QuantitativeData> Add(QuantitativeData quantitativeData)
+        {
+            var added = await _context.QuantitativeDatas.AddAsync(quantitativeData);
+            await _context.SaveChangesAsync();
+            return added.Entity;
+        }
+
     }
 
     

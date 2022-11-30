@@ -1,3 +1,5 @@
+//ATTUALE
+
 using DataSourceSyeew;
 using DataSourceSyeew.Repositories;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
@@ -6,6 +8,17 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("https://localhost:44496");
+                      });
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -31,6 +44,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapControllerRoute(
     name: "default",

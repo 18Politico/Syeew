@@ -10,9 +10,9 @@ namespace DataSourceSyeew.Entities
         [Key]
         public Guid IdQuantitativeData { get; set; }
 
-        public int IdMatrix { get; set; }
+        public int IdMatrice { get; set; }
             
-        public string MatrixName { get; set; }
+        public string MatriceNome { get; set; }
             
         public TypeOfCompany TypeOfCompany { get; set; }
 
@@ -33,7 +33,7 @@ namespace DataSourceSyeew.Entities
 
         public float Qta { get; set; }  
 
-        public float Worked { get; set; }
+        public float Lavorato { get; set; }
 
         public float Dim { get; set; }
     }
