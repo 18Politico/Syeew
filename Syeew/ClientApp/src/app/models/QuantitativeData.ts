@@ -3,65 +3,33 @@ import { TypeOfCompany } from "./TypeOfCompany";
 
 export class QuantitativeData implements IQuantitativeData {
 
-  IdQuantitativeData: string;
+  idQuantitativeData: string = "";
 
-  IdMatrice: number;
+  idMatrice: number = -1;
 
-  MatriceNome: string;
+  matriceNome: string = "";
 
-  TypeOfCompany: TypeOfCompany;
+  typeOfCompany: TypeOfCompany = -1;
 
-  IdCat: number;
+  idCat: number = -1;
 
-  Cat1: string;
+  cat1: string = "";
 
-  Idx: string;
+  idx: string = "";
 
-  Dt: any;
+  dt: any;
 
-  Netto: number;
+  net: number = -1;
 
-  Iva: number;
+  iva: number = -1;
 
-  FattIvato: number;
+  fattIvato: number = -1;
 
-  Qta: number;
+  qta: number = -1;
 
-  Lavorato: number;
+  lavorato: number = -1;
 
-  Dim: number;
-
-
-  constructor(idQuantitativeData: string,
-              idMatrice: number,
-              matriceNome: string,
-              typeOfCompany: TypeOfCompany,
-              idCat: number,
-              cat1: string,
-              idx: string,
-              dt: Date,
-              netto: number,
-              iva: number,
-              fattIvato: number,
-              qta: number,
-              lavorato: number,
-              dim: number)
-  {
-    this.IdQuantitativeData = idQuantitativeData;
-    this.IdMatrice = idMatrice;
-    this.MatriceNome = matriceNome;
-    this.TypeOfCompany = typeOfCompany;
-    this.IdCat = idCat;
-    this.Cat1 = cat1;
-    this.Idx = idx;
-    this.Dt = dt;
-    this.Netto = netto;
-    this.Iva = iva;
-    this.FattIvato = fattIvato;
-    this.Qta = qta;
-    this.Lavorato = lavorato;
-    this.Dim = dim;
-  }
+  dim: number = -1;
 
   // public get GetIdQuantitativeData() : string {
   //   return this.IdQuantitativeData;

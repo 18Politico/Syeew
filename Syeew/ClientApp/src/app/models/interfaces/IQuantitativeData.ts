@@ -2,32 +2,32 @@ import { TypeOfCompany } from "../TypeOfCompany";
 
 export interface IQuantitativeData{
 
-  IdQuantitativeData: string;
+  idQuantitativeData: string;
 
-  IdMatrice: number;
+  idMatrice: number;
 
-  MatriceNome: string;
+  matriceNome: string;
 
-  TypeOfCompany: TypeOfCompany;
+  typeOfCompany: TypeOfCompany;
 
-  IdCat: number;
+  idCat: number;
 
-  Cat1: string;
+  cat1: string;
 
-  Idx: string;
+  idx: string;
 
-  Dt: any;
+  dt: any;
 
-  Netto: number;
+  net: number;
 
-  Iva: number;
+  iva: number;
 
-  FattIvato: number;
+  fattIvato: number;
 
-  Qta: number;
+  qta: number;
 
-  Lavorato: number;
+  lavorato: number;
 
-  Dim: number;
+  dim: number;
 
 }

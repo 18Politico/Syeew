@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { IQuantitativeData } from '../models/interfaces/IQuantitativeData';
 
 @Injectable({
@@ -12,8 +12,16 @@ export class QuantitativeDataService {
 
   constructor(private _http: HttpClient) { }
 
-  AllQuantitativeData(url: string) {
-    var response = this._http.get<IQuantitativeData[]>(this._url + url);
-    return response;
+  AllQuantitativeData(url: string): Observable<IQuantitativeData[]> {
+    return this._http.get<IQuantitativeData[]>(this._url + url).pipe(
+      map(data => {
+        const result: IQuantitativeData[] = [];
+        for (const id in data){
+          result.push(data[id])
+        }
+        return result;
+      })
+    );
   }
+
 }

@@ -13,7 +13,7 @@ import { QuantitativeDataService } from 'src/app/services/quantitative-data.serv
 })
 export class QuantitativeDataComponent implements OnInit, AfterViewInit {
 
-  quantitativeData: IQuantitativeData[] = [];
+  quantitativeData!: IQuantitativeData[];
 
   displayedColumns: string[] = [];
 
@@ -25,15 +25,26 @@ export class QuantitativeDataComponent implements OnInit, AfterViewInit {
   constructor(private _service: QuantitativeDataService){}
 
   ngOnInit(): void {
+    // this._service.AllQuantitativeData("QuantitativeData")
+    //               .subscribe((data: any) => {
+    //                 //console.log(data[0]);
+    //                 this.quantitativeData = Object.keys(data).map((key) => {return data[key]});
+    //                 this.displayedColumns = ["idQuantitativeData"].concat(Object.keys(this.quantitativeData[0] as IQuantitativeData));
+    //                console.log(this.quantitativeData[0].cat1);
+    //                console.log(this.displayedColumns.length);
+    //             });
     this._service.AllQuantitativeData("QuantitativeData")
-                  .subscribe((data: IQuantitativeData[]) => this.quantitativeData = data);
-    console.log(this.quantitativeData.length);
-    this.displayedColumns = ['IdQuantitativeData'].concat(Object.keys(this.quantitativeData[0]));
-    //console.log(this.quantitativeData[0].Cat1);
+                  .subscribe((data: IQuantitativeData[]) => {this.quantitativeData = data;
+                                                              console.log("--------> "+ this.quantitativeData[0])
+                                                            });
+
+    //console.log(this.quantitativeData.length);
+    //this.displayedColumns = ['IdQuantitativeData'].concat(Object.keys(this.quantitativeData[0]));
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+    console.log("after -->" + this.quantitativeData[0].cat1 );
   }
 }
 
