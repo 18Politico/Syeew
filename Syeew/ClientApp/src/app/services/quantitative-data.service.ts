@@ -13,15 +13,16 @@ export class QuantitativeDataService {
   constructor(private _http: HttpClient) { }
 
   AllQuantitativeData(url: string): Observable<IQuantitativeData[]> {
-    return this._http.get<IQuantitativeData[]>(this._url + url).pipe(
-      map(data => {
-        const result: IQuantitativeData[] = [];
-        for (const id in data){
-          result.push(data[id])
-        }
-        return result;
-      })
-    );
+    return this._http.get<IQuantitativeData[]>(this._url + url);
+    // return this._http.get<IQuantitativeData[]>(this._url + url).pipe(
+    //   map(data => {
+    //     const result: IQuantitativeData[] = [];
+    //     for (const id in data){
+    //       result.push(data[id])
+    //     }
+    //     return result;
+    //   })
+    // );
   }
 
 }

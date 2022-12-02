@@ -1,9 +1,7 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, of } from 'rxjs';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
-import { QuantitativeData } from 'src/app/models/QuantitativeData';
 import { QuantitativeDataService } from 'src/app/services/quantitative-data.service';
 
 @Component({
@@ -11,64 +9,56 @@ import { QuantitativeDataService } from 'src/app/services/quantitative-data.serv
   templateUrl: './quantitative-data.component.html',
   styleUrls: ['./quantitative-data.component.css']
 })
-export class QuantitativeDataComponent implements OnInit, AfterViewInit {
+export class QuantitativeDataComponent implements OnInit {
+
 
   quantitativeData!: IQuantitativeData[];
 
   displayedColumns: string[] = [];
 
-  public dataSource = new MatTableDataSource<IQuantitativeData>(this.quantitativeData);
+  filteringName = '*NOME ATTIVITÀ*';
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
+  dataSource!: MatTableDataSource<IQuantitativeData>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
 
   constructor(private _service: QuantitativeDataService){}
 
   ngOnInit(): void {
-    // this._service.AllQuantitativeData("QuantitativeData")
-    //               .subscribe((data: any) => {
-    //                 //console.log(data[0]);
-    //                 this.quantitativeData = Object.keys(data).map((key) => {return data[key]});
-    //                 this.displayedColumns = ["idQuantitativeData"].concat(Object.keys(this.quantitativeData[0] as IQuantitativeData));
-    //                console.log(this.quantitativeData[0].cat1);
-    //                console.log(this.displayedColumns.length);
-    //             });
     this._service.AllQuantitativeData("QuantitativeData")
-                  .subscribe((data: IQuantitativeData[]) => {this.quantitativeData = data;
-                                                              console.log("--------> "+ this.quantitativeData[0])
-                                                            });
-
-    //console.log(this.quantitativeData.length);
-    //this.displayedColumns = ['IdQuantitativeData'].concat(Object.keys(this.quantitativeData[0]));
+                  .subscribe((data: IQuantitativeData[]) => {
+                    this.quantitativeData = data;
+                    this.displayedColumns = Object.keys(this.quantitativeData[0]);
+                    this.dataSource = new MatTableDataSource<IQuantitativeData>(this.quantitativeData);
+                    this.dataSource.paginator = this.paginator;
+                    console.log(this.displayedColumns[0]);
+                  });
   }
 
-  ngAfterViewInit(): void {
+  filterByName(){
+      var filteredActivities = Array.from(this.quantitativeData);
+      this.dataSource = new MatTableDataSource<IQuantitativeData>
+                          (filteredActivities.filter(dt =>
+                            dt.matriceNome.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()))
+                          );
+      this.dataSource.paginator = this.paginator;
+
+  }
+
+  private resetTable(){
+    this.dataSource = new MatTableDataSource<IQuantitativeData>(this.quantitativeData);
     this.dataSource.paginator = this.paginator;
-    console.log("after -->" + this.quantitativeData[0].cat1 );
   }
+
+  deleteNameFilter(){
+    this.filteringName = '';
+    this.resetTable();
+  }
+
+  prova(){
+    console.log(this.displayedColumns[0]);
+  }
+
 }
-
-
-// {
-//   const raw = of(data);
-//   const mapsss = map((dts: IQuantitativeData[]) =>
-//     dts.forEach(dt =>
-//     dt = {
-//       IdQuantitativeData: (dt as QuantitativeData).IdQuantitativeData,
-//       MatriceNome: (dt as QuantitativeData).MatriceNome,
-//       IdMatrice: (dt as QuantitativeData).IdMatrice,
-//       TypeOfCompany: (dt as QuantitativeData).TypeOfCompany,
-//       IdCat: (dt as QuantitativeData).IdCat,
-//       Cat1: (dt as QuantitativeData).Cat1,
-//       Idx: (dt as QuantitativeData).Idx,
-//       Dt: (dt as QuantitativeData).Dt,
-//       Netto: (dt as QuantitativeData).Netto,
-//       Iva: (dt as QuantitativeData).Iva,
-//       FattIvato: (dt as QuantitativeData).FattIvato,
-//       Qta: (dt as QuantitativeData).Qta,
-//       Lavorato: (dt as QuantitativeData).Lavorato,
-//       Dim: (dt as QuantitativeData).Dim
-//     })
-//   );
-//   const casted = mapsss(raw);
-//   casted.subscribe(c => console.log("prova -->" + c));
