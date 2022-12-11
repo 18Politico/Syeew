@@ -17,7 +17,7 @@ export interface IQuantitativeData{
 
   //idx: string;
 
-  date: any;
+  date: Date;
 
   net: number;
 
@@ -27,7 +27,7 @@ export interface IQuantitativeData{
 
   qty: number;
 
-  worked: number;
+  worked: boolean;
 
   //dim: number;
 

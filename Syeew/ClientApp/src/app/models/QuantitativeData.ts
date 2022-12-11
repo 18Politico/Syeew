@@ -18,7 +18,7 @@ export class QuantitativeData implements IQuantitativeData {
 
   //idx: string = "";
 
-  date: any;
+  date!: Date;
 
   net!: number;
 
@@ -28,7 +28,7 @@ export class QuantitativeData implements IQuantitativeData {
 
   qty!: number;
 
-  worked!: number;
+  worked!: boolean;
 
   //dim: number = -1;
 

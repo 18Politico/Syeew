@@ -72,7 +72,7 @@ namespace DataSourceSyeew.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("IdCat")
                         .HasColumnType("int");

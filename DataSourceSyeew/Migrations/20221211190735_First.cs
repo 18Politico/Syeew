@@ -39,7 +39,7 @@ namespace DataSourceSyeew.Migrations
                     IdPointOfSale = table.Column<int>(type: "int", nullable: false),
                     IdCat = table.Column<int>(type: "int", nullable: false),
                     ServiceLabel = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "date", nullable: false),
                     Net = table.Column<double>(type: "float", nullable: false),
                     Iva = table.Column<double>(type: "float", nullable: false),
                     RevenueWithIva = table.Column<double>(type: "float", nullable: false),

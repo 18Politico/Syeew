@@ -20,7 +20,7 @@ namespace DataSourceSyeew.Entities
         public double Qty { get; set; }
         public bool Worked { get; set; }
 
-        [ForeignKey("IdCompany")]
+        //[ForeignKey("IdCompany")]
         public Guid IdCompany { get; set; }
 
         //[JsonIgnore]

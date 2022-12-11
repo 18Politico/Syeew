@@ -1,12 +1,20 @@
 <p>quantitative-data works!</p>
 
-<mat-form-field class="example-form-field">
-  <mat-label>Filtra per nome</mat-label>
-  <input matInput type="text" [(ngModel)]="filteringName" (input)="filterByName()">
-  <button *ngIf="filteringName" aria-label="Clear"  (click)="deleteNameFilter()">
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Data</mat-label>
+    <input type="date" matInput [formControl]="dateFormControl" [errorStateMatcher]="matcher" (input)="filterByDate()">
+    <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
+    <mat-error *ngIf="!dateFormControl.hasError('required')">
+      Perfavore inserisci una data valida
+    </mat-error>
+    <mat-error *ngIf="dateFormControl.hasError('required')">
+      Inserisci una data (<strong>GG/MM/AAAA</strong>)
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<button (click)="prova()">prova</button>
 
 <div class="mat-elevation-z8">
 

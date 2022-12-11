@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20221211102610_First")]
+    [Migration("20221211190735_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -75,7 +75,7 @@ namespace DataSourceSyeew.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<int>("IdCat")
                         .HasColumnType("int");

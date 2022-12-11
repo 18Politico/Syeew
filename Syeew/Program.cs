@@ -4,6 +4,7 @@ using DataSourceSyeew;
 using DataSourceSyeew.Repositories;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
-                    .AddJsonOptions(opt => { opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve; });
+                    .AddJsonOptions(opt => { opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; });
 
 builder.Services.AddDbContext<SyeewContext>(options =>
 {

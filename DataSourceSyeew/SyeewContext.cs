@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DataSourceSyeew
 {
@@ -22,6 +23,10 @@ namespace DataSourceSyeew
                 .HasMany<QuantitativeData>(c => c.Datas)
                 .WithOne(qD => qD.Company)
                 .HasForeignKey(qD => qD.IdCompany);
+
+            modelBuilder.Entity<QuantitativeData>().
+                Property(p => p.Date)
+                .HasColumnType("date");
 
             //modelBuilder.Entity<QuantitativeData>()
             //    .HasOne<Company>(qD => qD.Company)
