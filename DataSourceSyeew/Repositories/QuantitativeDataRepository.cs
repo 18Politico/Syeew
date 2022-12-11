@@ -1,4 +1,5 @@
 ﻿using DataSourceSyeew.Entities;
+using DataSourceSyeew.Entities.InterfacesEntities;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,23 +34,34 @@ namespace DataSourceSyeew.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public async Task<List<QuantitativeData>> GetQuantitativeDatas()
+        public async Task<ICollection<QuantitativeData>> GetQuantitativeDatas()
         {
-            return await _context.QuantitativeDatas.ToListAsync();
+            return await _context.QuantitativeDatas.Include(qD => qD.Company).ToListAsync();
         }
 
-        public async Task<List<QuantitativeData>> GetBy(Func<QuantitativeData, ValueTask<bool>> predicate)
+        public async Task<ICollection<QuantitativeData>> GetBy(Func<QuantitativeData, ValueTask<bool>> predicate)
         {
-            return await _context.QuantitativeDatas.AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
+            return await _context.QuantitativeDatas.Include(qD => qD.Company).AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
         }
 
-        public async Task<QuantitativeData> Add(QuantitativeData quantitativeData)
+        public async Task<QuantitativeData> Add(QuantitativeData qD)
         {
-            var added = await _context.QuantitativeDatas.AddAsync(quantitativeData);
+            var data = new QuantitativeData(qD.IdPointOfSale,
+                                            qD.ServiceLabel,
+                                            qD.Date,
+                                            qD.Net,
+                                            qD.Iva,
+                                            qD.RevenueWithIva,
+                                            qD.Qty,
+                                            qD.Worked, 
+                                            qD.IdCompany);
+
+            var added = await _context.QuantitativeDatas.AddAsync(data);
             await _context.SaveChangesAsync();
             return added.Entity;
         }
 
+        
     }
 
     

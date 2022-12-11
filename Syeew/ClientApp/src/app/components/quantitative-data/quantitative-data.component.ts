@@ -41,7 +41,7 @@ export class QuantitativeDataComponent implements OnInit {
       var filteredActivities = Array.from(this.quantitativeData);
       this.dataSource = new MatTableDataSource<IQuantitativeData>
                           (filteredActivities.filter(dt =>
-                            dt.matriceNome.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()))
+                            dt.company.companyName.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()))
                           );
       this.dataSource.paginator = this.paginator;
 

@@ -9,8 +9,16 @@ namespace DataSourceSyeew
     public enum TypeOfCompany
     {
         BAR,
-        RIS,
+        REST,
         OFM,
         NEG
     }
 }
+
+//        RESTAURANT,
+//        MECHANICAL_WORKSHOP,
+//        RETAIL_SHOP,
+//        HAIRDRESSER_SALON,
+//        CLOTHES_SHOP,
+//        INDUSTRY,
+//        ECOMMERCE,

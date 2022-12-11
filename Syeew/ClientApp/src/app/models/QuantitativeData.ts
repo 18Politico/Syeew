@@ -1,58 +1,39 @@
+import { ICompany } from "./interfaces/ICompany";
 import { IQuantitativeData } from "./interfaces/IQuantitativeData";
 import { TypeOfCompany } from "./TypeOfCompany";
 
 export class QuantitativeData implements IQuantitativeData {
 
-  idQuantitativeData: string = "";
+  idQuantitativeData!: string;
 
-  idMatrice: number = -1;
+  idPointOfSale!: number;
 
-  matriceNome: string = "";
+  matriceNome!: string;
 
-  typeOfCompany: TypeOfCompany = -1;
+  //typeOfCompany: TypeOfCompany = -1;
 
-  idCat: number = -1;
+  idCat!: number;
 
-  cat1: string = "";
+  serviceLabel!: string;
 
-  idx: string = "";
+  //idx: string = "";
 
-  dt: any;
+  date: any;
 
-  net: number = -1;
+  net!: number;
 
-  iva: number = -1;
+  iva!: number;
 
-  fattIvato: number = -1;
+  revenueWithIva!: number;
 
-  qta: number = -1;
+  qty!: number;
 
-  lavorato: number = -1;
+  worked!: number;
 
-  dim: number = -1;
+  //dim: number = -1;
 
-  // public get GetIdQuantitativeData() : string {
-  //   return this.IdQuantitativeData;
-  // }
+  idCompany!: string;
 
-  // public set SetIdQuantitativeData(v : string) {
-  //   this.IdQuantitativeData = v;
-  // }
-
-  // public get GetIdMatrice() : number {
-  //   return this.IdMatrice;
-  // }
-
-  // public set SetIdMatrice(v : number) {
-  //   this.IdMatrice = v;
-  // }
-
-  // public get GetMatriceNome() : string {
-  //   return this.MatriceNome;
-  // }
-
-  // public set SetMatriceNome(v : string) {
-  //   this.MatriceNome = v;
-  // }
+  company!: ICompany;
 
 }

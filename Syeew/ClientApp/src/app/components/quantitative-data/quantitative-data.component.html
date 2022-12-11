@@ -10,13 +10,6 @@
 
 <div class="mat-elevation-z8">
 
-  <!-- <form class="example-form">
-    <mat-form-field class="example-full-width">
-      <mat-label>Filtra le attivita per nome</mat-label>
-      <input matInput placeholder="Nome attivita" value="Inserisci nome">
-    </mat-form-field>
-  </form> -->
-
   <table mat-table [dataSource]="dataSource">
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
       <th mat-header-cell *matHeaderCellDef> {{column}} </th>

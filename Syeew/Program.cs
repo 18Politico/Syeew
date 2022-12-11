@@ -20,7 +20,8 @@ builder.Services.AddCors(options =>
                       });
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
+                    .AddJsonOptions(opt => { opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve; });
 
 builder.Services.AddDbContext<SyeewContext>(options =>
 {
@@ -29,6 +30,7 @@ builder.Services.AddDbContext<SyeewContext>(options =>
 });
 
 builder.Services.AddScoped<IQuantitativeDataRepository, QuantitativeDataRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 
 builder.Services.AddSwaggerGen();
 

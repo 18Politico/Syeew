@@ -1,0 +1,55 @@
+﻿using DataSourceSyeew.Entities;
+using DataSourceSyeew.Repositories;
+using DataSourceSyeew.Repositories.InterfacesRepositories;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Syeew.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CompanyController : ControllerBase
+    {
+        private readonly ICompanyRepository _repository;
+
+        public CompanyController(ICompanyRepository repository)
+        {
+            _repository = repository;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<ICollection<Company>>> GetCompanies()
+        {
+            try
+            {
+                return Ok(await _repository.GetCompanies());
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+            }
+            finally
+            {
+                _repository.Dispose();
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Company>> InsertCompany([FromBody] Company company)
+        {
+            try
+            {
+                return Ok(await _repository.Add(company));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+            }
+            finally
+            {
+                _repository.Dispose();
+            }
+        }
+
+    }
+}

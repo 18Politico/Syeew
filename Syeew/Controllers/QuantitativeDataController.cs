@@ -19,7 +19,7 @@ namespace Syeew.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<QuantitativeData>>> GetQuantitativeDatas()
+        public async Task<ActionResult<ICollection<QuantitativeData>>> GetQuantitativeDatas()
         {
             try
             {
@@ -27,7 +27,7 @@ namespace Syeew.Controllers
             }
             catch (Exception)
             {
-                return /*(OkObjectResult)*/StatusCode(StatusCodes.Status500InternalServerError, "Error");   
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error");   
             }
             finally
             {

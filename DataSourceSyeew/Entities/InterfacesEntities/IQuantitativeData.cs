@@ -8,33 +8,36 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
 {
     public interface IQuantitativeData
     {
-        public Guid IdQuantitativeData { get; set; }
+        Guid IdQuantitativeData { get; set; }
 
-        public int IdMatrice { get; set; }
+        int  IdPointOfSale { get; set; }
 
-        public string MatriceNome { get; set; }
+        //public string MatriceNome { get; set; } FOREIGN_KEY!!!!!!!!
 
-        public TypeOfCompany TypeOfCompany { get; set; }
+        //public TypeOfCompany TypeOfCompany { get; set; }
 
-        public int IdCat { get; set; }
+        int IdCat { get; set; }
 
-        public string Cat1 { get; set; }
+        string ServiceLabel { get; set; }
 
-        public string Idx { get; set; }
+        //public string Idx { get; set; }
 
+        DateTime Date { get; set; }
 
-        public DateTime Dt { get; set; }
+        double Net { get; set; }
 
-        public double Net { get; set; }
+        double Iva { get; set; }
 
-        public float Iva { get; set; }
+        double RevenueWithIva { get; set; }
 
-        public double FattIvato { get; set; }
+        double Qty { get; set; }
 
-        public float Qta { get; set; }
+        bool Worked { get; set; }
 
-        public float Lavorato { get; set; }
+        //public float Dim { get; set; }
 
-        public float Dim { get; set; }
+        Guid IdCompany { get; set; }
+
+        Company Company { get; set; }
     }
 }

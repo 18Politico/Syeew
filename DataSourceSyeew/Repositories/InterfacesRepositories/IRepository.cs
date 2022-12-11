@@ -8,6 +8,6 @@ namespace DataSourceSyeew.Repositories.InterfacesRepositories
 {
     public interface IRepository <R> : IDisposable
     {
-        Task<List<R>> GetBy(Func<R, ValueTask<bool>> predicate);
+        Task<ICollection<R>> GetBy(Func<R, ValueTask<bool>> predicate);
     }
 }
