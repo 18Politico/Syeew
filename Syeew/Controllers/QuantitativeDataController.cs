@@ -35,6 +35,26 @@ namespace Syeew.Controllers
             }
         }
 
+        [HttpGet("{companyWithName}")]
+        public async Task<ActionResult<ICollection<QuantitativeData>>> QuantitativeDatasOf([FromQuery] string companyWithName)
+        {
+            try
+            {
+                return Ok(await _quantitativeDataRepository.GetBy(qD => 
+                            new ValueTask<bool>(qD.Company.CompanyName.ToLower()
+                                                .Contains(companyWithName.ToLower())))
+                        );
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+            }
+            finally
+            {
+                _quantitativeDataRepository.Dispose();
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<QuantitativeData>> InsertQuantitativeData([FromBody] QuantitativeData quantitativeData)
         {

@@ -26,7 +26,16 @@ namespace DataSourceSyeew.Entities
         //[JsonIgnore]
         public virtual Company Company { get; set; }
 
-        public QuantitativeData(int idPointOfSale, string serviceLabel, DateTime date, double net, double iva, double revenueWithIva, double qty, bool worked, Guid idCompany)
+
+        public QuantitativeData(int idPointOfSale, 
+                                string serviceLabel, 
+                                DateTime date, 
+                                double net, 
+                                double iva, 
+                                double revenueWithIva, 
+                                double qty, 
+                                bool worked, 
+                                Guid idCompany)
         {
             IdPointOfSale = idPointOfSale;
             ServiceLabel = serviceLabel;

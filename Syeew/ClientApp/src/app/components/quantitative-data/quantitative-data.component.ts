@@ -3,6 +3,7 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 import { QuantitativeDataService } from 'src/app/services/quantitative-data.service';
 
@@ -22,14 +23,17 @@ export class QuantitativeDataComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _service: QuantitativeDataService){}
+  constructor(private _service: QuantitativeDataService,
+              private _route: ActivatedRoute)
+  {}
 
   dateFormControl = new FormControl('', [Validators.required]);
 
   matcher = new MyErrorStateMatcher();
 
   ngOnInit(): void {
-    this._service.AllQuantitativeData("QuantitativeData")
+    var companyName = this._route.snapshot.paramMap.get('companyName');
+    this._service.DatasOf(companyName!)
                   .subscribe((data: IQuantitativeData[]) => {
                     this.quantitativeData = data;
                     this.displayedColumns = Object.keys(this.quantitativeData[0])

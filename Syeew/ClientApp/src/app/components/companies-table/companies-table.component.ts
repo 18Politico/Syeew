@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 import { CompaniesService } from 'src/app/services/companies.service';
@@ -20,7 +21,9 @@ export class CompaniesTableComponent implements OnInit{
 
   filteringName = '*CIAO*';
 
-  constructor(private _service: CompaniesService){}
+  constructor(private _service: CompaniesService,
+              private _router: Router)
+  {}
 
   filterByName(){
     var filteredCompanies = Array.from(this.companies);
@@ -34,8 +37,8 @@ export class CompaniesTableComponent implements OnInit{
     this.dataSource = Array.from(this.companies);
   }
 
-  goToDatas(row: ICompany){
-    console.log(row.city)
+  goToDatas(selectedCompany: ICompany){
+    this._router.navigate(["aziende/" + selectedCompany.companyName]);
   }
 
   ngOnInit(): void {

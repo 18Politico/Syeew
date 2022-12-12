@@ -8,12 +8,16 @@ import { IQuantitativeData } from '../models/interfaces/IQuantitativeData';
 })
 export class QuantitativeDataService {
 
-  private readonly _url = "https://localhost:7290/api/"
+  private readonly _url = "https://localhost:7290/api/QuantitativeData"
 
   constructor(private _http: HttpClient) { }
 
-  AllQuantitativeData(url: string): Observable<IQuantitativeData[]> {
-    return this._http.get<IQuantitativeData[]>(this._url + url);
+  AllQuantitativeData(): Observable<IQuantitativeData[]> {
+    return this._http.get<IQuantitativeData[]>(this._url);
+  }
+
+  DatasOf(companyName: string): Observable<IQuantitativeData[]> {
+    return this._http.get<IQuantitativeData[]>(this._url + "/QuantitativeDatasOf?companyWithName=" + companyName);
   }
 
 }
