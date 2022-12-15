@@ -53,14 +53,7 @@ export class QuantitativeDataComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  prova(){
-    var qD = this.quantitativeData[0];
-    var data = qD.date as Date;
-    console.log(data)
-                    console.log('anno = '+ data.toString().substring(0,4)
-                    + ' mese = '+ data.toString().substring(5,7)
-                    + ' giorno = '+ data.toString().substring(8,10));
-  }
+
 
   private sameDate(formDate: string | null, date: Date): boolean{
     var dt = date.toString();
