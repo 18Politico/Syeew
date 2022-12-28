@@ -12,13 +12,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { QuantitativeDataComponent } from './components/quantitative-data/quantitative-data.component';
 import { ProvaComponent } from './components/prova/prova.component';
 
-//angular material
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableModule} from '@angular/material/table';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { CompaniesTableComponent } from './components/companies-table/companies-table.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MaterialModule } from './modules/material-module/material-module';
+
 
 @NgModule({
   declarations: [
@@ -28,11 +25,13 @@ import { CompaniesTableComponent } from './components/companies-table/companies-
     QuantitativeDataComponent,
     ProvaComponent,
     CompaniesTableComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     // RouterModule.forRoot([
@@ -42,14 +41,8 @@ import { CompaniesTableComponent } from './components/companies-table/companies-
     //   { path: '/nono', component: PageNotFoundComponent }
 
     // ]),
-
     //angular material
-    ReactiveFormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatIconModule,
-    MatFormFieldModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
