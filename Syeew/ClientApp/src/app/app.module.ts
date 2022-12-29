@@ -17,6 +17,8 @@ import { CompaniesTableComponent } from './components/companies-table/companies-
 import { ChartComponent } from './components/chart/chart.component';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     QuantitativeDataComponent,
     ProvaComponent,
     CompaniesTableComponent,
-    ChartComponent
+    ChartComponent,
+    NavbarComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

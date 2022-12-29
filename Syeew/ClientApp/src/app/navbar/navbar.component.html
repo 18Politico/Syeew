@@ -1,0 +1,27 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>
+      <img width="40" alt="Angular Logo" src="../assets/img/syeew-logo.png" />
+      <img width="100" alt="Angular Logo" src="../assets/img/syeew-text.png" /></mat-toolbar>
+    <mat-nav-list>
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option routerLink="aziende">Aziende<mat-icon>business</mat-icon></mat-list-option>
+        <mat-list-option routerLink="dashboard">DashBoard<mat-icon>dashboard</mat-icon>
+        </mat-list-option>
+        <mat-list-option>Item3</mat-list-option>
+        <mat-list-option>Item4</mat-list-option>
+      </mat-selection-list>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Statistical Analysis for Micro-Enterprises</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

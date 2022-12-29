@@ -6,13 +6,20 @@ import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { QuantitativeDataComponent } from './components/quantitative-data/quantitative-data.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'aziende', component: CompaniesTableComponent },
-  { path: 'aziende/:companyName', component: QuantitativeDataComponent },
-  { path: 'charts', component: ChartComponent },
+  { path: '', redirectTo: 'navbar', pathMatch: 'full' },
+  {
+    path: 'navbar', component: NavbarComponent, children: [
+      { path: 'aziende', component: CompaniesTableComponent },
+      { path: 'aziende/:companyName', component: QuantitativeDataComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'charts', component: ChartComponent },
+    ]
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 
