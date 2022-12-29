@@ -6,16 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
+import { MaterialModule } from './modules/material-module/material-module';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { QuantitativeDataComponent } from './components/quantitative-data/quantitative-data.component';
 import { ProvaComponent } from './components/prova/prova.component';
-
 import { CompaniesTableComponent } from './components/companies-table/companies-table.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { MaterialModule } from './modules/material-module/material-module';
+import { ChartComponent } from './components/chart/chart.component';
 
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { MaterialModule } from './modules/material-module/material-module';
     QuantitativeDataComponent,
     ProvaComponent,
     CompaniesTableComponent,
-    SidebarComponent
+    ChartComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -42,7 +43,8 @@ import { MaterialModule } from './modules/material-module/material-module';
 
     // ]),
     //angular material
-    MaterialModule
+    MaterialModule,
+    NgApexchartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

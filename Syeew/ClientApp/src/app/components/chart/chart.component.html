@@ -1,0 +1,20 @@
+<mat-sidenav-container class="example-container">
+    <mat-sidenav mode="side" opened>
+        <mat-selection-list #shoes [multiple]="false">
+            <mat-list-option *ngFor="let chart of chartNames" [value]="chart" (click)="generatePlot(chart)">
+                {{chart}}
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <h2>{{ nameChart }}</h2>
+        <div *ngIf="initial" style="text-align:center">
+            <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
+                [yaxis]="chartOptions.yaxis!" [title]="chartOptions.title!" [stroke]="chartOptions.stroke!"
+                [plotOptions]="chartOptions.plotOptions!" [legend]="chartOptions.legend!"
+                [colors]="chartOptions.colors!" [dataLabels]="chartOptions.dataLabels!" [fill]="chartOptions.fill!"
+                [theme]="chartOptions.theme!" [markers]="chartOptions.markers!"
+                [tooltip]="chartOptions.tooltip!"></apx-chart>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
