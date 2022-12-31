@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import {
   ApexAxisChartSeries,
@@ -42,17 +42,17 @@ export type ChartOptions = {
 export class ChartComponent implements OnInit {
 
   chartOptions!: Partial<ChartOptions>;
-  nameChart = "select a chart";
-  chartNames: string[] = ['Box Plot', 'Scatter Plot', 'Bar Chart', 'Line Chart', 'Bubble Chart', 'Column Chart', 'Area Chart', 'Scatter Line Plot']
-  chartTypes: string[] = ['boxPlot', 'scatter', 'bar', 'line', 'bubble', 'bar', 'area', 'scatter']
+  @Input() nameChart = "select a chart";
+  chartNames: string[] = ['Box Plot', 'Scatter Plot', 'Bar Chart', 'Line Chart', 'Bubble Chart', 'Column Chart', 'Area Chart', 'Scatter Line Plot', 'Pie Chart']
   private _initial = false
+  @Input() xAxisParameter!: ApexXAxis
 
   constructor() {
 
   }
 
   ngOnInit(): void {
-
+    this.generatePlot(this.nameChart)
   }
 
   generatePlot(chartName: string) {
@@ -90,6 +90,10 @@ export class ChartComponent implements OnInit {
         this.generateScatterPlot()
         break;
       }
+      case this.chartNames[8]: {
+        this.generatePieChart()
+        break;
+      }
     }
   }
 
@@ -107,6 +111,10 @@ export class ChartComponent implements OnInit {
 
   generateLineChart() {
     this.createChart("line");
+  }
+
+  generatePieChart() {
+    this.createChart("pie");
   }
 
   generateBubbleChart() {
@@ -202,6 +210,7 @@ export class ChartComponent implements OnInit {
   generateColumnChart() {
     this.chartOptions = {
       chart: {
+        height: 350,
         type: 'bar'
       },
       stroke: {
@@ -217,7 +226,7 @@ export class ChartComponent implements OnInit {
       },
       plotOptions: {
         bar: {
-          columnWidth: '60%'
+          columnWidth: '40%'
         }
       },
       colors: ['#00E396'],
@@ -416,6 +425,38 @@ export class ChartComponent implements OnInit {
     };
     this._initial = true;
 
+  }
+
+  private createChartWith(series: ApexAxisChartSeries,
+    chart: ApexChart,
+    xaxis: ApexXAxis,
+    yaxis: ApexYAxis,
+    title: ApexTitleSubtitle,
+    stroke: ApexStroke,
+    plotOptions: ApexPlotOptions,
+    legend: ApexLegend,
+    colors: Array<string>,
+    dataLabels: ApexDataLabels,
+    fill: ApexFill,
+    theme: ApexTheme,
+    markers: ApexMarkers,
+    tooltip: ApexTooltip) {
+    this.chartOptions = {
+      series: series,
+      chart: chart,
+      xaxis: xaxis,
+      yaxis: yaxis,
+      title: title,
+      stroke: stroke,
+      plotOptions: plotOptions,
+      legend: legend,
+      colors: colors,
+      dataLabels: dataLabels,
+      fill: fill,
+      theme: theme,
+      markers: markers,
+      tooltip: tooltip
+    }
   }
 
   generateScatterLinePlot() {

@@ -14,6 +14,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatMenuModule,
     MatButtonModule,
+    MatRadioModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule { }

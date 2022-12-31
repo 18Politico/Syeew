@@ -19,6 +19,10 @@ import { ChartComponent } from './components/chart/chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { BoxPlotComponent } from './components/charts/box-plot/box-plot.component';
+import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
+import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
+import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     ChartComponent,
     NavbarComponent,
     DashboardComponent,
+    BoxPlotComponent,
+    BarChartComponent,
+    PieChartComponent,
+    LineChartComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
