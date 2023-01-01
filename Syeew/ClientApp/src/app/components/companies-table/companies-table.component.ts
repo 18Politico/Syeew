@@ -15,26 +15,49 @@ export class CompaniesTableComponent implements OnInit{
 
   companies!: ICompany[];
 
+  filteredCompanies!: ICompany[];
+
   displayedColumns: string[] = [];
 
   clickedRows = new Set<ICompany>();
 
-  filteringName = '*CIAO*';
+  filteringName = "";
+
+  filteringCity = "";
 
   constructor(private _service: CompaniesService,
               private _router: Router)
   {}
 
-  filterByName(){
-    var filteredCompanies = Array.from(this.companies);
-    this.dataSource = filteredCompanies.filter(c =>
-      c.companyName.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()));
+  // filterByName(){
+  //   if (this.filteredCompanies == null)
+  //     this.filteredCompanies = Array.from(this.companies);
+  //   this.dataSource = this.filteredCompanies.filter(c =>
+  //     c.companyName.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()));
 
+  // }
+
+  filter(){
+    if (this.filteredCompanies == null)
+      this.filteredCompanies = Array.from(this.companies);
+    this.dataSource = this.filteredCompanies.filter(c => c.companyName.toLocaleLowerCase()
+                                                          .includes(this.filteringName.toLocaleLowerCase()))
+                                            .filter(c => c.city.toLocaleLowerCase()
+                                                          .includes(this.filteringCity.toLocaleLowerCase()));
   }
 
+
   deleteNameFilter(){
-    this.filteringName = '';
-    this.dataSource = Array.from(this.companies);
+    this.filteringName = "";
+    this.filter();
+    // this.dataSource = this.filteredCompanies.filter(c =>
+    //   c.companyName.toLocaleLowerCase().includes(c.companyName.substring(0,1)));
+    //this.dataSource = Array.from(this.companies);
+  }
+
+  deleteCityFilter(){
+    this.filteringCity = "";
+    this.filter();
   }
 
   goToDatas(selectedCompany: ICompany){

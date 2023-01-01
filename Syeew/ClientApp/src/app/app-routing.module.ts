@@ -11,15 +11,19 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: 'navbar', pathMatch: 'full' },
-  {
-    path: 'navbar', component: NavbarComponent, children: [
-      { path: 'aziende', component: CompaniesTableComponent },
-      { path: 'aziende/:companyName', component: QuantitativeDataComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'charts', component: ChartComponent },
-    ]
-  },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'aziende', component: CompaniesTableComponent },
+  { path: 'aziende/:companyName', component: QuantitativeDataComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'charts', component: ChartComponent },
+  // {
+  //   path: 'navbar', component: NavbarComponent, children: [
+  //     { path: 'aziende', component: CompaniesTableComponent },
+  //     { path: 'aziende/:companyName', component: QuantitativeDataComponent },
+  //     { path: 'dashboard', component: DashboardComponent },
+  //     { path: 'charts', component: ChartComponent },
+  //   ]
+  // },
   { path: '**', component: PageNotFoundComponent },
 ];
 
