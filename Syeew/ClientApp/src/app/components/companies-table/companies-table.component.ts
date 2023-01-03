@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Route, Router } from '@angular/router';
+import { Dimention } from 'src/app/models/Dimention';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
+import { ManegementSystem } from 'src/app/models/ManegementSystem';
+import { TypeOfCompany } from 'src/app/models/TypeOfCompany';
 import { CompaniesService } from 'src/app/services/companies.service';
 
 @Component({
@@ -11,19 +14,44 @@ import { CompaniesService } from 'src/app/services/companies.service';
 })
 export class CompaniesTableComponent implements OnInit{
 
-  dataSource!: ICompany[];
-
   companies!: ICompany[];
+
 
   filteredCompanies!: ICompany[];
 
-  displayedColumns: string[] = [];
+  dataSource!: ICompany[];
 
   clickedRows = new Set<ICompany>();
 
   filteringName = "";
 
   filteringCity = "";
+
+  //@ViewChild('refTypeOfCmp') refCmp!: ElementRef;
+
+  selTypeOfCmp!: TypeOfCompany | undefined;
+
+  selManSystem!: ManegementSystem;
+
+  selRvnDimention!: Dimention;
+
+  displayedColumns: string[] = [];
+
+  typesOfCompanies: string[] = Object.keys(TypeOfCompany)
+                                      .filter((item) => { return isNaN(Number(item)); })
+                                      .concat("TUTTE");
+
+  managementSystems: string[] = Object.keys(ManegementSystem).filter((item) => {
+    return isNaN(Number(item));
+  });
+
+  revenueDimentions: string[] = Object.keys(Dimention).filter((item) => {
+    return isNaN(Number(item));
+  });
+
+  employesDimentions: string[] = Object.keys(Dimention).filter((item) => {
+    return isNaN(Number(item));
+  });
 
   constructor(private _service: CompaniesService,
               private _router: Router)
@@ -40,19 +68,34 @@ export class CompaniesTableComponent implements OnInit{
   filter(){
     if (this.filteredCompanies == null)
       this.filteredCompanies = Array.from(this.companies);
-    this.dataSource = this.filteredCompanies.filter(c => c.companyName.toLocaleLowerCase()
+    if (this.selTypeOfCmp === undefined
+       || this.selTypeOfCmp.toString() === "TUTTE" ) {
+      this.filterWithoutDropDowns();
+    }else{
+      this.filterWithDropDowns();
+    }
+    console.log(this.selTypeOfCmp)
+  }
+
+  private filterWithDropDowns(){
+    this.dataSource = this.companies.filter(c => c.companyName.toLocaleLowerCase()
                                                           .includes(this.filteringName.toLocaleLowerCase()))
                                             .filter(c => c.city.toLocaleLowerCase()
-                                                          .includes(this.filteringCity.toLocaleLowerCase()));
+                                                          .includes(this.filteringCity.toLocaleLowerCase()))
+                                            .filter(c => c.typeOfCompany === this.selTypeOfCmp);
+  }
+
+  private filterWithoutDropDowns(){
+    this.dataSource = this.companies.filter(c => c.companyName.toLocaleLowerCase()
+                                                          .includes(this.filteringName.toLocaleLowerCase()))
+                                            .filter(c => c.city.toLocaleLowerCase()
+                                                          .includes(this.filteringCity.toLocaleLowerCase()))
   }
 
 
   deleteNameFilter(){
     this.filteringName = "";
     this.filter();
-    // this.dataSource = this.filteredCompanies.filter(c =>
-    //   c.companyName.toLocaleLowerCase().includes(c.companyName.substring(0,1)));
-    //this.dataSource = Array.from(this.companies);
   }
 
   deleteCityFilter(){

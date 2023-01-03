@@ -27,7 +27,9 @@ export class QuantitativeDataComponent implements OnInit {
               private _route: ActivatedRoute)
   {}
 
-  dateFormControl = new FormControl('', [Validators.required]);
+  dateFrom = new FormControl('', [Validators.required]);
+
+  dateUntil = new FormControl('', [Validators.required]);
 
   matcher = new MyErrorStateMatcher();
 
@@ -43,17 +45,61 @@ export class QuantitativeDataComponent implements OnInit {
                   });
   }
 
-  filterByDate(){
+  onDateSet(){
     var filtered: IQuantitativeData[] = [];
     this.quantitativeData.forEach(qD => {
-      if (this.sameDate(this.dateFormControl.value, qD.date))
-        filtered.push(qD);
+      this.dateCheck(qD, filtered)
     });
+    console.log("ECCO -->" + this.dateUntil.value + "_")
     this.dataSource = new MatTableDataSource<IQuantitativeData>(filtered);
     this.dataSource.paginator = this.paginator;
   }
 
+  private dateCheck(data: IQuantitativeData, filtered: IQuantitativeData[]){
+    if (this.dateFrom.valid
+        && !this.dateUntil.valid)
+      this.dateFromCase(data, filtered);
+    if (this.dateUntil.valid
+        && !this.dateFrom.valid)
+      this.dateUntilCase(data, filtered);
+    if (this.dateUntil.valid
+        && this.dateFrom.valid)
+      this.bothDatesCase(data, filtered);
+    return;
+  }
 
+  private dateFromCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
+    var dateFrom =  new Date(this.dateFrom.value!)
+    var dataDate = new Date(data.date);
+    console.log("DATEFROM -> "+ dataDate.getTime())
+    if (dateFrom.getTime() < dataDate.getTime()){
+      filtered.push(data)
+      console.log("from CIao")
+    console.log(dateFrom)
+    }
+
+  }
+
+  private dateUntilCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
+    var dateUntil = new Date(this.dateUntil.value!)
+    var dataDate = new Date(data.date);
+    if (dataDate.getTime() <= dateUntil.getTime())
+      filtered.push(data)
+
+    console.log("until CIao")
+    console.log(dateUntil)
+  }
+
+  private bothDatesCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
+    var dateFrom =  new Date(this.dateFrom.value!)
+    var dateUntil = new Date(this.dateUntil.value!)
+    var dataDate = new Date(data.date);
+    if (dateFrom.getTime() <= dataDate.getTime()
+        && dataDate.getTime() <= dateUntil.getTime())
+      filtered.push(data)
+
+    console.log("both CIao")
+  }
 
   private sameDate(formDate: string | null, date: Date): boolean{
     var dt = date.toString();

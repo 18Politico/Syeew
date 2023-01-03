@@ -17,9 +17,17 @@ namespace DataSourceSyeew.Entities
         public Guid IdCompany { get; set; }
         public string CompanyName { get; set; }
         public string BusinessName { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public TypeOfCompany TypeOfCompany { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ManegementSystem ManegementSystem { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Dimention RevenueDimention { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Dimention EmployeesDimention { get; set; }
         public string Street { get; set; }
         public string City { get; set; }

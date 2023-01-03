@@ -19,6 +19,33 @@
     </button>
   </mat-form-field>
 
+  <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Tipo di Compagnia</mat-label>
+    <mat-select [(ngModel)]="selTypeOfCmp" (selectionChange)="filter()">
+      <mat-option value="one" *ngFor="let cmp of typesOfCompanies" [value]="cmp">{{cmp}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Gestionale</mat-label>
+    <mat-select>
+      <mat-option value="one" *ngFor="let gst of managementSystems" >{{gst}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Fatturato</mat-label>
+    <mat-select>
+      <mat-option value="one" *ngFor="let rvn of revenueDimentions" >{{rvn}}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+
 </div>
 
 <div class="mat-elevation-z8 demo-table">

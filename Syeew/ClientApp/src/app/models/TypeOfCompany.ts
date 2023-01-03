@@ -1,6 +1,6 @@
 export enum TypeOfCompany{
   BAR,
-  RIS,
+  REST,
   OFM,
   NEG
 }
