@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ICompany } from 'src/app/models/interfaces/ICompany';
 
 import {
   ApexAxisChartSeries,
@@ -14,11 +15,14 @@ import {
   ApexFill,
   ApexTheme,
   ApexMarkers,
-  ApexTooltip
+  ApexTooltip,
+  ApexNonAxisChartSeries,
+  ApexResponsive
 } from "ng-apexcharts";
 
 export type ChartOptions = {
-  series: ApexAxisChartSeries;
+  series: ApexAxisChartSeries | ApexNonAxisChartSeries;
+  labels: any;
   chart: ApexChart;
   xaxis: ApexXAxis;
   yaxis: ApexYAxis;
@@ -32,6 +36,7 @@ export type ChartOptions = {
   theme: ApexTheme;
   markers: ApexMarkers;
   tooltip: ApexTooltip;
+  responsive: ApexResponsive[];
 };
 
 @Component({
@@ -56,14 +61,13 @@ export class ChartComponent implements OnInit {
   }
 
   generatePlot(chartName: string) {
-    this.nameChart = chartName
     switch (chartName) {
       case this.chartNames[0]: {
         this.generateBoxPlot()
         break;
       }
       case this.chartNames[1]: {
-        this.generateBarChart()
+        this.generateScatterPlot()
         break;
       }
       case this.chartNames[2]: {
@@ -87,7 +91,7 @@ export class ChartComponent implements OnInit {
         break;
       }
       case this.chartNames[7]: {
-        this.generateScatterPlot()
+        this.generateScatterLinePlot()
         break;
       }
       case this.chartNames[8]: {
@@ -114,7 +118,29 @@ export class ChartComponent implements OnInit {
   }
 
   generatePieChart() {
-    this.createChart("pie");
+    this.chartOptions = {
+      series: [44, 55, 13, 43, 22],
+      chart: {
+        height: 350,
+        //width: 380,
+        type: "pie"
+      },
+      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+    this._initial = true;
   }
 
   generateBubbleChart() {
@@ -419,7 +445,7 @@ export class ChartComponent implements OnInit {
         text: "Company name"
       },
       xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"]
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
       }
 
     };
@@ -575,6 +601,17 @@ export class ChartComponent implements OnInit {
 
   set initial(initial) {
     this._initial = initial;
+  }
+
+  /*
+      service getNettoInYear(year) --> map(mese, netto[]) 
+      service getIvaInYear(year) --> map(mese, iva[]) 
+      service getFattIvatoYear(year) --> map(mese, fattivato[]) 
+      service getQtaYear(year) --> map(mese, qta[])
+  */
+
+  selectDataInYear(companies: ICompany[], product: number) {
+
   }
 
 }

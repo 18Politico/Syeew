@@ -19,9 +19,10 @@
     </mat-sidenav-content>
 </mat-sidenav-container>-->
 <div *ngIf="initial" style="text-align:center">
-    <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
-        [yaxis]="chartOptions.yaxis!" [title]="chartOptions.title!" [stroke]="chartOptions.stroke!"
-        [plotOptions]="chartOptions.plotOptions!" [legend]="chartOptions.legend!" [colors]="chartOptions.colors!"
-        [dataLabels]="chartOptions.dataLabels!" [fill]="chartOptions.fill!" [theme]="chartOptions.theme!"
-        [markers]="chartOptions.markers!" [tooltip]="chartOptions.tooltip!"></apx-chart>
+    <apx-chart [series]="chartOptions.series!" [labels]="chartOptions.labels!" [chart]="chartOptions.chart!"
+        [xaxis]="chartOptions.xaxis!" [yaxis]="chartOptions.yaxis!" [title]="chartOptions.title!"
+        [stroke]="chartOptions.stroke!" [plotOptions]="chartOptions.plotOptions!" [legend]="chartOptions.legend!"
+        [colors]="chartOptions.colors!" [dataLabels]="chartOptions.dataLabels!" [fill]="chartOptions.fill!"
+        [theme]="chartOptions.theme!" [markers]="chartOptions.markers!" [tooltip]="chartOptions.tooltip!"
+        [responsive]="chartOptions.responsive!"></apx-chart>
 </div>

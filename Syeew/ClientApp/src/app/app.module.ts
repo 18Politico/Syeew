@@ -23,6 +23,8 @@ import { BoxPlotComponent } from './components/charts/box-plot/box-plot.componen
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
+import { ScatterPlotComponent } from './components/charts/scatter-plot/scatter-plot.component';
+import { ColumnChartComponent } from './components/charts/column-chart/column-chart.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
     BarChartComponent,
     PieChartComponent,
     LineChartComponent,
+    ScatterPlotComponent,
+    ColumnChartComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
