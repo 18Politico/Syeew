@@ -16,4 +16,8 @@ export class CompaniesService {
     return this._http.get<ICompany[]>(this._url + url);
   }
 
+  CompanyBy(name: string): Observable<ICompany> {
+    return this._http.get<ICompany>(this._url + "Company/" + name);
+  }
+
 }

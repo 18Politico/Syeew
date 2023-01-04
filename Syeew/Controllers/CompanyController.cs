@@ -34,6 +34,23 @@ namespace Syeew.Controllers
             }
         }
 
+        [HttpGet("{companyName}")]
+        public async Task<ActionResult<ICollection<Company>>> GetCompanyBy(string companyName)
+        {
+            try
+            {
+                return Ok(await _repository.GetBy(c => new ValueTask<bool>(c.CompanyName.Equals(companyName))));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+            }
+            finally
+            {
+                _repository.Dispose();
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<Company>> InsertCompany([FromBody] Company company)
         {

@@ -4,7 +4,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
+import { CompaniesService } from 'src/app/services/companies.service';
 import { QuantitativeDataService } from 'src/app/services/quantitative-data.service';
 
 @Component({
@@ -14,6 +16,9 @@ import { QuantitativeDataService } from 'src/app/services/quantitative-data.serv
 })
 export class QuantitativeDataComponent implements OnInit {
 
+  filtered: IQuantitativeData[] = [];
+
+  clickedCompany!: ICompany;
 
   quantitativeData!: IQuantitativeData[];
 
@@ -23,7 +28,8 @@ export class QuantitativeDataComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _service: QuantitativeDataService,
+  constructor(private _serviceData: QuantitativeDataService,
+              private _serviceCmp: CompaniesService,
               private _route: ActivatedRoute)
   {}
 
@@ -35,7 +41,7 @@ export class QuantitativeDataComponent implements OnInit {
 
   ngOnInit(): void {
     var companyName = this._route.snapshot.paramMap.get('companyName');
-    this._service.DatasOf(companyName!)
+    this._serviceData.DatasOf(companyName!)
                   .subscribe((data: IQuantitativeData[]) => {
                     this.quantitativeData = data;
                     this.displayedColumns = Object.keys(this.quantitativeData[0])
@@ -43,15 +49,16 @@ export class QuantitativeDataComponent implements OnInit {
                     this.dataSource = new MatTableDataSource<IQuantitativeData>(this.quantitativeData);
                     this.dataSource.paginator = this.paginator;
                   });
+    this._serviceCmp.CompanyBy(companyName!).subscribe(c => this.clickedCompany = c);
   }
 
   onDateSet(){
-    var filtered: IQuantitativeData[] = [];
+    //var filtered: IQuantitativeData[] = [];
     this.quantitativeData.forEach(qD => {
-      this.dateCheck(qD, filtered)
+      this.dateCheck(qD, this.filtered)
     });
     console.log("ECCO -->" + this.dateUntil.value + "_")
-    this.dataSource = new MatTableDataSource<IQuantitativeData>(filtered);
+    this.dataSource = new MatTableDataSource<IQuantitativeData>(this.filtered);
     this.dataSource.paginator = this.paginator;
   }
 

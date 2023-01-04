@@ -16,7 +16,6 @@ export class CompaniesTableComponent implements OnInit{
 
   companies!: ICompany[];
 
-
   filteredCompanies!: ICompany[];
 
   dataSource!: ICompany[];

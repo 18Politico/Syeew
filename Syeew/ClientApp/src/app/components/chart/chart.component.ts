@@ -101,7 +101,7 @@ export class ChartComponent implements OnInit {
         break;
       }
       case this.chartNames[9]: {
-        this.provaChart("boxPlot", this.getNettoInYear(null, null, "net"))
+        //this.provaChart("boxPlot", this.getNettoInYear(null, null, "net"))
         break;
       }
     }
@@ -610,9 +610,9 @@ export class ChartComponent implements OnInit {
   }
 
   /*
-      service getNettoInYear(year) --> map(mese, netto[]) 
-      service getIvaInYear(year) --> map(mese, iva[]) 
-      service getFattIvatoYear(year) --> map(mese, fattivato[]) 
+      service getNettoInYear(year) --> map(mese, netto[])
+      service getIvaInYear(year) --> map(mese, iva[])
+      service getFattIvatoYear(year) --> map(mese, fattivato[])
       service getQtaYear(year) --> map(mese, qta[])
   */
 
