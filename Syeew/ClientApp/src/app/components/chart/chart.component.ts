@@ -627,67 +627,63 @@ export class ChartComponent implements OnInit {
     let map = new Map<string, number[]>()
     let jan: number[], feb: number[], mar: number[], apr: number[], may: number[], june: number[], july: number[],
       aug: number[], sep: number[], oct: number[], nov: number[], dec: number[]
+    //this.companies.filter((company) => {
 
-    this.companies.filter(c=> Object.is(c, company))
-
-    this.companies.filter((company) => {
-
-      if (company.datas.filter((qtData) => {
-        // Filtering for year
-        let y = qtData.date
-        if (y == year) {
-          if (y.getMonth() == 1) {
-            jan.push(qtData.net)
-          }
-          if (y.getMonth() == 2) {
-            feb.push(qtData.net)
-          }
-          if (y.getMonth() == 3) {
-            mar.push(qtData.net)
-          }
-          if (y.getMonth() == 4) {
-            apr.push(qtData.net)
-          }
-          if (y.getMonth() == 5) {
-            may.push(qtData.net)
-          }
-          if (y.getMonth() == 6) {
-            june.push(qtData.net)
-          }
-          if (y.getMonth() == 7) {
-            july.push(qtData.net)
-          }
-          if (y.getMonth() == 8) {
-            aug.push(qtData.net)
-          }
-          if (y.getMonth() == 9) {
-            sep.push(qtData.net)
-          }
-          if (y.getMonth() == 10) {
-            oct.push(qtData.net)
-          }
-          if (y.getMonth() == 11) {
-            nov.push(qtData.net)
-          }
-          if (y.getMonth() == 12) {
-            dec.push(qtData.net)
-          }
+    company.datas.filter((qtData) => {
+      // Filtering for year
+      let y = qtData.date
+      if (y == year) {
+        if (y.getMonth() == 1) {
+          jan.push(qtData.net)
         }
-
-      }))
-        map.set("January", jan)
-      map.set("February", feb)
-      map.set("March", mar)
-      map.set("April", apr)
-      map.set("May", may)
-      map.set("June", june)
-      map.set("July", july)
-      map.set("August", aug)
-      map.set("September", sep)
-      map.set("October", oct)
-      map.set("November", nov)
-      map.set("December", dec)
-    })
+        if (y.getMonth() == 2) {
+          feb.push(qtData.net)
+        }
+        if (y.getMonth() == 3) {
+          mar.push(qtData.net)
+        }
+        if (y.getMonth() == 4) {
+          apr.push(qtData.net)
+        }
+        if (y.getMonth() == 5) {
+          may.push(qtData.net)
+        }
+        if (y.getMonth() == 6) {
+          june.push(qtData.net)
+        }
+        if (y.getMonth() == 7) {
+          july.push(qtData.net)
+        }
+        if (y.getMonth() == 8) {
+          aug.push(qtData.net)
+        }
+        if (y.getMonth() == 9) {
+          sep.push(qtData.net)
+        }
+        if (y.getMonth() == 10) {
+          oct.push(qtData.net)
+        }
+        if (y.getMonth() == 11) {
+          nov.push(qtData.net)
+        }
+        if (y.getMonth() == 12) {
+          dec.push(qtData.net)
+        }
+      }
+    }
+    )
+    map.set("January", jan!)
+    map.set("February", feb!)
+    map.set("March", mar!)
+    map.set("April", apr!)
+    map.set("May", may!)
+    map.set("June", june!)
+    map.set("July", july!)
+    map.set("August", aug!)
+    map.set("September", sep!)
+    map.set("October", oct!)
+    map.set("November", nov!)
+    map.set("December", dec!)
     return map
   }
 
