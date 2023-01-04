@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { ThemePalette } from '@angular/material/core';
@@ -10,6 +10,7 @@ import { LineChartComponent } from '../charts/line-chart/line-chart.component';
 import { PieChartComponent } from '../charts/pie-chart/pie-chart.component';
 import { ScatterPlotComponent } from '../charts/scatter-plot/scatter-plot.component';
 import { ColumnChartComponent } from '../charts/column-chart/column-chart.component';
+import { ICompany } from 'src/app/models/interfaces/ICompany';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +24,8 @@ export class DashboardComponent {
   selectedColor: ThemePalette = 'primary'
   choises: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
   cards!: Observable<any>
+  @Input() selectedCompany!: ICompany
+  @Input() dateFrom!: string
 
   constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog) {
     this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(

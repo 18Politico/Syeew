@@ -53,6 +53,8 @@ export class ChartComponent implements OnInit {
   private _initial = false
   @Input() xAxisParameter!: ApexXAxis
   private companies!: ICompany[]
+  @Input() selectedCompany!: ICompany
+  @Input() dateFrom!: string
 
   constructor() {
 
@@ -101,7 +103,7 @@ export class ChartComponent implements OnInit {
         break;
       }
       case this.chartNames[9]: {
-        //this.provaChart("boxPlot", this.getNettoInYear(null, null, "net"))
+        this.provaChart("boxPlot", this.getNettoInYear(this.selectedCompany, new Date(this.dateFrom), "net"))
         break;
       }
     }
