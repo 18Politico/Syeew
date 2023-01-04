@@ -40,6 +40,7 @@ export class DashboardComponent {
 
         return [
           { nameChart: 'Box Plot', cols: 1, rows: 1 },
+          { nameChart: 'Box Plot Netto', cols: 1, rows: 1 },  // prova col netto
           { nameChart: 'Bar Chart', cols: 1, rows: 1 },
           { nameChart: 'Line Chart', cols: 1, rows: 1 },
           { nameChart: 'Column Chart', cols: 1, rows: 1 },

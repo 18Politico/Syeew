@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
+import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 
 import {
   ApexAxisChartSeries,
@@ -48,9 +49,10 @@ export class ChartComponent implements OnInit {
 
   chartOptions!: Partial<ChartOptions>;
   @Input() nameChart = "select a chart";
-  chartNames: string[] = ['Box Plot', 'Scatter Plot', 'Bar Chart', 'Line Chart', 'Bubble Chart', 'Column Chart', 'Area Chart', 'Scatter Line Plot', 'Pie Chart']
+  chartNames: string[] = ['Box Plot', 'Scatter Plot', 'Bar Chart', 'Line Chart', 'Bubble Chart', 'Column Chart', 'Area Chart', 'Scatter Line Plot', 'Pie Chart', 'Box Plot Netto']
   private _initial = false
   @Input() xAxisParameter!: ApexXAxis
+  private companies!: ICompany[]
 
   constructor() {
 
@@ -96,6 +98,10 @@ export class ChartComponent implements OnInit {
       }
       case this.chartNames[8]: {
         this.generatePieChart()
+        break;
+      }
+      case this.chartNames[9]: {
+        this.provaChart("boxPlot", this.getNettoInYear(null, null, "net"))
         break;
       }
     }
@@ -610,7 +616,141 @@ export class ChartComponent implements OnInit {
       service getQtaYear(year) --> map(mese, qta[])
   */
 
-  selectDataInYear(companies: ICompany[], product: number) {
+  /*selectDataInYear(companies: ICompany[], year: Date, data: number) {
+
+  }*/
+
+  getNettoInYear(company: ICompany, year: Date, data: string): Map<string, number[]> {
+    let map = new Map<string, number[]>()
+    let jan: number[], feb: number[], mar: number[], apr: number[], may: number[], june: number[], july: number[],
+      aug: number[], sep: number[], oct: number[], nov: number[], dec: number[]
+    this.companies.filter((company) => {
+      if (company.datas.filter((qtData) => {
+        // Filtering for year
+        let y = qtData.date
+        if (y == year) {
+          if (y.getMonth() == 1) {
+            jan.push(qtData.net)
+          }
+          if (y.getMonth() == 2) {
+            feb.push(qtData.net)
+          }
+          if (y.getMonth() == 3) {
+            mar.push(qtData.net)
+          }
+          if (y.getMonth() == 4) {
+            apr.push(qtData.net)
+          }
+          if (y.getMonth() == 5) {
+            may.push(qtData.net)
+          }
+          if (y.getMonth() == 6) {
+            june.push(qtData.net)
+          }
+          if (y.getMonth() == 7) {
+            july.push(qtData.net)
+          }
+          if (y.getMonth() == 8) {
+            aug.push(qtData.net)
+          }
+          if (y.getMonth() == 9) {
+            sep.push(qtData.net)
+          }
+          if (y.getMonth() == 10) {
+            oct.push(qtData.net)
+          }
+          if (y.getMonth() == 11) {
+            nov.push(qtData.net)
+          }
+          if (y.getMonth() == 12) {
+            dec.push(qtData.net)
+          }
+        }
+
+      }))
+        map.set("January", jan)
+      map.set("February", feb)
+      map.set("March", mar)
+      map.set("April", apr)
+      map.set("May", may)
+      map.set("June", june)
+      map.set("July", july)
+      map.set("August", aug)
+      map.set("September", sep)
+      map.set("October", oct)
+      map.set("November", nov)
+      map.set("December", dec)
+    })
+    return map
+  }
+
+  private provaChart(newType: ChartType, map: Map<string, number[]>) {
+    let months = Array.from(map.keys())
+    this.chartOptions = {
+      series: [{
+        data: [{
+          x: months[0],
+          y: map.get(months[0])
+        },
+        {
+          x: months[1],
+          y: map.get(months[1])
+        },
+        {
+          x: months[2],
+          y: map.get(months[2])
+        },
+        {
+          x: months[3],
+          y: map.get(months[3])
+        },
+        {
+          x: months[4],
+          y: map.get(months[4])
+        },
+        {
+          x: months[5],
+          y: map.get(months[5])
+        },
+        {
+          x: months[6],
+          y: map.get(months[6])
+        },
+        {
+          x: months[7],
+          y: map.get(months[7])
+        },
+        {
+          x: months[8],
+          y: map.get(months[8])
+        },
+        {
+          x: months[9],
+          y: map.get(months[9])
+        },
+        {
+          x: months[10],
+          y: map.get(months[10])
+        },
+        {
+          x: months[11],
+          y: map.get(months[11])
+        },
+        ]
+      }],
+      chart: {
+        height: 350,
+        type: newType
+      },
+      title: {
+        text: "Company name"
+      },
+      xaxis: {
+        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+      }
+
+    };
+    this._initial = true;
 
   }
 
