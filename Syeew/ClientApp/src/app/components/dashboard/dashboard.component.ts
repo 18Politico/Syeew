@@ -3,10 +3,10 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BoxPlotComponent } from '../components/charts/box-plot/box-plot.component';
+import { BoxPlotComponent } from '../charts/box-plot/box-plot.component';
 import { Observable } from 'rxjs';
-import { BarChartComponent } from '../components/charts/bar-chart/bar-chart.component';
-import { LineChartComponent } from '../components/charts/line-chart/line-chart.component';
+import { BarChartComponent } from '../charts/bar-chart/bar-chart.component';
+import { LineChartComponent } from '../charts/line-chart/line-chart.component';
 
 @Component({
   selector: 'app-dashboard',

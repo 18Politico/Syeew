@@ -17,8 +17,8 @@ import { CompaniesTableComponent } from './components/companies-table/companies-
 import { ChartComponent } from './components/chart/chart.component';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { BoxPlotComponent } from './components/charts/box-plot/box-plot.component';
 import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
 import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
