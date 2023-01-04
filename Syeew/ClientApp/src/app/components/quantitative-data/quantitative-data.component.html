@@ -42,5 +42,10 @@
                  showFirstLastButtons>
   </mat-paginator>
 </div>
-<app-dashboard [selectedCompany]="clickedCompany" [dateFrom]="dateFrom.value!"></app-dashboard>
+
+<button (click)="VediDashFunc()">Genera Dashboard</button>
+
+<app-dashboard *ngIf="vediDash" [selectedCompany]="clickedCompany" [dateFrom]="dateFrom.value!"></app-dashboard>
+
+
 

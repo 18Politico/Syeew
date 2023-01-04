@@ -16,6 +16,12 @@ import { QuantitativeDataService } from 'src/app/services/quantitative-data.serv
 })
 export class QuantitativeDataComponent implements OnInit {
 
+  vediDash: boolean = false;
+
+  VediDashFunc(){
+    this.vediDash = true;
+  }
+
   filtered: IQuantitativeData[] = [];
 
   clickedCompany!: ICompany;
@@ -54,6 +60,8 @@ export class QuantitativeDataComponent implements OnInit {
 
   onDateSet(){
     //var filtered: IQuantitativeData[] = [];
+    if (this.filtered.length != 0)
+      this.filtered = [];
     this.quantitativeData.forEach(qD => {
       this.dateCheck(qD, this.filtered)
     });

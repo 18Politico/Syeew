@@ -26,6 +26,7 @@ export class DashboardComponent {
   cards!: Observable<any>
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
+  dateFromProva = new Date(this.dateFrom)
 
   constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog) {
     this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -75,6 +76,10 @@ export class DashboardComponent {
       }
       case 'Pie Chart': {
         dialogRef = this.dialog.open(PieChartComponent);
+        break;
+      }
+      case 'Box Plot Netto': {
+        dialogRef = this.dialog.open(BoxPlotComponent);
         break;
       }
       case 'Scatter Plot': {

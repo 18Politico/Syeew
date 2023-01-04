@@ -62,6 +62,7 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.generatePlot(this.nameChart)
+    console.log(this.getNettoInYear(this.selectedCompany, new Date(this.dateFrom), ""))
   }
 
   generatePlot(chartName: string) {
@@ -626,7 +627,11 @@ export class ChartComponent implements OnInit {
     let map = new Map<string, number[]>()
     let jan: number[], feb: number[], mar: number[], apr: number[], may: number[], june: number[], july: number[],
       aug: number[], sep: number[], oct: number[], nov: number[], dec: number[]
+
+    this.companies.filter(c=> Object.is(c, company))
+
     this.companies.filter((company) => {
+
       if (company.datas.filter((qtData) => {
         // Filtering for year
         let y = qtData.date
