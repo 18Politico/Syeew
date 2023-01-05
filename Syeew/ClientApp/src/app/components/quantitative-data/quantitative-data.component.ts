@@ -55,7 +55,10 @@ export class QuantitativeDataComponent implements OnInit {
                     this.dataSource = new MatTableDataSource<IQuantitativeData>(this.quantitativeData);
                     this.dataSource.paginator = this.paginator;
                   });
-    this._serviceCmp.CompanyBy(companyName!).subscribe(c => this.clickedCompany = c);
+    this._serviceCmp.CompanyBy(companyName!).subscribe((c) => {
+      this.clickedCompany = c
+      console.log('quantitive: ', c)
+    });
   }
 
   onDateSet(){
@@ -65,7 +68,7 @@ export class QuantitativeDataComponent implements OnInit {
     this.quantitativeData.forEach(qD => {
       this.dateCheck(qD, this.filtered)
     });
-    console.log("ECCO -->" + this.dateUntil.value + "_")
+    //console.log("ECCO -->" + this.dateUntil.value + "_")
     this.dataSource = new MatTableDataSource<IQuantitativeData>(this.filtered);
     this.dataSource.paginator = this.paginator;
   }
@@ -86,11 +89,11 @@ export class QuantitativeDataComponent implements OnInit {
   private dateFromCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
     var dateFrom =  new Date(this.dateFrom.value!)
     var dataDate = new Date(data.date);
-    console.log("DATEFROM -> "+ dataDate.getTime())
+    //console.log("DATEFROM -> "+ dataDate.getTime())
     if (dateFrom.getTime() < dataDate.getTime()){
       filtered.push(data)
-      console.log("from CIao")
-    console.log(dateFrom)
+      //console.log("from CIao")
+    //console.log(dateFrom)
     }
 
   }
@@ -113,7 +116,7 @@ export class QuantitativeDataComponent implements OnInit {
         && dataDate.getTime() <= dateUntil.getTime())
       filtered.push(data)
 
-    console.log("both CIao")
+    //console.log("both CIao")
   }
 
   private sameDate(formDate: string | null, date: Date): boolean{

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { OnChanges, Component, Input, OnInit, AfterViewInit } from '@angular/core';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 
@@ -46,7 +46,7 @@ export type ChartOptions = {
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, AfterViewInit {
 
   chartOptions!: Partial<ChartOptions>;
   @Input() nameChart = "select a chart";
@@ -57,15 +57,21 @@ export class ChartComponent implements OnInit {
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
   companyData: IQuantitativeData[] = []
-
   constructor(private _serviceData: QuantitativeDataService) {
 
   }
 
   ngOnInit(): void {
-    this.generatePlot(this.nameChart)
+    console.log('selected company: ', this.selectedCompany)
+    console.log('company name: ', this.selectedCompany.companyName)
     //console.log(this.getNettoInYear(this.selectedCompany, new Date(this.dateFrom), ""))
     this._serviceData.DatasOf(this.selectedCompany.companyName).subscribe(dt => this.companyData = dt)
+    console.log('companyData: ', this.companyData)
+    this.generatePlot(this.nameChart)
+  }
+
+  ngAfterViewInit(): void {
+    
   }
 
   generatePlot(chartName: string) {
@@ -107,7 +113,7 @@ export class ChartComponent implements OnInit {
         break;
       }
       case this.chartNames[9]: {
-        this.provaChart("boxPlot", this.getNettoInYear(this.selectedCompany, this.dateFrom.substring(0,4), "net"))
+        this.provaChart("boxPlot", this.getNettoInYear(this.selectedCompany, new Date(this.dateFrom), "net"))
         break;
       }
     }
@@ -626,7 +632,7 @@ export class ChartComponent implements OnInit {
 
   }*/
 
-  getNettoInYear(company: ICompany, year: string, data: string): Map<string, number[]> {
+  getNettoInYear(company: ICompany, year: Date, data: string): Map<string, number[]> {
     let map = new Map<string, number[]>()
     let jan: number[], feb: number[], mar: number[], apr: number[], may: number[], june: number[], july: number[],
       aug: number[], sep: number[], oct: number[], nov: number[], dec: number[]
@@ -634,47 +640,50 @@ export class ChartComponent implements OnInit {
 
 
 
-    console.log("PROVA --> ", company)
-
+    //console.log("PROVA --> ", company)
+    console.log('QUI: ', this.companyData)
     this.companyData.filter((qtData) => {
       // Filtering for year
       let y = qtData.date
-      let anno = qtData.date.getFullYear().toString()
-      if (anno == year) {
-        if (y.getMonth() == 1) {
+      console.log('PRIMO ANNO: ', y.getFullYear())
+      console.log('SECONDO ANNO: ', year.getFullYear())
+      if (y.getFullYear() == year.getFullYear()) {
+        console.log('mese: ', y.getMonth())
+        console.log('netto: ', qtData.net)
+        if (y.getMonth() == 0) {
           jan.push(qtData.net)
         }
-        if (y.getMonth() == 2) {
+        if (y.getMonth() == 1) {
           feb.push(qtData.net)
         }
-        if (y.getMonth() == 3) {
+        if (y.getMonth() == 2) {
           mar.push(qtData.net)
         }
-        if (y.getMonth() == 4) {
+        if (y.getMonth() == 3) {
           apr.push(qtData.net)
         }
-        if (y.getMonth() == 5) {
+        if (y.getMonth() == 4) {
           may.push(qtData.net)
         }
-        if (y.getMonth() == 6) {
+        if (y.getMonth() == 5) {
           june.push(qtData.net)
         }
-        if (y.getMonth() == 7) {
+        if (y.getMonth() == 6) {
           july.push(qtData.net)
         }
-        if (y.getMonth() == 8) {
+        if (y.getMonth() == 7) {
           aug.push(qtData.net)
         }
-        if (y.getMonth() == 9) {
+        if (y.getMonth() == 8) {
           sep.push(qtData.net)
         }
-        if (y.getMonth() == 10) {
+        if (y.getMonth() == 9) {
           oct.push(qtData.net)
         }
-        if (y.getMonth() == 11) {
+        if (y.getMonth() == 10) {
           nov.push(qtData.net)
         }
-        if (y.getMonth() == 12) {
+        if (y.getMonth() == 11) {
           dec.push(qtData.net)
         }
       }

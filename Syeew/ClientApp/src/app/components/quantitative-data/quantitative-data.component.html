@@ -25,6 +25,8 @@
     </mat-error>
   </mat-form-field>
 </form>
+<button mat-raised-button (click)="VediDashFunc()" color="primary">Genera Dashboard</button>
+
 
 <div class="mat-elevation-z8">
 
@@ -42,8 +44,6 @@
                  showFirstLastButtons>
   </mat-paginator>
 </div>
-
-<button (click)="VediDashFunc()">Genera Dashboard</button>
 
 <app-dashboard *ngIf="vediDash" [selectedCompany]="clickedCompany" [dateFrom]="dateFrom.value!"></app-dashboard>
 
