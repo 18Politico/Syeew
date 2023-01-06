@@ -35,7 +35,7 @@ namespace Syeew.Controllers
         }
 
         [HttpGet("{companyName}")]
-        public async Task<ActionResult<ICollection<Company>>> GetCompanyBy(string companyName)
+        public async Task<ActionResult<Company>> GetCompanyBy(string companyName)
         {
             try
             {
