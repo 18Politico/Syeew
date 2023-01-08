@@ -39,7 +39,11 @@ namespace Syeew.Controllers
         {
             try
             {
-                return Ok(await _repository.GetBy(c => new ValueTask<bool>(c.CompanyName.Equals(companyName))));
+                var result = await _repository.GetBy(c => new ValueTask<bool>(c.CompanyName.Equals(companyName)));
+
+                var company = result.ElementAt(0);
+
+                return Ok(company);
             }
             catch (Exception)
             {

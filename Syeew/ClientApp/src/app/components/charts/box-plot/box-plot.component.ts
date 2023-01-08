@@ -10,7 +10,7 @@ export class BoxPlotComponent implements OnInit{
   constructor(){}
 
   ngOnInit(): void {
-    
+
   }
 
 }
