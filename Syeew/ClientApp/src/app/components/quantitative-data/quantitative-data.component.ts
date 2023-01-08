@@ -57,7 +57,6 @@ export class QuantitativeDataComponent implements OnInit {
                   });
     this._serviceCmp.CompanyBy(companyName!).subscribe((c) => {
       this.clickedCompany = c
-      console.log('quantitive: ', c)
     });
   }
 

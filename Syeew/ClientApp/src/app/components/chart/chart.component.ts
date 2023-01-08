@@ -56,22 +56,21 @@ export class ChartComponent implements OnInit, AfterViewInit {
   private companies!: ICompany[]
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
-  companyData: IQuantitativeData[] = []
+  companyData!: IQuantitativeData[]
+
   constructor(private _serviceData: QuantitativeDataService) {
 
   }
 
   ngOnInit(): void {
-    console.log('selected company: ', this.selectedCompany)
-    console.log('company name: ', this.selectedCompany.companyName)
-    //console.log(this.getNettoInYear(this.selectedCompany, new Date(this.dateFrom), ""))
-    this._serviceData.DatasOf(this.selectedCompany.companyName).subscribe(dt => this.companyData = dt)
-    console.log('companyData: ', this.companyData)
-    this.generatePlot(this.nameChart)
+
   }
 
   ngAfterViewInit(): void {
-    
+    this._serviceData.DatasOf(this.selectedCompany.companyName).subscribe((dt) => {
+      this.companyData = dt
+      this.generatePlot(this.nameChart)
+    })
   }
 
   generatePlot(chartName: string) {
@@ -632,24 +631,18 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   }*/
 
-  getNettoInYear(company: ICompany, year: Date, data: string): Map<string, number[]> {
+  getNettoInYear(company: ICompany, date: Date, data: string): Map<string, number[]> {
     let map = new Map<string, number[]>()
-    let jan: number[], feb: number[], mar: number[], apr: number[], may: number[], june: number[], july: number[],
-      aug: number[], sep: number[], oct: number[], nov: number[], dec: number[]
-    //this.companies.filter((company) => {
-
-
-
-    //console.log("PROVA --> ", company)
-    console.log('QUI: ', this.companyData)
+    let jan: number[] = [], feb: number[] = [], mar: number[] = [], apr: number[] = [], may: number[] = [], june: number[] = [], july: number[] = [],
+      aug: number[] = [], sep: number[] = [], oct: number[] = [], nov: number[] = [], dec: number[] = []
     this.companyData.filter((qtData) => {
       // Filtering for year
-      let y = qtData.date
-      console.log('PRIMO ANNO: ', y.getFullYear())
-      console.log('SECONDO ANNO: ', year.getFullYear())
-      if (y.getFullYear() == year.getFullYear()) {
-        console.log('mese: ', y.getMonth())
-        console.log('netto: ', qtData.net)
+      let y = new Date(qtData.date)
+      //console.log('PRIMO ANNO: ', y.getFullYear())
+      //console.log('SECONDO ANNO: ', date.getFullYear())
+      if (y.getFullYear() == date.getFullYear()) {
+        //console.log('mese: ', y.getMonth())
+        //console.log('netto: ', qtData.net)
         if (y.getMonth() == 0) {
           jan.push(qtData.net)
         }
@@ -701,10 +694,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     map.set("October", oct!)
     map.set("November", nov!)
     map.set("December", dec!)
-
-    console.log(map)
-
-
     return map
   }
 

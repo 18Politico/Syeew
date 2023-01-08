@@ -43,21 +43,19 @@ export class DashboardComponent implements OnInit{
         }*/
 
         return [
-          //{ nameChart: 'Box Plot', cols: 1, rows: 1 },
+          { nameChart: 'Box Plot', cols: 1, rows: 1 },
           { nameChart: 'Box Plot Netto', cols: 1, rows: 1 },  // prova col netto
-          //{ nameChart: 'Bar Chart', cols: 1, rows: 1 },
-          //{ nameChart: 'Line Chart', cols: 1, rows: 1 },
-          //{ nameChart: 'Column Chart', cols: 1, rows: 1 },
-          //{ nameChart: 'Pie Chart', cols: 1, rows: 1 },
-          //{ nameChart: 'Scatter Plot', cols: 1, rows: 1 },
+          { nameChart: 'Bar Chart', cols: 1, rows: 1 },
+          { nameChart: 'Line Chart', cols: 1, rows: 1 },
+          { nameChart: 'Column Chart', cols: 1, rows: 1 },
+          { nameChart: 'Pie Chart', cols: 1, rows: 1 },
+          { nameChart: 'Scatter Plot', cols: 1, rows: 1 },
         ];
       })
     );
   }
 
   ngOnInit(): void {
-    console.log('selected company in dashboard: ', this.selectedCompany)
-    console.log('selected company in dashboard: ', this.selectedCompany.companyName)
   }
 
   openChart(chartName: string) {
