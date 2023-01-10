@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,35 +9,35 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
 {
     public interface IQuantitativeData
     {
-        Guid IdQuantitativeData { get; set; }
+        int  IdMatrice { get; set; }
 
-        int  IdPointOfSale { get; set; }
+        string MatriceNome { get; set; } //FOREIGN_KEY!!!!!!!!
 
-        //public string MatriceNome { get; set; } FOREIGN_KEY!!!!!!!!
-
-        //public TypeOfCompany TypeOfCompany { get; set; }
+        string IdTipoDiAttività { get; set; }
 
         int IdCat { get; set; }
 
-        string ServiceLabel { get; set; }
+        string Cat1 { get; set; }
 
-        //public string Idx { get; set; }
+        string Idx { get; set; }
 
-        DateTime Date { get; set; }
+        DateTime Dt { get; set; }
 
-        double Net { get; set; }
+        double Netto { get; set; }
 
         double Iva { get; set; }
 
-        double RevenueWithIva { get; set; }
+        double FattIvato { get; set; }
 
-        double Qty { get; set; }
+        double Qta { get; set; }
 
-        bool Worked { get; set; }
+        bool Lavorato { get; set; }
 
-        //public float Dim { get; set; }
+        double Dim { get; set; }
 
-        Guid IdCompany { get; set; }
+        long Id { get; set; }
+
+        //Guid IdCompany { get; set; }
 
         Company Company { get; set; }
     }

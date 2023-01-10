@@ -7,45 +7,87 @@ namespace DataSourceSyeew.Entities
 {
     public class QuantitativeData : IQuantitativeData
     {
+        public int IdMatrice { get; set; }
+
+        [ForeignKey("NomeNomeAttività")]
+        public string MatriceNome { get; set; }
+        public string IdTipoDiAttività { get; set; }
+        public int IdCat { get; set; }
+        public string Cat1 { get; set; }
+        public string Idx { get; set; }
+        public DateTime Dt { get; set; }
+        public double Netto { get; set; }
+        public double Iva { get; set; }
+        public double FattIvato { get; set; }
+        public double Qta { get; set; }
+        public bool Lavorato { get; set; }
+        public double Dim { get; set; }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid IdQuantitativeData { get; set; }
-        public int IdPointOfSale { get; set; }
-        public int IdCat { get; set; }
-        public string ServiceLabel { get; set; }
-        public DateTime Date { get; set; }
-        public double Net { get; set; }
-        public double Iva { get; set; }
-        public double RevenueWithIva { get; set; }
-        public double Qty { get; set; }
-        public bool Worked { get; set; }
+        public long Id { get; set; }
 
-        //[ForeignKey("IdCompany")]
-        public Guid IdCompany { get; set; }
+        //public Guid IdCompany { get; set; }
+        virtual public Company Company { get; set; }
 
-        //[JsonIgnore]
-        public virtual Company Company { get; set; }
-
-
-        public QuantitativeData(int idPointOfSale, 
-                                string serviceLabel, 
-                                DateTime date, 
-                                double net, 
+        public QuantitativeData(int idMatrice, 
+                                string matriceNome, 
+                                string idTipoDiAttività, 
+                                int idCat, 
+                                string cat1, 
+                                string idx, 
+                                DateTime dt, 
+                                double netto, 
                                 double iva, 
-                                double revenueWithIva, 
-                                double qty, 
-                                bool worked, 
-                                Guid idCompany)
+                                double fattIvato, 
+                                double qta, 
+                                bool lavorato, 
+                                double dim, 
+                                long id)
         {
-            IdPointOfSale = idPointOfSale;
-            ServiceLabel = serviceLabel;
-            Date = date;
-            Net = net;
+            IdMatrice = idMatrice;
+            MatriceNome = matriceNome;
+            IdTipoDiAttività = idTipoDiAttività;
+            IdCat = idCat;
+            Cat1 = cat1;
+            Idx = idx;
+            Dt = dt;
+            Netto = netto;
             Iva = iva;
-            RevenueWithIva = revenueWithIva;
-            Qty = qty;
-            Worked = worked;
-            IdCompany = idCompany;
+            FattIvato = fattIvato;
+            Qta = qta;
+            Lavorato = lavorato;
+            Dim = dim;
+            Id = id;
+        }
+
+        public QuantitativeData(int idMatrice, 
+                                string matriceNome, 
+                                string idTipoDiAttività, 
+                                int idCat, 
+                                string cat1, 
+                                string idx, 
+                                DateTime dt, 
+                                double netto, 
+                                double iva, 
+                                double fattIvato, 
+                                double qta, 
+                                bool lavorato, 
+                                double dim)
+        {
+            IdMatrice = idMatrice;
+            MatriceNome = matriceNome;
+            IdTipoDiAttività = idTipoDiAttività;
+            IdCat = idCat;
+            Cat1 = cat1;
+            Idx = idx;
+            Dt = dt;
+            Netto = netto;
+            Iva = iva;
+            FattIvato = fattIvato;
+            Qta = qta;
+            Lavorato = lavorato;
+            Dim = dim;
         }
     }
 }

@@ -67,7 +67,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this._serviceData.DatasOf(this.selectedCompany.companyName).subscribe((dt) => {
+    this._serviceData.DatasOf(this.selectedCompany.nomeAttività).subscribe((dt) => {
       this.companyData = dt
       this.generatePlot(this.nameChart)
     })
@@ -637,47 +637,47 @@ export class ChartComponent implements OnInit, AfterViewInit {
       aug: number[] = [], sep: number[] = [], oct: number[] = [], nov: number[] = [], dec: number[] = []
     this.companyData.filter((qtData) => {
       // Filtering for year
-      let y = new Date(qtData.date)
+      let y = new Date(qtData.dt)
       //console.log('PRIMO ANNO: ', y.getFullYear())
       //console.log('SECONDO ANNO: ', date.getFullYear())
       if (y.getFullYear() == date.getFullYear()) {
         //console.log('mese: ', y.getMonth())
         //console.log('netto: ', qtData.net)
         if (y.getMonth() == 0) {
-          jan.push(qtData.net)
+          jan.push(qtData.netto)
         }
         if (y.getMonth() == 1) {
-          feb.push(qtData.net)
+          feb.push(qtData.netto)
         }
         if (y.getMonth() == 2) {
-          mar.push(qtData.net)
+          mar.push(qtData.netto)
         }
         if (y.getMonth() == 3) {
-          apr.push(qtData.net)
+          apr.push(qtData.netto)
         }
         if (y.getMonth() == 4) {
-          may.push(qtData.net)
+          may.push(qtData.netto)
         }
         if (y.getMonth() == 5) {
-          june.push(qtData.net)
+          june.push(qtData.netto)
         }
         if (y.getMonth() == 6) {
-          july.push(qtData.net)
+          july.push(qtData.netto)
         }
         if (y.getMonth() == 7) {
-          aug.push(qtData.net)
+          aug.push(qtData.netto)
         }
         if (y.getMonth() == 8) {
-          sep.push(qtData.net)
+          sep.push(qtData.netto)
         }
         if (y.getMonth() == 9) {
-          oct.push(qtData.net)
+          oct.push(qtData.netto)
         }
         if (y.getMonth() == 10) {
-          nov.push(qtData.net)
+          nov.push(qtData.netto)
         }
         if (y.getMonth() == 11) {
-          dec.push(qtData.net)
+          dec.push(qtData.netto)
         }
       }
     }

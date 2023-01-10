@@ -23,8 +23,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -36,8 +36,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -49,8 +49,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -62,8 +62,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -75,8 +75,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -88,8 +88,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -101,8 +101,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -114,8 +114,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -127,8 +127,8 @@ namespace Syeew.Utils
         {
             var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Date,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.CompanyName,
+            var res = datas.GroupBy(dt => dt.Dt,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -142,7 +142,7 @@ namespace Syeew.Utils
             var arrayFromGroup = group.ToArray();
             for (int i = 0; i < group.Count(); i++)
             {
-                nets[i] = arrayFromGroup[i].Net;
+                nets[i] = arrayFromGroup[i].Netto;
             }
             return nets;
         }
@@ -153,7 +153,7 @@ namespace Syeew.Utils
             var arrayFromGroup = group.ToArray();
             for (int i = 0; i < group.Count(); i++)
             {
-                nets[i] = arrayFromGroup[i].RevenueWithIva;
+                nets[i] = arrayFromGroup[i].FattIvato;
             }
             return nets;
         }
@@ -164,7 +164,7 @@ namespace Syeew.Utils
             var arrayFromGroup = group.ToArray();
             for (int i = 0; i < group.Count(); i++)
             {
-                nets[i] = arrayFromGroup[i].Qty;
+                nets[i] = arrayFromGroup[i].Qta;
             }
             return nets;
         }

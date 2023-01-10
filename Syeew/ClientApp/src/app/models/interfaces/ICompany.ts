@@ -5,25 +5,23 @@ import { IQuantitativeData } from "./IQuantitativeData";
 
 export interface ICompany{
 
-  idCompany: string;
+  ragioneSociale: string;
 
-  companyName: string;
+  nomeAttività: string;
 
-  businessName: string;
+  tipoAttività: string;
 
-  typeOfCompany: TypeOfCompany;
+  gestionale: ManegementSystem;
 
-  managementSystem: ManegementSystem;
+  dimensioneFatturato: Dimention;
 
-  revenueDimention: Dimention;
+  dimensioneAddetti: Dimention;
 
-  employeesDimention: Dimention;
+  indirizzo: string;
 
-  street: string;
+  città: string;
 
-  city: string
-
-  proviceLabel: string;
+  provincia: string;
 
   datas: IQuantitativeData[];
 

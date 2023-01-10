@@ -8,18 +8,17 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
 {
     public interface ICompany
     {
-        Guid IdCompany { get; set; }
-        string CompanyName { get; set; }
-        string BusinessName { get; set; }
-        TypeOfCompany TypeOfCompany { get; set; }
+        string RagioneSociale { get; set; }
+        string NomeAttività { get; set; }
+        string TipoAttività { get; set; }
 
-        ManegementSystem ManegementSystem { get; set; }
-        Dimention RevenueDimention { get; set; }
-        Dimention EmployeesDimention { get; set; }
+        ManegementSystem Gestionale { get; set; }
+        Dimention DimensioneFatturato { get; set; }
+        Dimention DimensioneAddetti { get; set; }
 
-        string Street { get; set; }
-        string City { get; set; }
-        string ProvinceLabel { get; set; }
+        string Indirizzo { get; set; }
+        string Città { get; set; }
+        string Provincia { get; set; }
 
         ICollection<QuantitativeData> Datas { get; set; }
     }

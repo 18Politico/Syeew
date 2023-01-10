@@ -22,10 +22,10 @@ namespace DataSourceSyeew
             modelBuilder.Entity<Company>()
                 .HasMany<QuantitativeData>(c => c.Datas)
                 .WithOne(qD => qD.Company)
-                .HasForeignKey(qD => qD.IdCompany);
+                .HasForeignKey(qD => qD.MatriceNome);
 
             modelBuilder.Entity<QuantitativeData>().
-                Property(p => p.Date)
+                Property(p => p.Dt)
                 .HasColumnType("date");
 
             //modelBuilder.Entity<QuantitativeData>()

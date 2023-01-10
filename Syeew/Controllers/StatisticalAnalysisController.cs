@@ -26,8 +26,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.NetsAverage(datas);
 
@@ -51,8 +51,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.RevenuesWithIvaAverage(datas);
 
@@ -76,8 +76,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.QtysAverage(datas);
 
@@ -101,8 +101,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.NetsMode(datas);
 
@@ -126,8 +126,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.RevenuesWithIvaMode(datas);
 
@@ -151,8 +151,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.QtysMode(datas);
 
@@ -176,8 +176,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.NetsMedian(datas);
 
@@ -201,8 +201,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.RevenuesWithIvaMedian(datas);
 
@@ -226,8 +226,8 @@ namespace Syeew.Controllers
         {
             try
             {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.CompanyName.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Date, from, to)));
+                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttività.ToLower().Equals(companyName.ToLower())
+                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
 
                 var stats = DataStatsCalculator.QtysMedian(datas);
 

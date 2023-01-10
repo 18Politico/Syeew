@@ -12,27 +12,39 @@ namespace DataSourceSyeew.Entities
 {
     public class Company : ICompany
     {
+        
+        public string RagioneSociale { get; set; }
+
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid IdCompany { get; set; }
-        public string CompanyName { get; set; }
-        public string BusinessName { get; set; }
-
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public TypeOfCompany TypeOfCompany { get; set; }
-
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ManegementSystem ManegementSystem { get; set; }
-
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Dimention RevenueDimention { get; set; }
-
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Dimention EmployeesDimention { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string ProvinceLabel { get; set; }
-
+        public string NomeAttività { get; set; }
+        public string TipoAttività { get; set; }
+        public ManegementSystem Gestionale { get; set; }
+        public Dimention DimensioneFatturato { get; set; }
+        public Dimention DimensioneAddetti { get; set; }
+        public string Indirizzo { get; set; }
+        public string Città { get; set; }
+        public string Provincia { get; set; }
         public virtual ICollection<QuantitativeData> Datas { get; set; }
+
+        public Company(string ragioneSociale, 
+                       string nomeAttività, 
+                       string tipoAttività, 
+                       ManegementSystem gestionale, 
+                       Dimention dimensioneFatturato, 
+                       Dimention dimensioneAddetti, 
+                       string indirizzo, 
+                       string città, 
+                       string provincia)
+        {
+            RagioneSociale = ragioneSociale;
+            NomeAttività = nomeAttività;
+            TipoAttività = tipoAttività;
+            Gestionale = gestionale;
+            DimensioneFatturato = dimensioneFatturato;
+            DimensioneAddetti = dimensioneAddetti;
+            Indirizzo = indirizzo;
+            Città = città;
+            Provincia = provincia;
+        }
     }
 }

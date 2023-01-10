@@ -87,7 +87,7 @@ export class QuantitativeDataComponent implements OnInit {
 
   private dateFromCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
     var dateFrom =  new Date(this.dateFrom.value!)
-    var dataDate = new Date(data.date);
+    var dataDate = new Date(data.dt);
     //console.log("DATEFROM -> "+ dataDate.getTime())
     if (dateFrom.getTime() < dataDate.getTime()){
       filtered.push(data)
@@ -99,7 +99,7 @@ export class QuantitativeDataComponent implements OnInit {
 
   private dateUntilCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
     var dateUntil = new Date(this.dateUntil.value!)
-    var dataDate = new Date(data.date);
+    var dataDate = new Date(data.dt);
     if (dataDate.getTime() <= dateUntil.getTime())
       filtered.push(data)
 
@@ -110,7 +110,7 @@ export class QuantitativeDataComponent implements OnInit {
   private bothDatesCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
     var dateFrom =  new Date(this.dateFrom.value!)
     var dateUntil = new Date(this.dateUntil.value!)
-    var dataDate = new Date(data.date);
+    var dataDate = new Date(data.dt);
     if (dateFrom.getTime() <= dataDate.getTime()
         && dataDate.getTime() <= dateUntil.getTime())
       filtered.push(data)

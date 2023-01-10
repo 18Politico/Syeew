@@ -3,35 +3,33 @@ import { ICompany } from "./ICompany";
 
 export interface IQuantitativeData{
 
-  idQuantitativeData: string;
+  idMatrice: number;
 
-  idPointOfSale: number;
+  matriceNome: string;
 
-  matriceNome: string; //DA SISTEMARE ANCHE SU COMPONENTE
-
-  //typeOfCompany: TypeOfCompany;
+  idTipoDiAttività: string;
 
   idCat: number;
 
-  serviceLabel: string;
+  cat1: string;
 
-  //idx: string;
+  idx: string;
 
-  date: Date;
+  dt: Date;
 
-  net: number;
+  netto: number;
 
   iva: number;
 
-  revenueWithIva: number;
+  fattIvato: number;
 
-  qty: number;
+  qta: number;
 
-  worked: boolean;
+  lavorato: boolean;
 
-  //dim: number;
+  dim: number;
 
-  idCompany: string;
+  id: number;
 
   company: ICompany;
 

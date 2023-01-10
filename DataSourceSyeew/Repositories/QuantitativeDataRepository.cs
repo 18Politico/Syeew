@@ -46,15 +46,20 @@ namespace DataSourceSyeew.Repositories
 
         public async Task<QuantitativeData> Add(QuantitativeData qD)
         {
-            var data = new QuantitativeData(qD.IdPointOfSale,
-                                            qD.ServiceLabel,
-                                            qD.Date,
-                                            qD.Net,
-                                            qD.Iva,
-                                            qD.RevenueWithIva,
-                                            qD.Qty,
-                                            qD.Worked, 
-                                            qD.IdCompany);
+            var data = new QuantitativeData(qD.IdMatrice, 
+                                            qD.MatriceNome, 
+                                            qD.IdTipoDiAttività, 
+                                            qD.IdCat, 
+                                            qD.Cat1, 
+                                            qD.Idx, 
+                                            qD.Dt, 
+                                            qD.Netto, 
+                                            qD.Iva, 
+                                            qD.FattIvato, 
+                                            qD.Qta, 
+                                            qD.Lavorato, 
+                                            qD.Dim);
+
 
             var added = await _context.QuantitativeDatas.AddAsync(data);
             await _context.SaveChangesAsync();

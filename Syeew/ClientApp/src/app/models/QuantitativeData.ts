@@ -4,36 +4,22 @@ import { TypeOfCompany } from "./TypeOfCompany";
 
 export class QuantitativeData implements IQuantitativeData {
 
-  idQuantitativeData!: string;
-
-  idPointOfSale!: number;
-
+  idMatrice!: number;
   matriceNome!: string;
-
-  //typeOfCompany: TypeOfCompany = -1;
-
+  idTipoDiAttività!: string;
   idCat!: number;
-
-  serviceLabel!: string;
-
-  //idx: string = "";
-
-  date!: Date;
-
-  net!: number;
-
+  cat1!: string;
+  idx!: string;
+  dt!: Date;
+  netto!: number;
   iva!: number;
-
-  revenueWithIva!: number;
-
-  qty!: number;
-
-  worked!: boolean;
-
-  //dim: number = -1;
-
-  idCompany!: string;
-
+  fattIvato!: number;
+  qta!: number;
+  lavorato!: boolean;
+  dim!: number;
+  id!: number;
   company!: ICompany;
+
+
 
 }
