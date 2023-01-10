@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20221211190735_First")]
-    partial class First
+    [Migration("20230110192741_FirstCreate")]
+    partial class FirstCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,87 +27,97 @@ namespace DataSourceSyeew.Migrations
 
             modelBuilder.Entity("DataSourceSyeew.Entities.Company", b =>
                 {
-                    b.Property<Guid>("IdCompany")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("NomeAttività")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BusinessName")
+                    b.Property<string>("Città")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmployeesDimention")
+                    b.Property<int>("DimensioneAddetti")
                         .HasColumnType("int");
 
-                    b.Property<int>("ManegementSystem")
+                    b.Property<int>("DimensioneFatturato")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProvinceLabel")
+                    b.Property<int>("Gestionale")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Indirizzo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RevenueDimention")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Street")
+                    b.Property<string>("Provincia")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfCompany")
-                        .HasColumnType("int");
+                    b.Property<string>("RagioneSociale")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdCompany");
+                    b.Property<string>("TipoAttività")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NomeAttività");
 
                     b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("DataSourceSyeew.Entities.QuantitativeData", b =>
                 {
-                    b.Property<Guid>("IdQuantitativeData")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime>("Date")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Cat1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Dim")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Dt")
                         .HasColumnType("date");
+
+                    b.Property<double>("FattIvato")
+                        .HasColumnType("float");
 
                     b.Property<int>("IdCat")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("IdCompany")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("IdPointOfSale")
+                    b.Property<int>("IdMatrice")
                         .HasColumnType("int");
+
+                    b.Property<string>("IdTipoDiAttività")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Idx")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Iva")
                         .HasColumnType("float");
 
-                    b.Property<double>("Net")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Qty")
-                        .HasColumnType("float");
-
-                    b.Property<double>("RevenueWithIva")
-                        .HasColumnType("float");
-
-                    b.Property<string>("ServiceLabel")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Worked")
+                    b.Property<bool>("Lavorato")
                         .HasColumnType("bit");
 
-                    b.HasKey("IdQuantitativeData");
+                    b.Property<string>("MatriceNome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.HasIndex("IdCompany");
+                    b.Property<double>("Netto")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Qta")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatriceNome");
 
                     b.ToTable("QuantitativeDatas");
                 });
@@ -116,7 +126,7 @@ namespace DataSourceSyeew.Migrations
                 {
                     b.HasOne("DataSourceSyeew.Entities.Company", "Company")
                         .WithMany("Datas")
-                        .HasForeignKey("IdCompany")
+                        .HasForeignKey("MatriceNome")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
