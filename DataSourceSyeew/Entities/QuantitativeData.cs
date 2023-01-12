@@ -7,12 +7,12 @@ namespace DataSourceSyeew.Entities
 {
     public class QuantitativeData : IQuantitativeData
     {
-        public int IdMatrice { get; set; }
+        public double IdMatrice { get; set; }
 
         [ForeignKey("NomeAttivita")]
         public string MatriceNome { get; set; }
         public string IdTipoDiAttivita { get; set; }
-        public int IdCat { get; set; }
+        public double IdCat { get; set; }
         public string Cat1 { get; set; }
         public string Idx { get; set; }
         public DateTime Dt { get; set; }
@@ -25,16 +25,16 @@ namespace DataSourceSyeew.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public double Id { get; set; }
 
         //public Guid IdCompany { get; set; }
         virtual public Company Company { get; set; }
 
         QuantitativeData() { }
-        public QuantitativeData(int idMatrice, 
+        public QuantitativeData(double idMatrice, 
                                 string matriceNome, 
                                 string idTipoDiAttività, 
-                                int idCat, 
+                                double idCat, 
                                 string cat1, 
                                 string idx, 
                                 DateTime dt, 
@@ -44,7 +44,7 @@ namespace DataSourceSyeew.Entities
                                 double qta, 
                                 bool lavorato, 
                                 double dim, 
-                                long id)
+                                double id)
         {
             IdMatrice = idMatrice;
             MatriceNome = matriceNome;
@@ -62,10 +62,10 @@ namespace DataSourceSyeew.Entities
             Id = id;
         }
 
-        public QuantitativeData(int idMatrice, 
+        public QuantitativeData(double idMatrice, 
                                 string matriceNome, 
                                 string idTipoDiAttività, 
-                                int idCat, 
+                                double idCat, 
                                 string cat1, 
                                 string idx, 
                                 DateTime dt, 

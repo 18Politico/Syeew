@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230112214610_InitialCreate")]
+    [Migration("20230112230641_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -61,11 +61,9 @@ namespace DataSourceSyeew.Migrations
 
             modelBuilder.Entity("DataSourceSyeew.Entities.QuantitativeData", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<double>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                        .HasColumnType("float");
 
                     b.Property<string>("Cat1")
                         .IsRequired()
@@ -80,11 +78,11 @@ namespace DataSourceSyeew.Migrations
                     b.Property<double>("FattIvato")
                         .HasColumnType("float");
 
-                    b.Property<int>("IdCat")
-                        .HasColumnType("int");
+                    b.Property<double>("IdCat")
+                        .HasColumnType("float");
 
-                    b.Property<int>("IdMatrice")
-                        .HasColumnType("int");
+                    b.Property<double>("IdMatrice")
+                        .HasColumnType("float");
 
                     b.Property<string>("IdTipoDiAttivita")
                         .IsRequired()

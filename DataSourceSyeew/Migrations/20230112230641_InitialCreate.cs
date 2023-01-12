@@ -34,12 +34,11 @@ namespace DataSourceSyeew.Migrations
                 name: "QuantitativeDatas",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdMatrice = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<double>(type: "float", nullable: false),
+                    IdMatrice = table.Column<double>(type: "float", nullable: false),
                     MatriceNome = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IdTipoDiAttivita = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdCat = table.Column<int>(type: "int", nullable: false),
+                    IdCat = table.Column<double>(type: "float", nullable: false),
                     Cat1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Idx = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Dt = table.Column<DateTime>(type: "date", nullable: false),

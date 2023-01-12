@@ -9,13 +9,13 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
 {
     public interface IQuantitativeData
     {
-        int  IdMatrice { get; set; }
+        double  IdMatrice { get; set; }
 
         string MatriceNome { get; set; } //FOREIGN_KEY!!!!!!!!
 
         string IdTipoDiAttivita { get; set; }
 
-        int IdCat { get; set; }
+        double IdCat { get; set; }
 
         string Cat1 { get; set; }
 
@@ -35,7 +35,7 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
 
         double Dim { get; set; }
 
-        long Id { get; set; }
+        double Id { get; set; }
 
         //Guid IdCompany { get; set; }
 
