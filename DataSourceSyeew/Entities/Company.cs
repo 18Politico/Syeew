@@ -17,6 +17,7 @@ namespace DataSourceSyeew.Entities
         public string? RagioneSociale { get; set; }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string NomeAttivita { get; set; }
         public string? TipoAttivita { get; set; }
         public string? Gestionale { get; set; }
