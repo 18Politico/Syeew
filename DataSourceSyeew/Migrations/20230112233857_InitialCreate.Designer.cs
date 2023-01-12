@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230112230641_InitialCreate")]
+    [Migration("20230112233857_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -66,10 +66,9 @@ namespace DataSourceSyeew.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Cat1")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Dim")
+                    b.Property<double?>("Dim")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("Dt")
@@ -78,24 +77,22 @@ namespace DataSourceSyeew.Migrations
                     b.Property<double>("FattIvato")
                         .HasColumnType("float");
 
-                    b.Property<double>("IdCat")
+                    b.Property<double?>("IdCat")
                         .HasColumnType("float");
 
-                    b.Property<double>("IdMatrice")
+                    b.Property<double?>("IdMatrice")
                         .HasColumnType("float");
 
                     b.Property<string>("IdTipoDiAttivita")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Idx")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Iva")
+                    b.Property<double?>("Iva")
                         .HasColumnType("float");
 
-                    b.Property<bool>("Lavorato")
+                    b.Property<bool?>("Lavorato")
                         .HasColumnType("bit");
 
                     b.Property<string>("MatriceNome")
