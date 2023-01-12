@@ -14,7 +14,7 @@ namespace DataSourceSyeew.Entities
     public class Company : ICompany
     {
         
-        public string RagioneSociale { get; set; }
+        public string? RagioneSociale { get; set; }
 
         [Key]
         public string NomeAttivita { get; set; }
@@ -31,9 +31,9 @@ namespace DataSourceSyeew.Entities
 
         public Company() { }
 
-        public Company(string ragioneSociale, 
+        public Company(string? ragioneSociale, 
                        string nomeAttivita, 
-                       string tipoAttivita, 
+                       string? tipoAttivita, 
                        string? gestionale, 
                        string? dimensioneFatturato, 
                        string? dimensioneAddetti, 

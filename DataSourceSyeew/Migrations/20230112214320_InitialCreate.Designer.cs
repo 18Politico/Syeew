@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230112213025_InitialCreate")]
+    [Migration("20230112214320_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,7 +49,6 @@ namespace DataSourceSyeew.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RagioneSociale")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TipoAttivita")

@@ -46,7 +46,6 @@ namespace DataSourceSyeew.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RagioneSociale")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TipoAttivita")
