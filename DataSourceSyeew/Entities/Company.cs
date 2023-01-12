@@ -18,7 +18,7 @@ namespace DataSourceSyeew.Entities
 
         [Key]
         public string NomeAttivita { get; set; }
-        public string TipoAttivita { get; set; }
+        public string? TipoAttivita { get; set; }
         public string? Gestionale { get; set; }
 
         public string? DimensioneFatturato { get; set; }
