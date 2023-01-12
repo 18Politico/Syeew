@@ -12,9 +12,9 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
         string NomeAttivita { get; set; }
         string TipoAttivita { get; set; }
 
-        ManegementSystem Gestionale { get; set; }
-        Dimention DimensioneFatturato { get; set; }
-        Dimention DimensioneAddetti { get; set; }
+        string Gestionale { get; set; }
+        string DimensioneFatturato { get; set; }
+        string DimensioneAddetti { get; set; }
 
         string Indirizzo { get; set; }
         string Citta { get; set; }

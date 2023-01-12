@@ -18,9 +18,9 @@ namespace DataSourceSyeew.Entities
         [Key]
         public string NomeAttivita { get; set; }
         public string TipoAttivita { get; set; }
-        public ManegementSystem Gestionale { get; set; }
-        public Dimention DimensioneFatturato { get; set; }
-        public Dimention DimensioneAddetti { get; set; }
+        public string Gestionale { get; set; }
+        public string DimensioneFatturato { get; set; }
+        public string DimensioneAddetti { get; set; }
         public string Indirizzo { get; set; }
         public string Citta { get; set; }
         public string Provincia { get; set; }
@@ -31,9 +31,9 @@ namespace DataSourceSyeew.Entities
         public Company(string ragioneSociale, 
                        string nomeAttivita, 
                        string tipoAttivita, 
-                       ManegementSystem gestionale, 
-                       Dimention dimensioneFatturato, 
-                       Dimention dimensioneAddetti, 
+                       string gestionale, 
+                       string dimensioneFatturato, 
+                       string dimensioneAddetti, 
                        string indirizzo, 
                        string citta, 
                        string provincia)
