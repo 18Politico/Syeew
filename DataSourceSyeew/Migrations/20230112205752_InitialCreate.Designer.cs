@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230112093340_InitialCreate")]
+    [Migration("20230112205752_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,14 +34,17 @@ namespace DataSourceSyeew.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DimensioneAddetti")
-                        .HasColumnType("int");
+                    b.Property<string>("DimensioneAddetti")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DimensioneFatturato")
-                        .HasColumnType("int");
+                    b.Property<string>("DimensioneFatturato")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gestionale")
-                        .HasColumnType("int");
+                    b.Property<string>("Gestionale")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Indirizzo")
                         .IsRequired()

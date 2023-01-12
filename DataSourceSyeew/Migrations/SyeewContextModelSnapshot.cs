@@ -31,14 +31,17 @@ namespace DataSourceSyeew.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DimensioneAddetti")
-                        .HasColumnType("int");
+                    b.Property<string>("DimensioneAddetti")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DimensioneFatturato")
-                        .HasColumnType("int");
+                    b.Property<string>("DimensioneFatturato")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gestionale")
-                        .HasColumnType("int");
+                    b.Property<string>("Gestionale")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Indirizzo")
                         .IsRequired()

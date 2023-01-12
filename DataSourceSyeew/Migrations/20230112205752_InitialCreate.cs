@@ -18,9 +18,9 @@ namespace DataSourceSyeew.Migrations
                     NomeAttivita = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RagioneSociale = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoAttivita = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gestionale = table.Column<int>(type: "int", nullable: false),
-                    DimensioneFatturato = table.Column<int>(type: "int", nullable: false),
-                    DimensioneAddetti = table.Column<int>(type: "int", nullable: false),
+                    Gestionale = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DimensioneFatturato = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DimensioneAddetti = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Indirizzo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Citta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Provincia = table.Column<string>(type: "nvarchar(max)", nullable: false)
