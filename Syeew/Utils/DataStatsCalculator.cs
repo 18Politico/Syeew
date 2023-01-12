@@ -24,7 +24,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -37,7 +37,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -50,7 +50,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -63,7 +63,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -76,7 +76,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -89,7 +89,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -102,7 +102,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -115,7 +115,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,
@@ -128,7 +128,7 @@ namespace Syeew.Utils
             var result = new LinkedList<StatisticalAnalysis>();
 
             var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttività,
+                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
                                                                                            date.Day,
                                                                                            date.Month,
                                                                                            date.Year,

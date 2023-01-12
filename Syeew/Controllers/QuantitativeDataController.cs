@@ -41,7 +41,7 @@ namespace Syeew.Controllers
             try
             {
                 return Ok(await _quantitativeDataRepository.GetBy(qD => 
-                            new ValueTask<bool>(qD.Company.NomeAttività.ToLower()
+                            new ValueTask<bool>(qD.Company.NomeAttivita.ToLower()
                                                 .Contains(companyWithName.ToLower())))
                         );
             }

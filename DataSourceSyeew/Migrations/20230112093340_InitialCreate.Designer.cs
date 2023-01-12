@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230110192741_FirstCreate")]
-    partial class FirstCreate
+    [Migration("20230112093340_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,10 +27,10 @@ namespace DataSourceSyeew.Migrations
 
             modelBuilder.Entity("DataSourceSyeew.Entities.Company", b =>
                 {
-                    b.Property<string>("NomeAttività")
+                    b.Property<string>("NomeAttivita")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Città")
+                    b.Property<string>("Citta")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -55,11 +55,11 @@ namespace DataSourceSyeew.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TipoAttività")
+                    b.Property<string>("TipoAttivita")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("NomeAttività");
+                    b.HasKey("NomeAttivita");
 
                     b.ToTable("Companies");
                 });
@@ -91,7 +91,7 @@ namespace DataSourceSyeew.Migrations
                     b.Property<int>("IdMatrice")
                         .HasColumnType("int");
 
-                    b.Property<string>("IdTipoDiAttività")
+                    b.Property<string>("IdTipoDiAttivita")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

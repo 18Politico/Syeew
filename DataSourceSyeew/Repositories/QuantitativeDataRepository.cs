@@ -48,7 +48,7 @@ namespace DataSourceSyeew.Repositories
         {
             var data = new QuantitativeData(qD.IdMatrice, 
                                             qD.MatriceNome, 
-                                            qD.IdTipoDiAttività, 
+                                            qD.IdTipoDiAttivita, 
                                             qD.IdCat, 
                                             qD.Cat1, 
                                             qD.Idx, 

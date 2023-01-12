@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataSourceSyeew.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,19 +15,19 @@ namespace DataSourceSyeew.Migrations
                 name: "Companies",
                 columns: table => new
                 {
-                    NomeAttività = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    NomeAttivita = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     RagioneSociale = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoAttività = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoAttivita = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gestionale = table.Column<int>(type: "int", nullable: false),
                     DimensioneFatturato = table.Column<int>(type: "int", nullable: false),
                     DimensioneAddetti = table.Column<int>(type: "int", nullable: false),
                     Indirizzo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Città = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Citta = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Provincia = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companies", x => x.NomeAttività);
+                    table.PrimaryKey("PK_Companies", x => x.NomeAttivita);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,7 +38,7 @@ namespace DataSourceSyeew.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdMatrice = table.Column<int>(type: "int", nullable: false),
                     MatriceNome = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdTipoDiAttività = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdTipoDiAttivita = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IdCat = table.Column<int>(type: "int", nullable: false),
                     Cat1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Idx = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -57,7 +57,7 @@ namespace DataSourceSyeew.Migrations
                         name: "FK_QuantitativeDatas_Companies_MatriceNome",
                         column: x => x.MatriceNome,
                         principalTable: "Companies",
-                        principalColumn: "NomeAttività",
+                        principalColumn: "NomeAttivita",
                         onDelete: ReferentialAction.Cascade);
                 });
 

@@ -9,9 +9,9 @@ namespace DataSourceSyeew.Entities
     {
         public int IdMatrice { get; set; }
 
-        [ForeignKey("NomeNomeAttività")]
+        [ForeignKey("NomeAttivita")]
         public string MatriceNome { get; set; }
-        public string IdTipoDiAttività { get; set; }
+        public string IdTipoDiAttivita { get; set; }
         public int IdCat { get; set; }
         public string Cat1 { get; set; }
         public string Idx { get; set; }
@@ -30,6 +30,7 @@ namespace DataSourceSyeew.Entities
         //public Guid IdCompany { get; set; }
         virtual public Company Company { get; set; }
 
+        QuantitativeData() { }
         public QuantitativeData(int idMatrice, 
                                 string matriceNome, 
                                 string idTipoDiAttività, 
@@ -47,7 +48,7 @@ namespace DataSourceSyeew.Entities
         {
             IdMatrice = idMatrice;
             MatriceNome = matriceNome;
-            IdTipoDiAttività = idTipoDiAttività;
+            IdTipoDiAttivita = idTipoDiAttività;
             IdCat = idCat;
             Cat1 = cat1;
             Idx = idx;
@@ -77,7 +78,7 @@ namespace DataSourceSyeew.Entities
         {
             IdMatrice = idMatrice;
             MatriceNome = matriceNome;
-            IdTipoDiAttività = idTipoDiAttività;
+            IdTipoDiAttivita = idTipoDiAttività;
             IdCat = idCat;
             Cat1 = cat1;
             Idx = idx;

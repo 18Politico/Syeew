@@ -9,15 +9,15 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
     public interface ICompany
     {
         string RagioneSociale { get; set; }
-        string NomeAttività { get; set; }
-        string TipoAttività { get; set; }
+        string NomeAttivita { get; set; }
+        string TipoAttivita { get; set; }
 
         ManegementSystem Gestionale { get; set; }
         Dimention DimensioneFatturato { get; set; }
         Dimention DimensioneAddetti { get; set; }
 
         string Indirizzo { get; set; }
-        string Città { get; set; }
+        string Citta { get; set; }
         string Provincia { get; set; }
 
         ICollection<QuantitativeData> Datas { get; set; }

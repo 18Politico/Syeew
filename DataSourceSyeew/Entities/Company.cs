@@ -16,34 +16,36 @@ namespace DataSourceSyeew.Entities
         public string RagioneSociale { get; set; }
 
         [Key]
-        public string NomeAttività { get; set; }
-        public string TipoAttività { get; set; }
+        public string NomeAttivita { get; set; }
+        public string TipoAttivita { get; set; }
         public ManegementSystem Gestionale { get; set; }
         public Dimention DimensioneFatturato { get; set; }
         public Dimention DimensioneAddetti { get; set; }
         public string Indirizzo { get; set; }
-        public string Città { get; set; }
+        public string Citta { get; set; }
         public string Provincia { get; set; }
         public virtual ICollection<QuantitativeData> Datas { get; set; }
 
+        public Company() { }
+
         public Company(string ragioneSociale, 
-                       string nomeAttività, 
-                       string tipoAttività, 
+                       string nomeAttivita, 
+                       string tipoAttivita, 
                        ManegementSystem gestionale, 
                        Dimention dimensioneFatturato, 
                        Dimention dimensioneAddetti, 
                        string indirizzo, 
-                       string città, 
+                       string citta, 
                        string provincia)
         {
             RagioneSociale = ragioneSociale;
-            NomeAttività = nomeAttività;
-            TipoAttività = tipoAttività;
+            NomeAttivita = nomeAttivita;
+            TipoAttivita = tipoAttivita;
             Gestionale = gestionale;
             DimensioneFatturato = dimensioneFatturato;
             DimensioneAddetti = dimensioneAddetti;
             Indirizzo = indirizzo;
-            Città = città;
+            Citta = citta;
             Provincia = provincia;
         }
     }
