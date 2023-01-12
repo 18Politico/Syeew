@@ -24,9 +24,9 @@ namespace DataSourceSyeew.Entities
         public string? DimensioneFatturato { get; set; }
 
         public string? DimensioneAddetti { get; set; }
-        public string Indirizzo { get; set; }
-        public string Citta { get; set; }
-        public string Provincia { get; set; }
+        public string? Indirizzo { get; set; }
+        public string? Citta { get; set; }
+        public string? Provincia { get; set; }
         public virtual ICollection<QuantitativeData> Datas { get; set; }
 
         public Company() { }
@@ -34,12 +34,12 @@ namespace DataSourceSyeew.Entities
         public Company(string ragioneSociale, 
                        string nomeAttivita, 
                        string tipoAttivita, 
-                       string gestionale, 
-                       string dimensioneFatturato, 
-                       string dimensioneAddetti, 
-                       string indirizzo, 
-                       string citta, 
-                       string provincia)
+                       string? gestionale, 
+                       string? dimensioneFatturato, 
+                       string? dimensioneAddetti, 
+                       string? indirizzo, 
+                       string? citta, 
+                       string? provincia)
         {
             RagioneSociale = ragioneSociale;
             NomeAttivita = nomeAttivita;

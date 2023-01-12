@@ -28,7 +28,6 @@ namespace DataSourceSyeew.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Citta")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DimensioneAddetti")
@@ -41,11 +40,9 @@ namespace DataSourceSyeew.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Indirizzo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Provincia")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RagioneSociale")

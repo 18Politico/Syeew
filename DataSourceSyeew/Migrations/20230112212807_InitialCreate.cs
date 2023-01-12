@@ -21,9 +21,9 @@ namespace DataSourceSyeew.Migrations
                     Gestionale = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DimensioneFatturato = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DimensioneAddetti = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Indirizzo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Citta = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Provincia = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Indirizzo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Citta = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Provincia = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
