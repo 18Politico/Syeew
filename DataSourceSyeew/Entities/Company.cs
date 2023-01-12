@@ -19,13 +19,11 @@ namespace DataSourceSyeew.Entities
         [Key]
         public string NomeAttivita { get; set; }
         public string TipoAttivita { get; set; }
-        public string Gestionale { get; set; }
+        public string? Gestionale { get; set; }
 
-        [AllowNull]
-        public string DimensioneFatturato { get; set; }
+        public string? DimensioneFatturato { get; set; }
 
-        [AllowNull]
-        public string DimensioneAddetti { get; set; }
+        public string? DimensioneAddetti { get; set; }
         public string Indirizzo { get; set; }
         public string Citta { get; set; }
         public string Provincia { get; set; }
