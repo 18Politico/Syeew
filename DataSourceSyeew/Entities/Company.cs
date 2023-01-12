@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataSourceSyeew.Entities
 {
@@ -19,7 +20,11 @@ namespace DataSourceSyeew.Entities
         public string NomeAttivita { get; set; }
         public string TipoAttivita { get; set; }
         public string Gestionale { get; set; }
+
+        [AllowNull]
         public string DimensioneFatturato { get; set; }
+
+        [AllowNull]
         public string DimensioneAddetti { get; set; }
         public string Indirizzo { get; set; }
         public string Citta { get; set; }
