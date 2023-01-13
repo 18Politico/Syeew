@@ -19,230 +19,230 @@ namespace Syeew.Controllers
             DataStatsCalculator = DataStatsCalculator.GetIstance();
         }
 
-        [HttpGet("/average/nets")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> NetsAverageBy([FromQuery] string companyName,
-                                                                                         [FromQuery] DateTime from,
-                                                                                         [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/average/nets")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> NetsAverageBy([FromQuery] string companyName,
+        //                                                                                 [FromQuery] DateTime from,
+        //                                                                                 [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.NetsAverage(datas);
+        //        var stats = DataStatsCalculator.NetsAverage(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/average/revenuesWithIva")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> RevenuesWithIvaAverageBy([FromQuery] string companyName,
-                                                                                                   [FromQuery] DateTime from,
-                                                                                                   [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/average/revenuesWithIva")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> RevenuesWithIvaAverageBy([FromQuery] string companyName,
+        //                                                                                           [FromQuery] DateTime from,
+        //                                                                                           [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.RevenuesWithIvaAverage(datas);
+        //        var stats = DataStatsCalculator.RevenuesWithIvaAverage(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/average/qtys")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> QtysAverageBy([FromQuery] string companyName,
-                                                                                        [FromQuery] DateTime from,
-                                                                                        [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/average/qtys")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> QtysAverageBy([FromQuery] string companyName,
+        //                                                                                [FromQuery] DateTime from,
+        //                                                                                [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.QtysAverage(datas);
+        //        var stats = DataStatsCalculator.QtysAverage(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/mode/nets")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> NetsModeBy([FromQuery] string companyName,
-                                                                                     [FromQuery] DateTime from,
-                                                                                     [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/mode/nets")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> NetsModeBy([FromQuery] string companyName,
+        //                                                                             [FromQuery] DateTime from,
+        //                                                                             [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.NetsMode(datas);
+        //        var stats = DataStatsCalculator.NetsMode(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/mode/revenuesWithIva")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> RevenuesWithIvaModeBy([FromQuery] string companyName,
-                                                                                                [FromQuery] DateTime from,
-                                                                                                [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/mode/revenuesWithIva")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> RevenuesWithIvaModeBy([FromQuery] string companyName,
+        //                                                                                        [FromQuery] DateTime from,
+        //                                                                                        [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.RevenuesWithIvaMode(datas);
+        //        var stats = DataStatsCalculator.RevenuesWithIvaMode(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/mode/qtys")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> QtysModeBy([FromQuery] string companyName,
-                                                                                     [FromQuery] DateTime from,
-                                                                                     [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/mode/qtys")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> QtysModeBy([FromQuery] string companyName,
+        //                                                                             [FromQuery] DateTime from,
+        //                                                                             [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.QtysMode(datas);
+        //        var stats = DataStatsCalculator.QtysMode(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/median/nets")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> NetsMedianBy([FromQuery] string companyName,
-                                                                                       [FromQuery] DateTime from,
-                                                                                       [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/median/nets")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> NetsMedianBy([FromQuery] string companyName,
+        //                                                                               [FromQuery] DateTime from,
+        //                                                                               [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.NetsMedian(datas);
+        //        var stats = DataStatsCalculator.NetsMedian(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/median/revenuesWithIva")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> RevenuesWithIvaMedianBy([FromQuery] string companyName,
-                                                                                                  [FromQuery] DateTime from,
-                                                                                                  [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/median/revenuesWithIva")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> RevenuesWithIvaMedianBy([FromQuery] string companyName,
+        //                                                                                          [FromQuery] DateTime from,
+        //                                                                                          [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.RevenuesWithIvaMedian(datas);
+        //        var stats = DataStatsCalculator.RevenuesWithIvaMedian(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
-        [HttpGet("/median/qtys")]
-        public async Task<ActionResult<ICollection<StatisticalAnalysis>>> QtysMedianBy([FromQuery] string companyName,
-                                                                                       [FromQuery] DateTime from,
-                                                                                       [FromQuery] DateTime to)
-        {
-            try
-            {
-                var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
-                                                                                                    && DataDateIsBetween(qD.Dt, from, to)));
+        //[HttpGet("/median/qtys")]
+        //public async Task<ActionResult<ICollection<StatisticalAnalysis>>> QtysMedianBy([FromQuery] string companyName,
+        //                                                                               [FromQuery] DateTime from,
+        //                                                                               [FromQuery] DateTime to)
+        //{
+        //    try
+        //    {
+        //        var datas = await this._quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.Company.NomeAttivita.ToLower().Equals(companyName.ToLower())
+        //                                                                                            && DataDateIsBetween(qD.Dt, from, to)));
 
-                var stats = DataStatsCalculator.QtysMedian(datas);
+        //        var stats = DataStatsCalculator.QtysMedian(datas);
 
-                return Ok(stats);
+        //        return Ok(stats);
 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
-            }
-            finally
-            {
-                _quantitativeDataRepository.Dispose();
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, "Error" + ex);
+        //    }
+        //    finally
+        //    {
+        //        _quantitativeDataRepository.Dispose();
+        //    }
+        //}
 
         private bool DataDateIsBetween(DateTime dtDate, DateTime from, DateTime to)
         {

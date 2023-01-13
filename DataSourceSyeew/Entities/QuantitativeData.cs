@@ -20,7 +20,7 @@ namespace DataSourceSyeew.Entities
         public double? Iva { get; set; }
         public double FattIvato { get; set; }
         public double Qta { get; set; }
-        public bool? Lavorato { get; set; }
+        public double? Lavorato { get; set; }
         public double? Dim { get; set; }
 
         [Key]
@@ -43,7 +43,7 @@ namespace DataSourceSyeew.Entities
                                 double? iva,
                                 double fattIvato,
                                 double qta,
-                                bool? lavorato,
+                                double? lavorato,
                                 double? dim,
                                 double id)
         {
@@ -68,13 +68,13 @@ namespace DataSourceSyeew.Entities
                                 string? idTipoDiAttivita, 
                                 double? idCat, 
                                 string? cat1, 
-                                string? idx, 
+                                string? idx,
                                 DateTime dt, 
                                 double netto, 
                                 double? iva, 
                                 double fattIvato, 
                                 double qta, 
-                                bool? lavorato, 
+                                double? lavorato, 
                                 double? dim)
         {
             IdMatrice = idMatrice;

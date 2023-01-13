@@ -46,7 +46,7 @@ namespace DataSourceSyeew.Migrations
                     Iva = table.Column<double>(type: "float", nullable: true),
                     FattIvato = table.Column<double>(type: "float", nullable: false),
                     Qta = table.Column<double>(type: "float", nullable: false),
-                    Lavorato = table.Column<bool>(type: "bit", nullable: true),
+                    Lavorato = table.Column<double>(type: "float", nullable: true),
                     Dim = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>

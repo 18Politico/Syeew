@@ -19,122 +19,122 @@ namespace Syeew.Utils
             return Istance;
         }
 
-        public ICollection<StatisticalAnalysis> NetsAverage(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> NetsAverage(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateAverage(NetsFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateAverage(NetsFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> RevenuesWithIvaAverage(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> RevenuesWithIvaAverage(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateAverage(RevenueWithIvasFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateAverage(RevenueWithIvasFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> QtysAverage(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> QtysAverage(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateAverage(QtysFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateAverage(QtysFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> NetsMode(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> NetsMode(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateMode(NetsFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateMode(NetsFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> RevenuesWithIvaMode(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> RevenuesWithIvaMode(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateMode(RevenueWithIvasFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateMode(RevenueWithIvasFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> QtysMode(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> QtysMode(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateMode(QtysFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateMode(QtysFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> NetsMedian(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> NetsMedian(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateMedian(NetsFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateMedian(NetsFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> RevenuesWithIvaMedian(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> RevenuesWithIvaMedian(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateMedian(RevenueWithIvasFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateMedian(RevenueWithIvasFrom(group)))));
+        //    return result;
+        //}
 
-        public ICollection<StatisticalAnalysis> QtysMedian(ICollection<QuantitativeData> datas)
-        {
-            var result = new LinkedList<StatisticalAnalysis>();
+        //public ICollection<StatisticalAnalysis> QtysMedian(ICollection<QuantitativeData> datas)
+        //{
+        //    var result = new LinkedList<StatisticalAnalysis>();
 
-            var res = datas.GroupBy(dt => dt.Dt,
-                                   (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
-                                                                                           date.Day,
-                                                                                           date.Month,
-                                                                                           date.Year,
-                                                                                           CalculateMedian(QtysFrom(group)))));
-            return result;
-        }
+        //    var res = datas.GroupBy(dt => dt.Dt,
+        //                           (date, group) => result.AddLast(new StatisticalAnalysis(group.First().Company.NomeAttivita,
+        //                                                                                   date.Day,
+        //                                                                                   date.Month,
+        //                                                                                   date.Year,
+        //                                                                                   CalculateMedian(QtysFrom(group)))));
+        //    return result;
+        //}
 
         private double[] NetsFrom(IEnumerable<IQuantitativeData> group)
         {

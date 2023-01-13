@@ -89,8 +89,8 @@ namespace DataSourceSyeew.Migrations
                     b.Property<double?>("Iva")
                         .HasColumnType("float");
 
-                    b.Property<bool?>("Lavorato")
-                        .HasColumnType("bit");
+                    b.Property<double?>("Lavorato")
+                        .HasColumnType("float");
 
                     b.Property<string>("MatriceNome")
                         .IsRequired()
