@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230112235303_InitialCreate")]
+    [Migration("20230113004256_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -92,8 +92,8 @@ namespace DataSourceSyeew.Migrations
                     b.Property<double?>("Iva")
                         .HasColumnType("float");
 
-                    b.Property<double?>("Lavorato")
-                        .HasColumnType("float");
+                    b.Property<bool?>("Lavorato")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MatriceNome")
                         .IsRequired()

@@ -31,7 +31,7 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
 
         double Qta { get; set; }
 
-        double? Lavorato { get; set; }
+        bool? Lavorato { get; set; }
 
         double? Dim { get; set; }
 
