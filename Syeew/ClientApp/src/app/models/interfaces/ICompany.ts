@@ -7,9 +7,9 @@ export interface ICompany{
 
   ragioneSociale: string;
 
-  nomeAttività: string;
+  nomeAttivita: string;
 
-  tipoAttività: string;
+  tipoAttivita: string;
 
   gestionale: ManegementSystem;
 
@@ -19,7 +19,7 @@ export interface ICompany{
 
   indirizzo: string;
 
-  città: string;
+  citta: string;
 
   provincia: string;
 

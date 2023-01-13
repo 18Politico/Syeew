@@ -6,7 +6,7 @@ export class QuantitativeData implements IQuantitativeData {
 
   idMatrice!: number;
   matriceNome!: string;
-  idTipoDiAttività!: string;
+  idTipoDiAttivita!: string;
   idCat!: number;
   cat1!: string;
   idx!: string;

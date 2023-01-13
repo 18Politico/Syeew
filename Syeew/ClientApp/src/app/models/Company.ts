@@ -7,13 +7,13 @@ import { TypeOfCompany } from "./TypeOfCompany";
 export class Company implements ICompany{
 
   ragioneSociale!: string;
-  nomeAttività!: string;
-  tipoAttività!: string;
+  nomeAttivita!: string;
+  tipoAttivita!: string;
   gestionale!: ManegementSystem;
   dimensioneFatturato!: Dimention;
   dimensioneAddetti!: Dimention;
   indirizzo!: string;
-  città!: string;
+  citta!: string;
   provincia!: string;
   datas!: IQuantitativeData[];
 

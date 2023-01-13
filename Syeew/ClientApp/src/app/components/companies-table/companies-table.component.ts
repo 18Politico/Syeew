@@ -77,17 +77,17 @@ export class CompaniesTableComponent implements OnInit{
   }
 
   private filterWithDropDowns(){
-    this.dataSource = this.companies.filter(c => c.nomeAttività.toLocaleLowerCase()
+    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
                                                           .includes(this.filteringName.toLocaleLowerCase()))
-                                            .filter(c => c.città.toLocaleLowerCase()
+                                            .filter(c => c.citta.toLocaleLowerCase()
                                                           .includes(this.filteringCity.toLocaleLowerCase()))
-                                            .filter(c => c.tipoAttività === this.selTypeOfCmp);
+                                            .filter(c => c.tipoAttivita === this.selTypeOfCmp);
   }
 
   private filterWithoutDropDowns(){
-    this.dataSource = this.companies.filter(c => c.nomeAttività.toLocaleLowerCase()
+    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
                                                           .includes(this.filteringName.toLocaleLowerCase()))
-                                            .filter(c => c.città.toLocaleLowerCase()
+                                            .filter(c => c.citta.toLocaleLowerCase()
                                                           .includes(this.filteringCity.toLocaleLowerCase()))
   }
 
@@ -103,7 +103,7 @@ export class CompaniesTableComponent implements OnInit{
   }
 
   goToDatas(selectedCompany: ICompany){
-    this._router.navigate(["aziende/" + selectedCompany.nomeAttività]);
+    this._router.navigate(["aziende/" + selectedCompany.nomeAttivita]);
   }
 
   ngOnInit(): void {

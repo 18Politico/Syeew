@@ -67,7 +67,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this._serviceData.DatasOf(this.selectedCompany.nomeAttività).subscribe((dt) => {
+    this._serviceData.DatasOf(this.selectedCompany.nomeAttivita).subscribe((dt) => {
       this.companyData = dt
       this.generatePlot(this.nameChart)
     })
