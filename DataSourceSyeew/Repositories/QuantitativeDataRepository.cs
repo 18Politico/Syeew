@@ -36,7 +36,7 @@ namespace DataSourceSyeew.Repositories
 
         public async Task<ICollection<QuantitativeData>> GetQuantitativeDatas()
         {
-            return await _context.QuantitativeDatas.Include(qD => qD.Company).ToListAsync();
+            return await _context.QuantitativeDatas.ToListAsync();
         }
 
         public async Task<ICollection<QuantitativeData>> GetBy(Func<QuantitativeData, ValueTask<bool>> predicate)
