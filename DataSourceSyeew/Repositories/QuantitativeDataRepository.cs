@@ -41,7 +41,7 @@ namespace DataSourceSyeew.Repositories
 
         public async Task<ICollection<QuantitativeData>> GetBy(Func<QuantitativeData, ValueTask<bool>> predicate)
         {
-            return await _context.QuantitativeDatas.Include(qD => qD.Company).AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
+            return await _context.QuantitativeDatas.AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
         }
 
         public async Task<QuantitativeData> Add(QuantitativeData qD)
