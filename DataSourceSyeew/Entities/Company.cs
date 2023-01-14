@@ -14,17 +14,21 @@ namespace DataSourceSyeew.Entities
     public class Company : ICompany
     {
         
-        public string? RagioneSociale { get; set; }
+        public string RagioneSociale { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string NomeAttivita { get; set; }
         public string? TipoAttivita { get; set; }
-        public string? Gestionale { get; set; }
 
-        public string? DimensioneFatturato { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ManegementSystem? Gestionale { get; set; }
 
-        public string? DimensioneAddetti { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Dimention? DimensioneFatturato { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Dimention? DimensioneAddetti { get; set; }
         public string? Indirizzo { get; set; }
         public string? Citta { get; set; }
         public string? Provincia { get; set; }
@@ -32,12 +36,12 @@ namespace DataSourceSyeew.Entities
 
         public Company() { }
 
-        public Company(string? ragioneSociale, 
+        public Company(string ragioneSociale, 
                        string nomeAttivita, 
                        string? tipoAttivita, 
-                       string? gestionale, 
-                       string? dimensioneFatturato, 
-                       string? dimensioneAddetti, 
+                       ManegementSystem? gestionale, 
+                       Dimention? dimensioneFatturato, 
+                       Dimention? dimensioneAddetti, 
                        string? indirizzo, 
                        string? citta, 
                        string? provincia)

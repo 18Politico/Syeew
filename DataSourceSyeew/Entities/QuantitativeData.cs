@@ -7,23 +7,25 @@ namespace DataSourceSyeew.Entities
 {
     public class QuantitativeData : IQuantitativeData
     {
-        public double? IdMatrice { get; set; }
+        public double IdMatrice { get; set; }
 
         [ForeignKey("NomeAttivita")]
         public string MatriceNome { get; set; }
-        public string? IdTipoDiAttivita { get; set; }
-        public double? IdCat { get; set; }
-        public string? Cat1 { get; set; }
-        public string? Idx { get; set; }
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public TypeOfCompany IdTipoDiAttivita { get; set; }
+        public double IdCat { get; set; }
+        public string Cat1 { get; set; }
+        public string Idx { get; set; }
         public DateTime Dt { get; set; }
         public double Netto { get; set; }
-        public double? Iva { get; set; }
+        public double Iva { get; set; }
         public double FattIvato { get; set; }
         public double Qta { get; set; }
 
 
-        public bool? Lavorato { get; set; }
-        public double? Dim { get; set; }
+        public bool Lavorato { get; set; }
+        public double Dim { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -34,19 +36,19 @@ namespace DataSourceSyeew.Entities
 
         QuantitativeData() { }
 
-        public QuantitativeData(double? idMatrice,
+        public QuantitativeData(double idMatrice,
                                 string matriceNome,
-                                string? idTipoDiAttivita,
-                                double? idCat,
-                                string? cat1,
-                                string? idx,
+                                TypeOfCompany idTipoDiAttivita,
+                                double idCat,
+                                string cat1,
+                                string idx,
                                 DateTime dt,
                                 double netto,
-                                double? iva,
+                                double iva,
                                 double fattIvato,
                                 double qta,
-                                bool? lavorato,
-                                double? dim,
+                                bool lavorato,
+                                double dim,
                                 double id)
         {
             IdMatrice = idMatrice;
@@ -65,19 +67,19 @@ namespace DataSourceSyeew.Entities
             Id = id;
         }
 
-        public QuantitativeData(double? idMatrice, 
+        public QuantitativeData(double idMatrice, 
                                 string matriceNome, 
-                                string? idTipoDiAttivita, 
-                                double? idCat, 
-                                string? cat1, 
-                                string? idx,
+                                TypeOfCompany idTipoDiAttivita, 
+                                double idCat, 
+                                string cat1, 
+                                string idx,
                                 DateTime dt, 
                                 double netto, 
-                                double? iva, 
+                                double iva, 
                                 double fattIvato, 
                                 double qta, 
-                                bool? lavorato, 
-                                double? dim)
+                                bool lavorato, 
+                                double dim)
         {
             IdMatrice = idMatrice;
             MatriceNome = matriceNome;

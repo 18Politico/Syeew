@@ -7,7 +7,7 @@ export interface IQuantitativeData{
 
   matriceNome: string;
 
-  idTipoDiAttivita: string;
+  idTipoDiAttivita: TypeOfCompany;
 
   idCat: number;
 

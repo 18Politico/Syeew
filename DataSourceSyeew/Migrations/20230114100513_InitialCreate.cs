@@ -16,7 +16,7 @@ namespace DataSourceSyeew.Migrations
                 columns: table => new
                 {
                     NomeAttivita = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RagioneSociale = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RagioneSociale = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoAttivita = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gestionale = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DimensioneFatturato = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -35,19 +35,19 @@ namespace DataSourceSyeew.Migrations
                 columns: table => new
                 {
                     Id = table.Column<double>(type: "float", nullable: false),
-                    IdMatrice = table.Column<double>(type: "float", nullable: true),
+                    IdMatrice = table.Column<double>(type: "float", nullable: false),
                     MatriceNome = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdTipoDiAttivita = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdCat = table.Column<double>(type: "float", nullable: true),
-                    Cat1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Idx = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdTipoDiAttivita = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdCat = table.Column<double>(type: "float", nullable: false),
+                    Cat1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Idx = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Dt = table.Column<DateTime>(type: "date", nullable: false),
                     Netto = table.Column<double>(type: "float", nullable: false),
-                    Iva = table.Column<double>(type: "float", nullable: true),
+                    Iva = table.Column<double>(type: "float", nullable: false),
                     FattIvato = table.Column<double>(type: "float", nullable: false),
                     Qta = table.Column<double>(type: "float", nullable: false),
-                    Lavorato = table.Column<bool>(type: "bit", nullable: true),
-                    Dim = table.Column<double>(type: "float", nullable: true)
+                    Lavorato = table.Column<bool>(type: "bit", nullable: false),
+                    Dim = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {

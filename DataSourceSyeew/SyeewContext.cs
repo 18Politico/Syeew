@@ -1,5 +1,6 @@
 ﻿using DataSourceSyeew.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,28 @@ namespace DataSourceSyeew
                 .WithOne(qD => qD.Company)
                 .HasForeignKey(qD => qD.MatriceNome);
 
-            modelBuilder.Entity<QuantitativeData>().
-                Property(p => p.Dt)
+            modelBuilder.Entity<Company>()
+                .Property(c => c.Gestionale)
+                .HasConversion(new EnumToStringConverter<ManegementSystem>());
+
+            modelBuilder.Entity<Company>()
+                .Property(c => c.DimensioneAddetti)
+                .HasConversion(new EnumToStringConverter<Dimention>());
+
+            modelBuilder.Entity<Company>()
+                .Property(c => c.DimensioneFatturato)
+                .HasConversion(new EnumToStringConverter<Dimention>());
+
+
+            modelBuilder.Entity<QuantitativeData>()
+                .Property(qD => qD.Dt)
                 .HasColumnType("date");
+
+            modelBuilder.Entity<QuantitativeData>()
+                .Property(qD => qD.IdTipoDiAttivita)
+                .HasConversion(new EnumToStringConverter<TypeOfCompany>());
+
+
 
             //modelBuilder.Entity<QuantitativeData>()
             //    .HasOne<Company>(qD => qD.Company)

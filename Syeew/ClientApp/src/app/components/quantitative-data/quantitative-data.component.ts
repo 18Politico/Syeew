@@ -65,55 +65,55 @@ export class QuantitativeDataComponent implements OnInit {
     if (this.filtered.length != 0)
       this.filtered = [];
     this.quantitativeData.forEach(qD => {
-      this.dateCheck(qD, this.filtered)
+      this.dateCheck(qD)
     });
     //console.log("ECCO -->" + this.dateUntil.value + "_")
     this.dataSource = new MatTableDataSource<IQuantitativeData>(this.filtered);
     this.dataSource.paginator = this.paginator;
   }
 
-  private dateCheck(data: IQuantitativeData, filtered: IQuantitativeData[]){
+  private dateCheck(data: IQuantitativeData){
     if (this.dateFrom.valid
         && !this.dateUntil.valid)
-      this.dateFromCase(data, filtered);
+      this.dateFromCase(data);
     if (this.dateUntil.valid
         && !this.dateFrom.valid)
-      this.dateUntilCase(data, filtered);
+      this.dateUntilCase(data);
     if (this.dateUntil.valid
         && this.dateFrom.valid)
-      this.bothDatesCase(data, filtered);
+      this.bothDatesCase(data);
     return;
   }
 
-  private dateFromCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
+  private dateFromCase(data: IQuantitativeData) {
     var dateFrom =  new Date(this.dateFrom.value!)
     var dataDate = new Date(data.dt);
     //console.log("DATEFROM -> "+ dataDate.getTime())
     if (dateFrom.getTime() < dataDate.getTime()){
-      filtered.push(data)
+      this.filtered.push(data)
       //console.log("from CIao")
     //console.log(dateFrom)
     }
 
   }
 
-  private dateUntilCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
+  private dateUntilCase(data: IQuantitativeData) {
     var dateUntil = new Date(this.dateUntil.value!)
     var dataDate = new Date(data.dt);
     if (dataDate.getTime() <= dateUntil.getTime())
-      filtered.push(data)
+      this.filtered.push(data)
 
     console.log("until CIao")
     console.log(dateUntil)
   }
 
-  private bothDatesCase(data: IQuantitativeData, filtered: IQuantitativeData[]) {
+  private bothDatesCase(data: IQuantitativeData) {
     var dateFrom =  new Date(this.dateFrom.value!)
     var dateUntil = new Date(this.dateUntil.value!)
     var dataDate = new Date(data.dt);
     if (dateFrom.getTime() <= dataDate.getTime()
         && dataDate.getTime() <= dateUntil.getTime())
-      filtered.push(data)
+      this.filtered.push(data)
 
     //console.log("both CIao")
   }
