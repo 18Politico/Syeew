@@ -22,6 +22,8 @@ export class ParametersChartsComponent implements OnInit{
   yAxisChoice!: string;
   refreshIsDisabled!: boolean;
 
+  plotCanBeBuilt!: boolean;
+
   // disabledRadioButtonX!: boolean;
   // disabledRadioButtonY!: boolean;
 
@@ -35,8 +37,10 @@ export class ParametersChartsComponent implements OnInit{
     );
     this.xAxisChoice = ""
     this.yAxisChoice = ""
-    this.choises = Object.keys(new QuantitativeData())
+    var properties = Object.keys(new QuantitativeData())
+    this.choises = properties.slice(1, properties.length -1)
     this.refreshIsDisabled = true
+    this.plotCanBeBuilt = false;
   }
 
   openChart(chartName: string) {
@@ -60,21 +64,17 @@ export class ParametersChartsComponent implements OnInit{
   }
 
   VerifyRefresh(){
-
-
     if (this.xAxisChoice === "" || this.yAxisChoice === "")
         this.refreshIsDisabled = true;
     else if (this.xAxisChoice === this.yAxisChoice)
       this.refreshIsDisabled = true;
     else
       this.refreshIsDisabled = false;
-
-    console.log("x = " + this.xAxisChoice)
-    console.log("y = " + this.yAxisChoice)
-    console.log("dis = " + this.refreshIsDisabled)
   }
 
-  RefreshScatterPlot(){}
+  GenerateScatterPlot(){
+    this.plotCanBeBuilt = true;
+  }
 
   ngOnInit(): void {
     // this.choises = Object.keys(new QuantitativeData())

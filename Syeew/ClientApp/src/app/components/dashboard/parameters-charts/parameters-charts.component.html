@@ -42,10 +42,25 @@
               </mat-radio-button>
             </mat-radio-group>
           </div>
-          <button (click)="RefreshScatterPlot()" [disabled]="refreshIsDisabled">Aggiorna gratifico Scatter</button>
+          <button (click)="GenerateScatterPlot()" [disabled]="refreshIsDisabled">Aggiorna gratifico Scatter</button>
         </mat-card-content>
       </mat-card>
+    </mat-grid-tile>
 
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+
+          <div *ngIf="plotCanBeBuilt; else elseBlock">
+            <!-- <app-chart [nameChart]="card.nameChart" [xAxisScatter]="xAxisChoice" [yAxisScatter]="yAxisChoice"></app-chart> -->
+            <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
+          </div>
+          <ng-template #elseBlock>Seleziona le proprietà su cui vuoi costruire il grafico</ng-template>
+
+        </mat-card-content>
+      </mat-card>
     </mat-grid-tile>
 
 
