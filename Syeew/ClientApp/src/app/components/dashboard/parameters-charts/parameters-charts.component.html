@@ -1,11 +1,53 @@
 <p>parameters-charts works!</p>
 
 <div class="grid-container">
-
   <mat-grid-list cols="2" rowHeight="450px">
 
+    <!-- Scelta Parametri -->
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+
+        <!-- Bottone Help
+        <mat-card-header>
+          <mat-card-title>
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>help</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Help</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header> -->
+        <!-- Assi -->
+        <mat-card-content class="dashboard-card-content">
+          <!-- Asse X -->
+          <div>
+            <label id="example-radio-group-label"><h2>Asse X:</h2></label>
+            <mat-radio-group #xAxis aria-labelledby="example-radio-group-label" class="example-radio-group"
+              [(ngModel)]="xAxisChoice" (change)="VerifyRefresh()">
+              <mat-radio-button class="example-radio-button" *ngFor="let choice of choises" [value]="choice"
+                [color]="selectedColor" >
+                {{choice}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <!-- Asse Y -->
+          <div>
+            <label id="example-radio-group-label"><h2>Asse Y:</h2></label>
+            <mat-radio-group #yAxis aria-labelledby="example-radio-group-label" class="example-radio-group"
+              [(ngModel)]="yAxisChoice" (change)="VerifyRefresh()">
+              <mat-radio-button class="example-radio-button" *ngFor="let choice of choises" [value]="choice"
+                [color]="selectedColor" >
+                {{choice}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <button (click)="RefreshScatterPlot()" [disabled]="refreshIsDisabled">Aggiorna gratifico Scatter</button>
+        </mat-card-content>
+      </mat-card>
+
+    </mat-grid-tile>
 
 
   </mat-grid-list>
-
 </div>
