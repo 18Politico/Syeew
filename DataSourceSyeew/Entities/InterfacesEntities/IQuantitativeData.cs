@@ -13,7 +13,7 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
 
         string MatriceNome { get; set; } //FOREIGN_KEY!!!!!!!!
 
-        TypeOfCompany IdTipoDiAttivita { get; set; }
+        string IdTipoDiAttivita { get; set; }
 
         double IdCat { get; set; }
 

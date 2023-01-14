@@ -21,14 +21,14 @@ namespace DataSourceSyeew.Entities
         public string NomeAttivita { get; set; }
         public string? TipoAttivita { get; set; }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ManegementSystem? Gestionale { get; set; }
+        //[JsonConverter(typeof(JsonStringEnumConverter))]
+        public string? Gestionale { get; set; }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Dimention? DimensioneFatturato { get; set; }
+        //[JsonConverter(typeof(JsonStringEnumConverter))]
+        public string? DimensioneFatturato { get; set; }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Dimention? DimensioneAddetti { get; set; }
+        //[JsonConverter(typeof(JsonStringEnumConverter))]
+        public string? DimensioneAddetti { get; set; }
         public string? Indirizzo { get; set; }
         public string? Citta { get; set; }
         public string? Provincia { get; set; }
@@ -39,9 +39,9 @@ namespace DataSourceSyeew.Entities
         public Company(string ragioneSociale, 
                        string nomeAttivita, 
                        string? tipoAttivita, 
-                       ManegementSystem? gestionale, 
-                       Dimention? dimensioneFatturato, 
-                       Dimention? dimensioneAddetti, 
+                       string? gestionale, 
+                       string? dimensioneFatturato, 
+                       string? dimensioneAddetti, 
                        string? indirizzo, 
                        string? citta, 
                        string? provincia)

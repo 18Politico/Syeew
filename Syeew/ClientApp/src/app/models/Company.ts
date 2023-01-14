@@ -9,9 +9,9 @@ export class Company implements ICompany{
   ragioneSociale!: string;
   nomeAttivita!: string;
   tipoAttivita!: string;
-  gestionale!: ManegementSystem;
-  dimensioneFatturato!: Dimention;
-  dimensioneAddetti!: Dimention;
+  gestionale!: string;
+  dimensioneFatturato!: string;
+  dimensioneAddetti!: string;
   indirizzo!: string;
   citta!: string;
   provincia!: string;

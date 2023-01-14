@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230114100513_InitialCreate")]
+    [Migration("20230114104320_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

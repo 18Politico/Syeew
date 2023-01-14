@@ -11,11 +11,11 @@ export interface ICompany{
 
   tipoAttivita: string;
 
-  gestionale: ManegementSystem;
+  gestionale: string;
 
-  dimensioneFatturato: Dimention;
+  dimensioneFatturato: string;
 
-  dimensioneAddetti: Dimention;
+  dimensioneAddetti: string;
 
   indirizzo: string;
 

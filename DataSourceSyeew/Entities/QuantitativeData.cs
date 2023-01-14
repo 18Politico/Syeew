@@ -12,8 +12,8 @@ namespace DataSourceSyeew.Entities
         [ForeignKey("NomeAttivita")]
         public string MatriceNome { get; set; }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public TypeOfCompany IdTipoDiAttivita { get; set; }
+        //[JsonConverter(typeof(JsonStringEnumConverter))]
+        public string IdTipoDiAttivita { get; set; }
         public double IdCat { get; set; }
         public string Cat1 { get; set; }
         public string Idx { get; set; }
@@ -38,7 +38,7 @@ namespace DataSourceSyeew.Entities
 
         public QuantitativeData(double idMatrice,
                                 string matriceNome,
-                                TypeOfCompany idTipoDiAttivita,
+                                string idTipoDiAttivita,
                                 double idCat,
                                 string cat1,
                                 string idx,
@@ -69,7 +69,7 @@ namespace DataSourceSyeew.Entities
 
         public QuantitativeData(double idMatrice, 
                                 string matriceNome, 
-                                TypeOfCompany idTipoDiAttivita, 
+                                string idTipoDiAttivita, 
                                 double idCat, 
                                 string cat1, 
                                 string idx,

@@ -25,26 +25,26 @@ namespace DataSourceSyeew
                 .WithOne(qD => qD.Company)
                 .HasForeignKey(qD => qD.MatriceNome);
 
-            modelBuilder.Entity<Company>()
-                .Property(c => c.Gestionale)
-                .HasConversion(new EnumToStringConverter<ManegementSystem>());
+            //modelBuilder.Entity<Company>()
+            //    .Property(c => c.Gestionale)
+            //    .HasConversion(new EnumToStringConverter<ManegementSystem>());
 
-            modelBuilder.Entity<Company>()
-                .Property(c => c.DimensioneAddetti)
-                .HasConversion(new EnumToStringConverter<Dimention>());
+            //modelBuilder.Entity<Company>()
+            //    .Property(c => c.DimensioneAddetti)
+            //    .HasConversion(new EnumToStringConverter<Dimention>());
 
-            modelBuilder.Entity<Company>()
-                .Property(c => c.DimensioneFatturato)
-                .HasConversion(new EnumToStringConverter<Dimention>());
+            //modelBuilder.Entity<Company>()
+            //    .Property(c => c.DimensioneFatturato)
+            //    .HasConversion(new EnumToStringConverter<Dimention>());
 
 
             modelBuilder.Entity<QuantitativeData>()
                 .Property(qD => qD.Dt)
                 .HasColumnType("date");
 
-            modelBuilder.Entity<QuantitativeData>()
-                .Property(qD => qD.IdTipoDiAttivita)
-                .HasConversion(new EnumToStringConverter<TypeOfCompany>());
+            //modelBuilder.Entity<QuantitativeData>()
+            //    .Property(qD => qD.IdTipoDiAttivita)
+            //    .HasConversion(new EnumToStringConverter<TypeOfCompany>());
 
 
 
