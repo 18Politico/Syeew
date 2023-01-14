@@ -15,6 +15,9 @@ import { QuantitativeDataComponent } from './components/quantitative-data/quanti
 import { ProvaComponent } from './components/prova/prova.component';
 import { CompaniesTableComponent } from './components/companies-table/companies-table.component';
 import { ChartComponent } from './components/chart/chart.component';
+import { ParametersChartsComponent } from './components/dashboard/parameters-charts/parameters-charts.component';
+import { TemporalChartsComponent } from './components/dashboard/temporal-charts/temporal-charts.component';
+import { FixedParametersChartsComponent } from './components/dashboard/fixed-parameters-charts/fixed-parameters-charts.component';
 
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -42,7 +45,10 @@ import { ColumnChartComponent } from './components/charts/column-chart/column-ch
     PieChartComponent,
     LineChartComponent,
     ScatterPlotComponent,
-    ColumnChartComponent
+    ColumnChartComponent,
+    ParametersChartsComponent,
+    TemporalChartsComponent,
+    FixedParametersChartsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
