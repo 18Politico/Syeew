@@ -1,4 +1,4 @@
-import { OnChanges, Component, Input, OnInit, AfterViewInit } from '@angular/core';
+import { OnChanges, Component, Input, OnInit, AfterViewInit, SimpleChanges } from '@angular/core';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 
@@ -46,37 +46,44 @@ export type ChartOptions = {
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit, AfterViewInit {
+export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
 
   chartOptions!: Partial<ChartOptions>;
   @Input() nameChart = "select a chart";
   chartNames: string[] = ['Box Plot', 'Scatter Plot', 'Bar Chart', 'Line Chart', 'Bubble Chart', 'Column Chart', 'Area Chart', 'Scatter Line Plot', 'Pie Chart', 'Box Plot Netto']
   private _initial = false
-  @Input() xAxisParameter!: ApexXAxis
-  private companies!: ICompany[]
+  @Input() xAxisParameter!: string
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
+  @Input() dateTo!: string
+  @Input() filteredQuantitativeData!: IQuantitativeData[]
   companyData!: IQuantitativeData[]
 
   constructor(private _serviceData: QuantitativeDataService) {
 
   }
-
-  ngOnInit(): void {
-
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.xAxisParameter)
+    this.generatePlot(this.xAxisParameter)
   }
 
+  ngOnInit(): void {
+    this.generatePlot(this.nameChart)
+  }
+
+  // in teoria non serve piu
   ngAfterViewInit(): void {
-    this._serviceData.DatasOf(this.selectedCompany.nomeAttivita).subscribe((dt) => {
+    /*this._serviceData.DatasOf(this.selectedCompany.nomeAttivita).subscribe((dt) => {
       this.companyData = dt
       this.generatePlot(this.nameChart)
-    })
+    })*/
   }
 
   generatePlot(chartName: string) {
     switch (chartName) {
       case this.chartNames[0]: {
-        this.generateBoxPlot()
+        //this.generateBoxPlot()
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": netto"), "boxPlot", this.getNettoInYear(new Date(this.dateFrom), new Date(this.dateTo)))
         break;
       }
       case this.chartNames[1]: {
@@ -84,11 +91,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
         break;
       }
       case this.chartNames[2]: {
-        this.generateBarChart()
+        //this.generateBarChart()
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": iva"), "boxPlot", this.getIvaInYear(new Date(this.dateFrom), new Date(this.dateTo)))
         break;
       }
       case this.chartNames[3]: {
-        this.generateLineChart()
+        //this.generateLineChart()
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": fattIvato"), "boxPlot", this.getFattIvatoInYear(new Date(this.dateFrom), new Date(this.dateTo)))
         break;
       }
       case this.chartNames[4]: {
@@ -112,7 +121,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
         break;
       }
       case this.chartNames[9]: {
-        this.provaChart("boxPlot", this.getNettoInYear(this.selectedCompany, new Date(this.dateFrom), "net"))
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": qta"), "boxPlot", this.getQtaInYear(new Date(this.dateFrom), new Date(this.dateTo)))
         break;
       }
     }
@@ -620,147 +629,178 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this._initial = initial;
   }
 
-  /*
-      service getNettoInYear(year) --> map(mese, netto[])
-      service getIvaInYear(year) --> map(mese, iva[])
-      service getFattIvatoYear(year) --> map(mese, fattivato[])
-      service getQtaYear(year) --> map(mese, qta[])
-  */
+  getNettoInYear(dateFrom: Date, dateTo: Date): Map<string, number[]> {
+    return this.getDataInYear(dateFrom, dateTo, "netto");
+  }
 
-  /*selectDataInYear(companies: ICompany[], year: Date, data: number) {
+  getIvaInYear(date: Date, dateTo: Date): Map<string, number[]> {
+    return this.getDataInYear(date, dateTo, "iva");
+  }
 
-  }*/
+  getFattIvatoInYear(date: Date, dateTo: Date): Map<string, number[]> {
+    return this.getDataInYear(date, dateTo, "fattivato");
+  }
 
-  getNettoInYear(company: ICompany, date: Date, data: string): Map<string, number[]> {
+  getQtaInYear(date: Date, dateTo: Date): Map<string, number[]> {
+    return this.getDataInYear(date, dateTo, "qta");
+  }
+
+  private getDataInYear(dateFrom: Date, dateTo: Date, data: string): Map<string, number[]> {
     let map = new Map<string, number[]>()
-    let jan: number[] = [], feb: number[] = [], mar: number[] = [], apr: number[] = [], may: number[] = [], june: number[] = [], july: number[] = [],
-      aug: number[] = [], sep: number[] = [], oct: number[] = [], nov: number[] = [], dec: number[] = []
-    this.companyData.filter((qtData) => {
+    let janFrom: number[] = [], febFrom: number[] = [], marFrom: number[] = [], aprFrom: number[] = [], mayFrom: number[] = [], juneFrom: number[] = [], julyFrom: number[] = [],
+      augFrom: number[] = [], sepFrom: number[] = [], octFrom: number[] = [], novFrom: number[] = [], decFrom: number[] = []
+    let janTo: number[] = [], febTo: number[] = [], marTo: number[] = [], aprTo: number[] = [], mayTo: number[] = [], juneTo: number[] = [], julyTo: number[] = [],
+      augTo: number[] = [], sepTo: number[] = [], octTo: number[] = [], novTo: number[] = [], decTo: number[] = []
+    this.filteredQuantitativeData.filter((qtData) => {
       // Filtering for year
       let y = new Date(qtData.dt)
-      //console.log('PRIMO ANNO: ', y.getFullYear())
-      //console.log('SECONDO ANNO: ', date.getFullYear())
-      if (y.getFullYear() == date.getFullYear()) {
-        //console.log('mese: ', y.getMonth())
-        //console.log('netto: ', qtData.net)
-        if (y.getMonth() == 0) {
-          jan.push(qtData.netto)
+      let tmp = null // to store a data depending on netto, iva, fattivato and qta
+      if (y.getFullYear() == dateFrom.getFullYear() || y.getFullYear() == dateTo.getFullYear()) {
+        // storing in tmp
+        switch (data) {
+          case "netto": {
+            tmp = qtData.netto
+            break;
+          }
+          case "iva": {
+            tmp = qtData.iva
+            break;
+          }
+          case "fattivato": {
+            tmp = qtData.fattIvato
+            break;
+          }
+          case "qta": {
+            tmp = qtData.qta
+            break;
+          }
         }
-        if (y.getMonth() == 1) {
-          feb.push(qtData.netto)
-        }
-        if (y.getMonth() == 2) {
-          mar.push(qtData.netto)
-        }
-        if (y.getMonth() == 3) {
-          apr.push(qtData.netto)
-        }
-        if (y.getMonth() == 4) {
-          may.push(qtData.netto)
-        }
-        if (y.getMonth() == 5) {
-          june.push(qtData.netto)
-        }
-        if (y.getMonth() == 6) {
-          july.push(qtData.netto)
-        }
-        if (y.getMonth() == 7) {
-          aug.push(qtData.netto)
-        }
-        if (y.getMonth() == 8) {
-          sep.push(qtData.netto)
-        }
-        if (y.getMonth() == 9) {
-          oct.push(qtData.netto)
-        }
-        if (y.getMonth() == 10) {
-          nov.push(qtData.netto)
-        }
-        if (y.getMonth() == 11) {
-          dec.push(qtData.netto)
-        }
+        if (y.getMonth() == 0 && y.getFullYear() == dateFrom.getFullYear()) // from january
+          janFrom.push(tmp!)
+        else if (y.getMonth() == 0 && y.getFullYear() == dateTo.getFullYear()) // to january 
+          janTo.push(tmp!)
+        if (y.getMonth() == 1 && y.getFullYear() == dateFrom.getFullYear()) // from february
+          febFrom.push(tmp!)
+        else if (y.getMonth() == 1 && y.getFullYear() == dateTo.getFullYear()) // to february
+          febTo.push(tmp!)
+        if (y.getMonth() == 2 && y.getFullYear() == dateFrom.getFullYear()) // from march
+          marFrom.push(tmp!)
+        else if (y.getMonth() == 2 && y.getFullYear() == dateTo.getFullYear()) // to march 
+          marTo.push(tmp!)
+        if (y.getMonth() == 3 && y.getFullYear() == dateFrom.getFullYear()) // from april
+          aprFrom.push(tmp!)
+        else if (y.getMonth() == 3 && y.getFullYear() == dateTo.getFullYear()) // to april
+          aprTo.push(tmp!)
+        if (y.getMonth() == 4 && y.getFullYear() == dateFrom.getFullYear()) // from may
+          mayFrom.push(tmp!)
+        else if (y.getMonth() == 4 && y.getFullYear() == dateTo.getFullYear()) // to may 
+          mayTo.push(tmp!)
+        if (y.getMonth() == 5 && y.getFullYear() == dateFrom.getFullYear()) // from june
+          juneFrom.push(tmp!)
+        else if (y.getMonth() == 5 && y.getFullYear() == dateTo.getFullYear()) // to june
+          juneTo.push(tmp!)
+        if (y.getMonth() == 6 && y.getFullYear() == dateFrom.getFullYear()) // from july
+          julyFrom.push(tmp!)
+        else if (y.getMonth() == 6 && y.getFullYear() == dateTo.getFullYear()) // to july 
+          julyTo.push(tmp!)
+        if (y.getMonth() == 7 && y.getFullYear() == dateFrom.getFullYear()) // from august
+          augFrom.push(tmp!)
+        else if (y.getMonth() == 7 && y.getFullYear() == dateTo.getFullYear()) // to august
+          augTo.push(tmp!)
+        if (y.getMonth() == 8 && y.getFullYear() == dateFrom.getFullYear()) // from september
+          sepFrom.push(tmp!)
+        else if (y.getMonth() == 8 && y.getFullYear() == dateTo.getFullYear()) // to september
+          sepTo.push(tmp!)
+        if (y.getMonth() == 9 && y.getFullYear() == dateFrom.getFullYear()) // from october
+          octFrom.push(tmp!)
+        else if (y.getMonth() == 9 && y.getFullYear() == dateTo.getFullYear()) // to october
+          octTo.push(tmp!)
+        if (y.getMonth() == 10 && y.getFullYear() == dateFrom.getFullYear()) // from november
+          novFrom.push(tmp!)
+        else if (y.getMonth() == 10 && y.getFullYear() == dateTo.getFullYear()) // to november 
+          novTo.push(tmp!)
+        if (y.getMonth() == 11 && y.getFullYear() == dateFrom.getFullYear()) // from december
+          decFrom.push(tmp!)
+        else if (y.getMonth() == 11 && y.getFullYear() == dateTo.getFullYear()) // to december
+          decTo.push(tmp!)
       }
-    }
-    )
-    map.set("January", jan!)
-    map.set("February", feb!)
-    map.set("March", mar!)
-    map.set("April", apr!)
-    map.set("May", may!)
-    map.set("June", june!)
-    map.set("July", july!)
-    map.set("August", aug!)
-    map.set("September", sep!)
-    map.set("October", oct!)
-    map.set("November", nov!)
-    map.set("December", dec!)
+    })
+    // ----------------- from month
+    if (janFrom.length != 0)
+      map.set("January ".concat(dateFrom.getFullYear().toString()), janFrom!)
+    if (febFrom.length != 0)
+      map.set("February ".concat(dateFrom.getFullYear().toString()), febFrom!)
+    if (marFrom.length != 0)
+      map.set("March ".concat(dateFrom.getFullYear().toString()), marFrom!)
+    if (aprFrom.length != 0)
+      map.set("April ".concat(dateFrom.getFullYear().toString()), aprFrom!)
+    if (mayFrom.length != 0)
+      map.set("May ".concat(dateFrom.getFullYear().toString()), mayFrom!)
+    if (juneFrom.length != 0)
+      map.set("June ".concat(dateFrom.getFullYear().toString()), juneFrom!)
+    if (julyFrom.length != 0)
+      map.set("July ".concat(dateFrom.getFullYear().toString()), julyFrom!)
+    if (augFrom.length != 0)
+      map.set("August ".concat(dateFrom.getFullYear().toString()), augFrom!)
+    if (sepFrom.length != 0)
+      map.set("September ".concat(dateFrom.getFullYear().toString()), sepFrom!)
+    if (octFrom.length != 0)
+      map.set("October ".concat(dateFrom.getFullYear().toString()), octFrom!)
+    if (novFrom.length != 0)
+      map.set("November ".concat(dateFrom.getFullYear().toString()), novFrom!)
+    if (decFrom.length != 0)
+      map.set("December ".concat(dateFrom.getFullYear().toString()), decFrom!)
+    // ----------------- to month
+    if (janTo.length != 0)
+      map.set("January ".concat(dateTo.getFullYear().toString()), janTo!)
+    if (febTo.length != 0)
+      map.set("February ".concat(dateTo.getFullYear().toString()), febTo!)
+    if (marTo.length != 0)
+      map.set("March ".concat(dateTo.getFullYear().toString()), marTo!)
+    if (aprTo.length != 0)
+      map.set("April ".concat(dateTo.getFullYear().toString()), aprTo!)
+    if (mayTo.length != 0)
+      map.set("May ".concat(dateTo.getFullYear().toString()), mayTo!)
+    if (juneTo.length != 0)
+      map.set("June ".concat(dateTo.getFullYear().toString()), juneTo!)
+    if (julyTo.length != 0)
+      map.set("July ".concat(dateTo.getFullYear().toString()), julyTo!)
+    if (augTo.length != 0)
+      map.set("August ".concat(dateTo.getFullYear().toString()), augTo!)
+    if (sepTo.length != 0)
+      map.set("September ".concat(dateTo.getFullYear().toString()), sepTo!)
+    if (octTo.length != 0)
+      map.set("October ".concat(dateTo.getFullYear().toString()), octTo!)
+    if (novTo.length != 0)
+      map.set("November ".concat(dateTo.getFullYear().toString()), novTo!)
+    if (decTo.length != 0)
+      map.set("December ".concat(dateTo.getFullYear().toString()), decTo!)
     return map
   }
 
-  private provaChart(newType: ChartType, map: Map<string, number[]>) {
+  private createTemporalChart(titleText: string, newType: ChartType, map: Map<string, number[]>) {
     let months = Array.from(map.keys())
+    console.log('mappa: ', map)
+    let dataFromMap: any = []
+    months.forEach(m => {
+      var obj = JSON.parse(`{"x" : "${m}","y" : [${map.get(m)}]}`);
+      dataFromMap.push(obj)
+    })
+    console.log(dataFromMap)
     this.chartOptions = {
       series: [{
-        data: [{
-          x: months[0],
-          y: map.get(months[0])
-        },
-        {
-          x: months[1],
-          y: map.get(months[1])
-        },
-        {
-          x: months[2],
-          y: map.get(months[2])
-        },
-        {
-          x: months[3],
-          y: map.get(months[3])
-        },
-        {
-          x: months[4],
-          y: map.get(months[4])
-        },
-        {
-          x: months[5],
-          y: map.get(months[5])
-        },
-        {
-          x: months[6],
-          y: map.get(months[6])
-        },
-        {
-          x: months[7],
-          y: map.get(months[7])
-        },
-        {
-          x: months[8],
-          y: map.get(months[8])
-        },
-        {
-          x: months[9],
-          y: map.get(months[9])
-        },
-        {
-          x: months[10],
-          y: map.get(months[10])
-        },
-        {
-          x: months[11],
-          y: map.get(months[11])
-        },
-        ]
+        data: dataFromMap
       }],
       chart: {
         height: 350,
         type: newType
       },
       title: {
-        text: "Company name"
+        text: titleText
       },
-      xaxis: {
-        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-      }
+      /*xaxis: {
+        //categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+      }*/
 
     };
     this._initial = true;

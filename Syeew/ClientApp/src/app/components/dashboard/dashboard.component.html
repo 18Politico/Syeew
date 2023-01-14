@@ -42,8 +42,8 @@
           </mat-card-title>-->
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-chart [nameChart]="card.nameChart" [selectedCompany]="selectedCompany"
-            [dateFrom]="dateFrom!"></app-chart>
+          <app-chart [nameChart]="card.nameChart" [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
+            [dateFrom]="dateFrom!" [dateTo]="dateTo!" [xAxisParameter]="xAxisChoice"></app-chart>
           <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
         </mat-card-content>
       </mat-card>

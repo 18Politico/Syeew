@@ -11,6 +11,7 @@ import { PieChartComponent } from '../charts/pie-chart/pie-chart.component';
 import { ScatterPlotComponent } from '../charts/scatter-plot/scatter-plot.component';
 import { ColumnChartComponent } from '../charts/column-chart/column-chart.component';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
+import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,11 +23,13 @@ export class DashboardComponent implements OnInit{
   @ViewChild('xAxis') xAxisChoises!: any
   xAxisChoice!: string;
   selectedColor: ThemePalette = 'primary'
-  choises: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
+  choises: string[] = ['Line Chart', 'Bar Chart', 'Summer', 'Autumn'];
   cards!: Observable<any>
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
+  @Input() dateTo?: string
   dateFromProva = new Date(this.dateFrom)
+  @Input() filtered!: IQuantitativeData[]
 
   constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog) {
     this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
