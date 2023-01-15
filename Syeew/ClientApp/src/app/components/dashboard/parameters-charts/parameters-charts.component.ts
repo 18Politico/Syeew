@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { map, Observable } from 'rxjs';
@@ -11,21 +11,20 @@ import { ScatterPlotComponent } from '../../charts/scatter-plot/scatter-plot.com
   templateUrl: './parameters-charts.component.html',
   styleUrls: ['./parameters-charts.component.css']
 })
-export class ParametersChartsComponent implements OnInit{
+export class ParametersChartsComponent {
 
   cards!: Observable<any>
 
   selectedColor: ThemePalette = 'primary'
-  choises!: string[]
 
-  xAxisChoice!: string;
-  yAxisChoice!: string;
-  refreshIsDisabled!: boolean;
+  buttonsX: Map<string, boolean>
 
-  plotCanBeBuilt!: boolean;
+  buttonsY: Map<string, boolean>
 
-  // disabledRadioButtonX!: boolean;
-  // disabledRadioButtonY!: boolean;
+  xAxisChoice = ""
+  yAxisChoice = ""
+
+  plotCanBeBuilt= false;
 
   constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog) {
     this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -35,12 +34,24 @@ export class ParametersChartsComponent implements OnInit{
         ];
       })
     );
-    this.xAxisChoice = ""
-    this.yAxisChoice = ""
-    var properties = Object.keys(new QuantitativeData())
-    this.choises = properties.slice(1, properties.length -1)
-    this.refreshIsDisabled = true
-    this.plotCanBeBuilt = false;
+
+    this.buttonsX = new Map<string, boolean>([
+      ["Netto", false],
+      ["Iva", false],
+      ["FatturatoIvato", false],
+      ["Quantità", false],
+      ["Dimensione", false],
+    ]);
+
+    this.buttonsY = new Map<string, boolean>([
+      ["Netto", false],
+      ["Iva", false],
+      ["FatturatoIvato", false],
+      ["Quantità", false],
+      ["Dimensione", false],
+    ]);
+
+
   }
 
   openChart(chartName: string) {
@@ -54,37 +65,49 @@ export class ParametersChartsComponent implements OnInit{
     dialogRef!.updateSize('300vw')
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.xAxisChoice === "" || this.yAxisChoice === "")
-        this.refreshIsDisabled = true;
-    else if (this.xAxisChoice === this.yAxisChoice)
-      this.refreshIsDisabled = true;
-    else
-      this.refreshIsDisabled = false;
+  VerifyActiveButtons(){
+    this.UpdateButtonsX()
+    this.UpdateButtonsY()
+    this.TryToGenerateScatter()
   }
 
-  VerifyRefresh(){
-    if (this.xAxisChoice === "" || this.yAxisChoice === "")
-        this.refreshIsDisabled = true;
-    else if (this.xAxisChoice === this.yAxisChoice)
-      this.refreshIsDisabled = true;
-    else
-      this.refreshIsDisabled = false;
+  private UpdateButtonsY(){
+      for (const key of this.buttonsY.keys()) {
+        if (this.xAxisChoice !== key)
+          this.buttonsY.set(key, false)
+        else
+          this.buttonsY.set(key, true)
+
+    }
   }
+
+  private UpdateButtonsX(){
+      for (const key of this.buttonsX.keys()) {
+        if (this.yAxisChoice !== key)
+          this.buttonsX.set(key, false)
+        else
+          this.buttonsX.set(key, true)
+      }
+  }
+
+  private TryToGenerateScatter(){
+    if (this.xAxisChoice !== "" && this.yAxisChoice !== "")
+      this.plotCanBeBuilt = true
+  }
+
 
   GenerateScatterPlot(){
     this.plotCanBeBuilt = true;
   }
 
-  ngOnInit(): void {
-    // this.choises = Object.keys(new QuantitativeData())
-
-    // this.refreshIsDisabled = true
-
-    // this.disabledRadioButtonX = true
-    // this.disabledRadioButtonY = true
-  }
-
-
 
 }
+
+ // VerifyRefresh(){
+  //   if (this.xAxisChoice === "" || this.yAxisChoice === "")
+  //       this.refreshIsDisabled = true;
+  //   else if (this.xAxisChoice === this.yAxisChoice)
+  //     this.refreshIsDisabled = true;
+  //   else
+  //     this.refreshIsDisabled = false;
+  // }
