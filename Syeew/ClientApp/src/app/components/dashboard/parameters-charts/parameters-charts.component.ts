@@ -13,7 +13,7 @@ import { ScatterPlotComponent } from '../../charts/scatter-plot/scatter-plot.com
 })
 export class ParametersChartsComponent {
 
-  cards!: Observable<any>
+  cards: Observable<any>
 
   selectedColor: ThemePalette = 'primary'
 

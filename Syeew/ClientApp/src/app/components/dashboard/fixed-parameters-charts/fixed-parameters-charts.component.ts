@@ -12,7 +12,7 @@ import { PieChartComponent } from '../../charts/pie-chart/pie-chart.component';
 })
 export class FixedParametersChartsComponent {
 
-  cards!: Observable<any>
+  cards: Observable<any>
 
   selectedColor: ThemePalette = 'primary'
 
