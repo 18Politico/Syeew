@@ -1,1 +1,49 @@
-<p>temporal-charts works!</p>
+
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="450px">
+
+    <!-- Scelta Parametri -->
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+
+
+        <mat-card-content class="dashboard-card-content">
+          <!-- Asse X -->
+          <div>
+            <label id="example-radio-group-label"><h2>Asse X:</h2></label>
+            <mat-radio-group #xAxis aria-labelledby="example-radio-group-label" class="example-radio-group"
+              [(ngModel)]="xAxisChoice" >
+              <mat-radio-button class="example-radio-button" *ngFor="let choice of choises" [value]="choice"
+                [color]="selectedColor" >
+                {{choice}}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    
+    
+    <div *ngIf="isRefreshNeeded">
+    <mat-grid-tile  *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+  
+            <div>
+
+              <app-chart  [nameChart]="card.nameChart" [y]="yAxis" [dateFrom]="dateFrom" [dateTo]="dateTo"></app-chart>
+
+              <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
+            </div>
+  
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </div>
+
+
+
+  </mat-grid-list>
+</div>
