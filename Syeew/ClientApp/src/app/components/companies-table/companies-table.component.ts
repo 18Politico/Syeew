@@ -12,7 +12,9 @@ import { CompaniesService } from 'src/app/services/companies.service';
   templateUrl: './companies-table.component.html',
   styleUrls: ['./companies-table.component.css']
 })
-export class CompaniesTableComponent implements OnInit{
+export class CompaniesTableComponent implements OnInit {
+
+  isLoading: boolean
 
   companies!: ICompany[];
 
@@ -37,8 +39,8 @@ export class CompaniesTableComponent implements OnInit{
   displayedColumns: string[] = [];
 
   typesOfCompanies: string[] = Object.keys(TypeOfCompany)
-                                      .filter((item) => { return isNaN(Number(item)); })
-                                      .concat("TUTTE");
+    .filter((item) => { return isNaN(Number(item)); })
+    .concat("TUTTE");
 
   managementSystems: string[] = Object.keys(ManegementSystem).filter((item) => {
     return isNaN(Number(item));
@@ -53,8 +55,9 @@ export class CompaniesTableComponent implements OnInit{
   });
 
   constructor(private _service: CompaniesService,
-              private _router: Router)
-  {}
+    private _router: Router) {
+    this.isLoading = true
+  }
 
   // filterByName(){
   //   if (this.filteredCompanies == null)
@@ -64,45 +67,45 @@ export class CompaniesTableComponent implements OnInit{
 
   // }
 
-  filter(){
+  filter() {
     if (this.filteredCompanies == null)
       this.filteredCompanies = Array.from(this.companies);
     if (this.selTypeOfCmp === undefined
-       || this.selTypeOfCmp.toString() === "TUTTE" ) {
+      || this.selTypeOfCmp.toString() === "TUTTE") {
       this.filterWithoutDropDowns();
-    }else{
+    } else {
       this.filterWithDropDowns();
     }
     console.log(this.selTypeOfCmp)
   }
 
-  private filterWithDropDowns(){
+  private filterWithDropDowns() {
     this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-                                                          .includes(this.filteringName.toLocaleLowerCase()))
-                                            .filter(c => c.citta.toLocaleLowerCase()
-                                                          .includes(this.filteringCity.toLocaleLowerCase()))
-                                            .filter(c => c.tipoAttivita === this.selTypeOfCmp);
+      .includes(this.filteringName.toLocaleLowerCase()))
+      .filter(c => c.citta.toLocaleLowerCase()
+        .includes(this.filteringCity.toLocaleLowerCase()))
+      .filter(c => c.tipoAttivita === this.selTypeOfCmp);
   }
 
-  private filterWithoutDropDowns(){
+  private filterWithoutDropDowns() {
     this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-                                                          .includes(this.filteringName.toLocaleLowerCase()))
-                                            .filter(c => c.citta.toLocaleLowerCase()
-                                                          .includes(this.filteringCity.toLocaleLowerCase()))
+      .includes(this.filteringName.toLocaleLowerCase()))
+      .filter(c => c.citta.toLocaleLowerCase()
+        .includes(this.filteringCity.toLocaleLowerCase()))
   }
 
 
-  deleteNameFilter(){
+  deleteNameFilter() {
     this.filteringName = "";
     this.filter();
   }
 
-  deleteCityFilter(){
+  deleteCityFilter() {
     this.filteringCity = "";
     this.filter();
   }
 
-  goToDatas(selectedCompany: ICompany){
+  goToDatas(selectedCompany: ICompany) {
     this._router.navigate(["aziende/" + selectedCompany.nomeAttivita]);
   }
 
@@ -111,7 +114,9 @@ export class CompaniesTableComponent implements OnInit{
       .subscribe((cmp: ICompany[]) => {
         this.companies = cmp;
         this.dataSource = this.companies;
-        this.displayedColumns = Object.keys(this.dataSource[0]).slice(1, this.displayedColumns.length-1);
+        this.displayedColumns = Object.keys(this.dataSource[0]).slice(1, this.displayedColumns.length - 1);
+        //setTimeout(() => this.dataSource.paginator = this.paginator); // set timeout for loading with spinner
+        this.isLoading = false // for loading-spinner
       });
   }
 

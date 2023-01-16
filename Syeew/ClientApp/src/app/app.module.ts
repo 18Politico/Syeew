@@ -28,6 +28,7 @@ import { PieChartComponent } from './components/charts/pie-chart/pie-chart.compo
 import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
 import { ScatterPlotComponent } from './components/charts/scatter-plot/scatter-plot.component';
 import { ColumnChartComponent } from './components/charts/column-chart/column-chart.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ColumnChartComponent } from './components/charts/column-chart/column-ch
     ParametersChartsComponent,
     TemporalChartsComponent,
     FixedParametersChartsComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -16,9 +16,11 @@ import { QuantitativeDataService } from 'src/app/services/quantitative-data.serv
 })
 export class QuantitativeDataComponent implements OnInit {
 
+  isLoading: boolean
+
   vediDash: boolean = false;
 
-  VediDashFunc(){
+  VediDashFunc() {
     this.vediDash = true;
   }
 
@@ -35,9 +37,10 @@ export class QuantitativeDataComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private _serviceData: QuantitativeDataService,
-              private _serviceCmp: CompaniesService,
-              private _route: ActivatedRoute)
-  {}
+    private _serviceCmp: CompaniesService,
+    private _route: ActivatedRoute) {
+    this.isLoading = true
+  }
 
   dateFrom = new FormControl('', [Validators.required]);
 
@@ -48,19 +51,22 @@ export class QuantitativeDataComponent implements OnInit {
   ngOnInit(): void {
     var companyName = this._route.snapshot.paramMap.get('companyName');
     this._serviceData.DatasOf(companyName!)
-                  .subscribe((data: IQuantitativeData[]) => {
-                    this.quantitativeData = data;
-                    this.displayedColumns = Object.keys(this.quantitativeData[0])
-                                                  .slice(1, this.displayedColumns.length-2);
-                    this.dataSource = new MatTableDataSource<IQuantitativeData>(this.quantitativeData);
-                    this.dataSource.paginator = this.paginator;
-                  });
+      .subscribe((data: IQuantitativeData[]) => {
+        this.quantitativeData = data;
+        if (this.quantitativeData[0] != null) {
+          this.displayedColumns = Object.keys(this.quantitativeData[0])
+            .slice(1, this.displayedColumns.length - 2);
+          this.dataSource = new MatTableDataSource<IQuantitativeData>(this.quantitativeData);
+          setTimeout(() => this.dataSource!.paginator = this.paginator); // set timeout for loading with spinner
+        }
+        this.isLoading = false // for stopping loading-spinner
+      });
     this._serviceCmp.CompanyBy(companyName!).subscribe((c) => {
       this.clickedCompany = c
     });
   }
 
-  onDateSet(){
+  onDateSet() {
     //var filtered: IQuantitativeData[] = [];
     if (this.filtered.length != 0)
       this.filtered = [];
@@ -72,27 +78,27 @@ export class QuantitativeDataComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private dateCheck(data: IQuantitativeData){
+  private dateCheck(data: IQuantitativeData) {
     if (this.dateFrom.valid
-        && !this.dateUntil.valid)
+      && !this.dateUntil.valid)
       this.dateFromCase(data);
     if (this.dateUntil.valid
-        && !this.dateFrom.valid)
+      && !this.dateFrom.valid)
       this.dateUntilCase(data);
     if (this.dateUntil.valid
-        && this.dateFrom.valid)
+      && this.dateFrom.valid)
       this.bothDatesCase(data);
     return;
   }
 
   private dateFromCase(data: IQuantitativeData) {
-    var dateFrom =  new Date(this.dateFrom.value!)
+    var dateFrom = new Date(this.dateFrom.value!)
     var dataDate = new Date(data.dt);
     //console.log("DATEFROM -> "+ dataDate.getTime())
-    if (dateFrom.getTime() < dataDate.getTime()){
+    if (dateFrom.getTime() < dataDate.getTime()) {
       this.filtered.push(data)
       //console.log("from CIao")
-    //console.log(dateFrom)
+      //console.log(dateFrom)
     }
 
   }
@@ -108,22 +114,22 @@ export class QuantitativeDataComponent implements OnInit {
   }
 
   private bothDatesCase(data: IQuantitativeData) {
-    var dateFrom =  new Date(this.dateFrom.value!)
+    var dateFrom = new Date(this.dateFrom.value!)
     var dateUntil = new Date(this.dateUntil.value!)
     var dataDate = new Date(data.dt);
     if (dateFrom.getTime() <= dataDate.getTime()
-        && dataDate.getTime() <= dateUntil.getTime())
+      && dataDate.getTime() <= dateUntil.getTime())
       this.filtered.push(data)
 
     //console.log("both CIao")
   }
 
-  private sameDate(formDate: string | null, date: Date): boolean{
+  private sameDate(formDate: string | null, date: Date): boolean {
     var dt = date.toString();
-    if (formDate?.substring(0,4) == dt.substring(0,4)
-        && formDate.substring(5,7) == dt.substring(5,7)
-        && formDate.substring(8,10) == dt.substring(8,10))
-        return true;
+    if (formDate?.substring(0, 4) == dt.substring(0, 4)
+      && formDate.substring(5, 7) == dt.substring(5, 7)
+      && formDate.substring(8, 10) == dt.substring(8, 10))
+      return true;
     return false;
   }
 
