@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit{
   cards!: Observable<any>
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
-  @Input() dateTo?: string
+  @Input() dateTo!: string
   dateFromProva = new Date(this.dateFrom)
   @Input() filtered!: IQuantitativeData[]
 

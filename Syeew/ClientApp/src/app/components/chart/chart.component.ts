@@ -83,7 +83,7 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
     switch (chartName) {
       case this.chartNames[0]: {
         //this.generateBoxPlot()
-        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": netto"), "boxPlot", this.getNettoInYear(new Date(this.dateFrom), new Date(this.dateTo)))
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": netto"), "boxPlot", this.getNettoInYear(new Date(this.dateFrom), new Date(this.dateTo)), "Netto")
         break;
       }
       case this.chartNames[1]: {
@@ -92,12 +92,12 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
       }
       case this.chartNames[2]: {
         //this.generateBarChart()
-        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": iva"), "boxPlot", this.getIvaInYear(new Date(this.dateFrom), new Date(this.dateTo)))
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": iva"), "boxPlot", this.getIvaInYear(new Date(this.dateFrom), new Date(this.dateTo)), "Iva")
         break;
       }
       case this.chartNames[3]: {
         //this.generateLineChart()
-        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": fattIvato"), "boxPlot", this.getFattIvatoInYear(new Date(this.dateFrom), new Date(this.dateTo)))
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": fattIvato"), "boxPlot", this.getFattIvatoInYear(new Date(this.dateFrom), new Date(this.dateTo)), "Fatturato ivato")
         break;
       }
       case this.chartNames[4]: {
@@ -117,11 +117,12 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
         break;
       }
       case this.chartNames[8]: {
-        this.generatePieChart()
+        //this.generatePieChart()
+        this.createParametersChart(this.selectedCompany.nomeAttivita, "scatter", this.getDataNumbersInYear(new Date(this.dateFrom), new Date(this.dateTo), "dim", "netto"), "N. dipendenti", "Netto")
         break;
       }
       case this.chartNames[9]: {
-        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": qta"), "boxPlot", this.getQtaInYear(new Date(this.dateFrom), new Date(this.dateTo)))
+        this.createTemporalChart(this.selectedCompany.nomeAttivita.concat(": qta"), "boxPlot", this.getQtaInYear(new Date(this.dateFrom), new Date(this.dateTo)), "Quantità")
         break;
       }
     }
@@ -652,12 +653,10 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
     let janTo: number[] = [], febTo: number[] = [], marTo: number[] = [], aprTo: number[] = [], mayTo: number[] = [], juneTo: number[] = [], julyTo: number[] = [],
       augTo: number[] = [], sepTo: number[] = [], octTo: number[] = [], novTo: number[] = [], decTo: number[] = []
     this.filteredQuantitativeData.filter((qtData) => {
-      // Filtering for year
       let y = new Date(qtData.dt)
       let tmp = null // to store a data depending on netto, iva, fattivato and qta
       if (y.getFullYear() == dateFrom.getFullYear() || y.getFullYear() == dateTo.getFullYear()) {
-        // storing in tmp
-        switch (data) {
+        switch (data) { // storing in tmp
           case "netto": {
             tmp = qtData.netto
             break;
@@ -778,15 +777,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
     return map
   }
 
-  private createTemporalChart(titleText: string, newType: ChartType, map: Map<string, number[]>) {
+  private createTemporalChart(titleText: string, newType: ChartType, map: Map<string, number[]>, yAxisTitle: string) {
     let months = Array.from(map.keys())
-    console.log('mappa: ', map)
     let dataFromMap: any = []
     months.forEach(m => {
       var obj = JSON.parse(`{"x" : "${m}","y" : [${map.get(m)}]}`);
       dataFromMap.push(obj)
     })
-    console.log(dataFromMap)
     this.chartOptions = {
       series: [{
         data: dataFromMap
@@ -798,13 +795,133 @@ export class ChartComponent implements OnInit, AfterViewInit, OnChanges {
       title: {
         text: titleText
       },
+      yaxis: {
+        title: {
+          text: yAxisTitle
+        }
+      }
       /*xaxis: {
         //categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
       }*/
 
     };
     this._initial = true;
+  }
 
+  private getDataNumbersInYear(dateFrom: Date, dateTo: Date, xAxisData: string, yAxisData: string): Map<number, number[]> {
+    let map = new Map<number, number[]>()
+    let tmpX: number[] = [] // to store a data depending on netto, iva, fattivato, qta and dim
+    let tmpY: number[] = [] // y data to plot for an x
+    let yDatetime: any = null // first temporal date
+    let yDateTime1: any = null // second temporal date after first iteration
+    let count = 0 // checking if there is only one plotting data
+    this.filteredQuantitativeData.filter((qtData) => {
+      // First iteration
+      if (yDatetime == null) {
+        yDatetime = new Date(qtData.dt)
+        yDateTime1 = null
+        tmpY = []
+        tmpX = []
+      }
+      else {
+        yDateTime1 = new Date(qtData.dt) // second iteration here
+        if (yDatetime.toISOString() != yDateTime1.toISOString()) // if there are more x
+          count++
+      }
+      let yData = null
+      if (yDatetime.getFullYear() >= dateFrom.getFullYear() && yDatetime.getFullYear() <= dateTo.getFullYear()) {
+        switch (xAxisData) { // storing in tmpX
+          case "netto": {
+            tmpX.push(qtData.netto)
+            break;
+          }
+          case "iva": {
+            tmpX.push(qtData.iva)
+            break;
+          }
+          case "fattivato": {
+            tmpX.push(qtData.fattIvato)
+            break;
+          }
+          case "qta": {
+            tmpX.push(qtData.qta)
+            break;
+          }
+          case "dim": {
+            tmpX.push(qtData.dim)
+            break;
+          }
+        }
+        switch (yAxisData) { // storing in tmpY
+          case "netto": {
+            yData = qtData.netto
+            break;
+          }
+          case "iva": {
+            yData = qtData.iva
+            break;
+          }
+          case "fattivato": {
+            yData = qtData.fattIvato
+            break;
+          }
+          case "qta": {
+            yData = qtData.qta
+            break;
+          }
+          case "dim": {
+            yData = qtData.dim
+            break;
+          }
+        }
+        // first iteration or y for the same x
+        if (yDateTime1 == null || yDatetime.toISOString() == yDateTime1.toISOString())
+          tmpY.push(yData!)
+        else { // when y for the same x finish
+          yDatetime = null
+          let average = tmpX.reduce((a, b) => a + b) / tmpX.length
+          map.set(Math.round((average + Number.EPSILON) * 100) / 100, tmpY)
+        }
+      }
+    })
+    if (count == 0) { // when there is only one point
+      let average = tmpX.reduce((a, b) => a + b) / tmpX.length
+      map.set(Math.round((average + Number.EPSILON) * 100) / 100, tmpY)
+    }
+
+    return map
+  }
+
+  private createParametersChart(titleText: string, newType: ChartType, map: Map<number, number[]>, xAxisTitle: string, yAxisTitle: string) {
+    let xAxis = Array.from(map.keys())
+    let dataFromMap: any = []
+    xAxis.forEach(x => {
+      var obj = JSON.parse(`{"x" : "${x}","y" : [${map.get(x)}]}`);
+      dataFromMap.push(obj)
+    })
+    this.chartOptions = {
+      series: [{
+        data: dataFromMap
+      }],
+      chart: {
+        height: 350,
+        type: newType
+      },
+      title: {
+        text: titleText
+      },
+      xaxis: {
+        title: {
+          text: xAxisTitle
+        }
+      },
+      yaxis: {
+        title: {
+          text: yAxisTitle
+        }
+      }
+    };
+    this._initial = true;
   }
 
 }
