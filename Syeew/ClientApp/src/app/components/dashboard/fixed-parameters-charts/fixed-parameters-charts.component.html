@@ -1,1 +1,13 @@
-<p>fixed-parameters-charts works!</p>
+<div class="grid-container">
+  <mat-grid-list cols="2" rowHeight="450px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <!-- <app-chart [nameChart]="card.nameChart" [xAxisScatter]="xAxisChoice" [yAxisScatter]="yAxisChoice"></app-chart> -->
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
