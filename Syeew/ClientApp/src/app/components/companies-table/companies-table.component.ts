@@ -76,13 +76,13 @@ export class CompaniesTableComponent implements OnInit {
     } else {
       this.filterWithDropDowns();
     }
-    console.log(this.selTypeOfCmp)
+    //console.log(this.selTypeOfCmp)
   }
 
   private filterWithDropDowns() {
     this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
       .includes(this.filteringName.toLocaleLowerCase()))
-      .filter(c => c.citta.toLocaleLowerCase()
+      .filter(c => "".concat(c.citta).toLocaleLowerCase()
         .includes(this.filteringCity.toLocaleLowerCase()))
       .filter(c => c.tipoAttivita === this.selTypeOfCmp);
   }
@@ -90,7 +90,7 @@ export class CompaniesTableComponent implements OnInit {
   private filterWithoutDropDowns() {
     this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
       .includes(this.filteringName.toLocaleLowerCase()))
-      .filter(c => c.citta.toLocaleLowerCase()
+      .filter(c => "".concat(c.citta).toLocaleLowerCase()
         .includes(this.filteringCity.toLocaleLowerCase()))
   }
 
