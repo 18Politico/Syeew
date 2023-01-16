@@ -20,10 +20,6 @@ export class QuantitativeDataComponent implements OnInit {
 
   vediDash: boolean = false;
 
-  VediDashFunc() {
-    this.vediDash = true;
-  }
-
   filtered: IQuantitativeData[] = [];
 
   clickedCompany!: ICompany;
@@ -131,6 +127,18 @@ export class QuantitativeDataComponent implements OnInit {
       && formDate.substring(8, 10) == dt.substring(8, 10))
       return true;
     return false;
+  }
+
+  VediDashFunc() {
+    this.vediDash = true;
+  }
+
+  resetDashboard() {
+    this.vediDash = false
+    this.filtered = []
+    this.dateFrom = new FormControl('', [Validators.required]);
+    this.dateUntil = new FormControl('', [Validators.required]);
+    
   }
 
 }

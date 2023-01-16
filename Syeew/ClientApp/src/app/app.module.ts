@@ -29,6 +29,7 @@ import { LineChartComponent } from './components/charts/line-chart/line-chart.co
 import { ScatterPlotComponent } from './components/charts/scatter-plot/scatter-plot.component';
 import { ColumnChartComponent } from './components/charts/column-chart/column-chart.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { AxisSelectionComponent } from './components/dashboard/axis-selection/axis-selection.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     TemporalChartsComponent,
     FixedParametersChartsComponent,
     LoadingSpinnerComponent,
+    AxisSelectionComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

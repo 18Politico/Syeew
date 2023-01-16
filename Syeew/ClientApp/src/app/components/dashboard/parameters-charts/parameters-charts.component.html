@@ -1,64 +1,30 @@
-<p>parameters-charts works!</p>
-
 <div class="grid-container">
+  <h1>Asse X e Asse Y dinamici</h1>
   <mat-grid-list cols="2" rowHeight="450px">
     <mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
-        <!-- Bottone Help
-        <mat-card-header>
-          <mat-card-title>
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>help</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Help</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header> -->
         <!-- Assi -->
         <mat-card-content class="dashboard-card-content">
-          <!-- Asse X -->
-          <div>
-            <label id="example-radio-group-label"><h2>Asse X:</h2></label>
-            <mat-radio-group #xAxis aria-labelledby="example-radio-group-label" class="example-radio-group"
-              [(ngModel)]="xAxisChoice" (change)="VerifyActiveButtons()">
-              <mat-radio-button class="example-radio-button" *ngFor="let button of buttonsX | keyvalue" [value]="button.key"
-                [color]="selectedColor" [disabled]="button.value">
-                {{button.key}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <!-- Asse Y -->
-          <div>
-            <label id="example-radio-group-label"><h2>Asse Y:</h2></label>
-            <mat-radio-group #yAxis aria-labelledby="example-radio-group-label" class="example-radio-group"
-              [(ngModel)]="yAxisChoice" (change)="VerifyActiveButtons()">
-              <mat-radio-button class="example-radio-button" *ngFor="let button of buttonsY | keyvalue" [value]="button.key"
-                [color]="selectedColor" [disabled]="button.value">
-                {{button.key}}
-              </mat-radio-button>
-            </mat-radio-group>
-          </div>
+          <app-axis-selection [isXAxisEnabled]="true" [isYAxisEnabled]="true"
+            (plotBuilding)="checkIfBuilding($event)"></app-axis-selection>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-
           <div *ngIf="plotCanBeBuilt; else elseBlock">
-            <!-- <app-chart [nameChart]="card.nameChart" [xAxisScatter]="xAxisChoice" [yAxisScatter]="yAxisChoice"></app-chart> -->
+            <app-chart [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filteredQuantitativeData"
+              [dateFrom]="dateFrom!" [dateTo]="dateTo!" [nameChart]="card.nameChart" [xAxis]="xAxisChoice!"
+              [yAxis]="yAxisChoice!"></app-chart>
             <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
           </div>
-          <ng-template #elseBlock>Seleziona le proprietà su cui vuoi costruire il grafico</ng-template>
-
+          <ng-template #elseBlock>Configura gli assi X e Y tra le opzioni disponibili per generare il
+            grafico</ng-template>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-
-
   </mat-grid-list>
 </div>
