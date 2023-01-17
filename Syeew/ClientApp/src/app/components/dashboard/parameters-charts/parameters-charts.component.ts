@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { map, Observable } from 'rxjs';
+import { Component, Input, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
-import { ScatterPlotComponent } from '../../charts/scatter-plot/scatter-plot.component';
+import { ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
 
 @Component({
   selector: 'app-parameters-charts',
@@ -16,8 +15,8 @@ export class ParametersChartsComponent {
   @Input() dateFrom!: string
   @Input() dateTo!: string
   @Input() filteredQuantitativeData!: IQuantitativeData[]
-  @Input() xAxisChoice?: string
-  @Input() yAxisChoice?: string
+  @Input() xAxisChoice!: string
+  @Input() yAxisChoice!: string
   cards: any[]
   plotCanBeBuilt = false; // take in input from axis-selection component
 
@@ -27,14 +26,13 @@ export class ParametersChartsComponent {
     ]
   }
 
-  openChart(chartName: string) {
-    let dialogRef: MatDialogRef<any, any>
-    switch (chartName) {
-      case 'scatterplot': {
-        dialogRef = this.dialog.open(ScatterPlotComponent);
-        break;
+  openChart(nameChart: string) {
+    let dialogRef = this.dialog.open(ZoomChartComponent, {
+      data: {
+        nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
+        dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice
       }
-    }
+    })
     dialogRef!.updateSize('300vw')
   }
 

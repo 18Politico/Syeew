@@ -67,6 +67,14 @@ export class ChartComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log('aaaaaaaaaaa')
+    console.log(this.nameChart)
+    console.log(this.selectedCompany)
+    console.log(this.filteredQuantitativeData)
+    console.log(this.dateFrom)
+    console.log(this.dateTo)
+    console.log(this.xAxis)
+    console.log(this.yAxis)
     this.generatePlot(this.nameChart)
   }
 

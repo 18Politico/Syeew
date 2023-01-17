@@ -1,13 +1,8 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { BoxPlotComponent } from '../../charts/box-plot/box-plot.component';
-import { BarChartComponent } from '../../charts/bar-chart/bar-chart.component';
-import { LineChartComponent } from '../../charts/line-chart/line-chart.component';
-import { PieChartComponent } from '../../charts/pie-chart/pie-chart.component';
-import { ScatterPlotComponent } from '../../charts/scatter-plot/scatter-plot.component';
-import { ColumnChartComponent } from '../../charts/column-chart/column-chart.component';
+import { Component, Input, OnInit, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
+import { ChartData, ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
 
 @Component({
   selector: 'app-temporal-charts',
@@ -46,22 +41,13 @@ export class TemporalChartsComponent implements OnInit {
     this.yAxisChoice = evtData.yAxis
   }
 
-  openChart(chartName: string) {
-    let dialogRef: MatDialogRef<any, any>
-    switch (chartName) {
-      case 'boxplot': {
-        dialogRef = this.dialog.open(BoxPlotComponent);
-        break;
+  openChart(nameChart: string) {
+    let dialogRef = this.dialog.open(ZoomChartComponent, {
+      data: {
+        nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
+        dateFrom: this.dateFrom, dateTo: this.dateTo, yAxisChoice: this.yAxisChoice
       }
-      case 'barchart': {
-        dialogRef = this.dialog.open(BarChartComponent);
-        break;
-      }
-      case 'linechart': {
-        dialogRef = this.dialog.open(LineChartComponent);
-        break;
-      }
-    }
+    })
     dialogRef!.updateSize('300vw')
   }
 

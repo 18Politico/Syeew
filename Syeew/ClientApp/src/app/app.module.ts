@@ -22,15 +22,9 @@ import { FixedParametersChartsComponent } from './components/dashboard/fixed-par
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { BoxPlotComponent } from './components/charts/box-plot/box-plot.component';
-import { BarChartComponent } from './components/charts/bar-chart/bar-chart.component';
-import { PieChartComponent } from './components/charts/pie-chart/pie-chart.component';
-import { LineChartComponent } from './components/charts/line-chart/line-chart.component';
-import { ScatterPlotComponent } from './components/charts/scatter-plot/scatter-plot.component';
-import { ColumnChartComponent } from './components/charts/column-chart/column-chart.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { AxisSelectionComponent } from './components/dashboard/axis-selection/axis-selection.component';
-
+import { ZoomChartComponent } from './components/dashboard/zoom-chart/zoom-chart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,17 +36,12 @@ import { AxisSelectionComponent } from './components/dashboard/axis-selection/ax
     ChartComponent,
     NavbarComponent,
     DashboardComponent,
-    BoxPlotComponent,
-    BarChartComponent,
-    PieChartComponent,
-    LineChartComponent,
-    ScatterPlotComponent,
-    ColumnChartComponent,
     ParametersChartsComponent,
     TemporalChartsComponent,
     FixedParametersChartsComponent,
     LoadingSpinnerComponent,
-    AxisSelectionComponent
+    AxisSelectionComponent,
+    ZoomChartComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

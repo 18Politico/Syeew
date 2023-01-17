@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>{{data.selectedCompany.nomeAttivita}}</h2>
+<mat-dialog-content class="mat-typography">
+    <app-chart [selectedCompany]="data.selectedCompany" [filteredQuantitativeData]="data.filteredQuantitativeData"
+        [dateFrom]="data.dateFrom!" [dateTo]="data.dateTo!" [nameChart]="data.nameChart" [yAxis]="data.yAxisChoice!"
+        [xAxis]="data.xAxisChoice"></app-chart>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Indietro</button>
+</mat-dialog-actions>
