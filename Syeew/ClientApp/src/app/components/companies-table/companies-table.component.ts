@@ -77,40 +77,21 @@ export class CompaniesTableComponent implements OnInit {
     else if (this.filteringName !== "" && this.filteringCity === "")
       this.filterByName()
      else
-    //  {
-    //   this.filterByName()
-    //   this.filterByCity()
-    // }
+      this.filterByNameAndCity()
+  }
 
-    this.filterByNameAndCity()
+  filterByCity(){
+
   }
 
   private filterByName(){
-    if (this.filteredCompanies == null)
-      this.filteredCompanies = Array.from(this.companies);
-    if (this.selTypeOfCmp === undefined
-      || this.selTypeOfCmp.toString() === "TUTTE") {
-      this.filterWithoutDropDowns();
-    } else {
-      this.filterWithDropDowns();
-    }
-    console.log(this.selTypeOfCmp)
+
   }
 
-  private filterWithDropDowns() {
-    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-      .includes(this.filteringName.toLocaleLowerCase()))
-      .filter(c => c.citta.toLocaleLowerCase()
-        .includes(this.filteringCity.toLocaleLowerCase()))
-      .filter(c => c.tipoAttivita === this.selTypeOfCmp);
+  private filterByNameAndCity(){
+
   }
 
-  private filterWithoutDropDowns() {
-    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-      .includes(this.filteringName.toLocaleLowerCase()))
-      .filter(c => c.citta.toLocaleLowerCase()
-        .includes(this.filteringCity.toLocaleLowerCase()))
-  }
 
   // filter_OLD() {
   //   if (this.filteredCompanies == null)
