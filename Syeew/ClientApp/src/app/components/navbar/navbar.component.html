@@ -2,12 +2,11 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>
-      <img width="40" alt="Angular Logo" src="../assets/img/syeew-logo.png" />
-      <img width="100" alt="Angular Logo" src="../assets/img/syeew-text.png" /></mat-toolbar>
+      <img width="170" alt="Angular Logo" src="../assets/img/syeew_marchio.png" />
+    </mat-toolbar>
     <mat-nav-list>
       <mat-selection-list #shoes [multiple]="false">
-        <mat-list-option
-          routerLink="aziende"><mat-icon>business</mat-icon>Aziende</mat-list-option>
+        <mat-list-option routerLink="aziende"><mat-icon>business</mat-icon>Aziende</mat-list-option>
       </mat-selection-list>
     </mat-nav-list>
   </mat-sidenav>
