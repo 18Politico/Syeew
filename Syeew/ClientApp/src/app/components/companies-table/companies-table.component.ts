@@ -18,7 +18,7 @@ export class CompaniesTableComponent implements OnInit {
 
   companies!: ICompany[];
 
-  filteredCompanies!: ICompany[];
+  filteredCompanies!: ICompany[] | null;
 
   dataSource!: ICompany[];
 
@@ -28,9 +28,11 @@ export class CompaniesTableComponent implements OnInit {
 
   filteringCity = "";
 
+  filteringProvince = "";
+
   //@ViewChild('refTypeOfCmp') refCmp!: ElementRef;
 
-  selTypeOfCmp!: string | undefined;
+  //selTypeOfCmp!: string | undefined;
 
   selManSystem!: ManegementSystem;
 
@@ -67,41 +69,125 @@ export class CompaniesTableComponent implements OnInit {
 
   // }
 
-  filter() {
+  filter(){
+    this.filteredCompanies = null
+    console.log("dim tutte = " + this.companies.length)
+    if (this.filteringName === "" && this.filteringCity !== "")
+      this.filterByCity()
+    else if (this.filteringName !== "" && this.filteringCity === "")
+      this.filterByName()
+     else
+    //  {
+    //   this.filterByName()
+    //   this.filterByCity()
+    // }
+
+    this.filterByNameAndCity()
+  }
+
+  private filterByName(){
     if (this.filteredCompanies == null)
       this.filteredCompanies = Array.from(this.companies);
-    if (this.selTypeOfCmp === undefined
-      || this.selTypeOfCmp.toString() === "TUTTE") {
-      this.filterWithoutDropDowns();
-    } else {
-      this.filterWithDropDowns();
+    console.log("dim filt = " + this.filteredCompanies.length)
+    // this.dataSource = this.filteredCompanies
+    //                       .filter(c => c.nomeAttivita.toLocaleLowerCase()
+    //                                     .includes(this.filteringName.toLocaleLowerCase()))
+    this.filteredCompanies = this.filteredCompanies
+                                     .filter(c => c.nomeAttivita.toLocaleLowerCase()
+                                                   .includes(this.filteringName.toLocaleLowerCase()))
+    this.dataSource = this.filteredCompanies
+  }
+
+  private filterByCity(){
+    if (this.filteredCompanies == null)
+      this.filteredCompanies = Array.from(this.companies);
+    // this.dataSource = this.filteredCompanies
+    //                       .filter(c => c.citta.toLocaleLowerCase()
+    //                                     .includes(this.filteringCity.toLocaleLowerCase()))
+    this.filteredCompanies = this.filteredCompanies
+                                            .filter(c => c.citta.toLocaleLowerCase()
+                                                          .includes(this.filteringCity.toLocaleLowerCase()))
+    this.dataSource = this.filteredCompanies
+  }
+
+  private filterByNameAndCity(){
+    if (this.filteredCompanies == null)
+      this.filteredCompanies = Array.from(this.companies);
+    // this.dataSource = this.filteredCompanies
+    //                       .filter(c => c.citta.toLocaleLowerCase()
+    //                                     .includes(this.filteringCity.toLocaleLowerCase()))
+    //                       .filter(c => c.nomeAttivita.toLocaleLowerCase()
+    //                                     .includes(this.filteringName.toLocaleLowerCase()))
+    this.filteredCompanies = this.filteredCompanies
+                                  .filter(c => c.nomeAttivita.toLocaleLowerCase()
+                                                .includes(this.filteringName.toLocaleLowerCase())
+                                              && c.citta.toLocaleLowerCase()
+                                                   .includes(this.filteringCity.toLocaleLowerCase()))
+                                  // .filter(c => c.citta.toLocaleLowerCase()
+                                  //               .includes(this.filteringCity.toLocaleLowerCase()))
+    this.dataSource = this.filteredCompanies
+
+  }
+
+  //private
+
+  private filterByProvince(){
+    if (this.filteredCompanies == null)
+      this.filteredCompanies = Array.from(this.companies);
+    this.dataSource = this.filteredCompanies
+                          .filter(c => c.provincia
+                                        .toLocaleLowerCase()
+                                        .includes(this.filteringProvince.toLocaleLowerCase()))
+                          .filter(c => c.citta
+                                        .toLocaleLowerCase()
+                                        .includes(this.filteringCity.toLocaleLowerCase()))
+                          .filter(c => c.nomeAttivita
+                                        .toLocaleLowerCase()
+                                        .includes(this.filteringName.toLocaleLowerCase()))
     }
-    console.log(this.selTypeOfCmp)
-  }
 
-  private filterWithDropDowns() {
-    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-      .includes(this.filteringName.toLocaleLowerCase()))
-      .filter(c => c.citta.toLocaleLowerCase()
-        .includes(this.filteringCity.toLocaleLowerCase()))
-      .filter(c => c.tipoAttivita === this.selTypeOfCmp);
-  }
+  // filter_OLD() {
+  //   if (this.filteredCompanies == null)
+  //     this.filteredCompanies = Array.from(this.companies);
+  //   if (this.selTypeOfCmp === undefined
+  //     || this.selTypeOfCmp.toString() === "TUTTE") {
+  //     this.filterWithoutDropDowns();
+  //   } else {
+  //     this.filterWithDropDowns();
+  //   }
+  //   console.log(this.selTypeOfCmp)
+  // }
 
-  private filterWithoutDropDowns() {
-    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-      .includes(this.filteringName.toLocaleLowerCase()))
-      .filter(c => c.citta.toLocaleLowerCase()
-        .includes(this.filteringCity.toLocaleLowerCase()))
-  }
+  // private filterWithDropDowns() {
+  //   this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
+  //     .includes(this.filteringName.toLocaleLowerCase()))
+  //     .filter(c => c.citta.toLocaleLowerCase()
+  //     .includes(this.filteringCity.toLocaleLowerCase()))
+  //     .filter(c => c.tipoAttivita === this.selTypeOfCmp);
+  // }
+
+  // private filterWithoutDropDowns() {
+  //   this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
+  //     .includes(this.filteringName.toLocaleLowerCase()))
+  //     .filter(c => c.citta.toLocaleLowerCase()
+  //     .includes(this.filteringCity.toLocaleLowerCase()))
+  // }
 
 
   deleteNameFilter() {
     this.filteringName = "";
+    this.filteredCompanies = null;
     this.filter();
   }
 
   deleteCityFilter() {
     this.filteringCity = "";
+    this.filteredCompanies = null
+    this.filter();
+  }
+
+  deleteProvinceFilter() {
+    this.filteringProvince = "";
     this.filter();
   }
 
