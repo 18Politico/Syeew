@@ -1,7 +1,7 @@
 <div class="grid-container">
   <!--<h1 class="mat-h1">Dashboard</h1>-->
   <mat-grid-list cols="2" rowHeight="450px">
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <!--<mat-grid-tile [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
@@ -37,6 +37,11 @@
           <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
+    </mat-grid-tile>-->
+    <app-temporal-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
+      [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-temporal-charts>
+    <app-parameters-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
+      [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-parameters-charts>
+    <app-fixed-parameters-charts></app-fixed-parameters-charts>
   </mat-grid-list>
 </div>

@@ -1,10 +1,8 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { map, Observable } from 'rxjs';
-import { QuantitativeData } from 'src/app/models/QuantitativeData';
-import { ScatterPlotComponent } from '../../charts/scatter-plot/scatter-plot.component';
+import { Component, Input, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ICompany } from 'src/app/models/interfaces/ICompany';
+import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
+import { ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
 
 @Component({
   selector: 'app-parameters-charts',
@@ -13,93 +11,41 @@ import { ScatterPlotComponent } from '../../charts/scatter-plot/scatter-plot.com
 })
 export class ParametersChartsComponent {
 
-  cards: Observable<any>
+  @Input() selectedCompany!: ICompany
+  @Input() dateFrom!: string
+  @Input() dateTo!: string
+  @Input() filteredQuantitativeData!: IQuantitativeData[]
+  @Input() xAxisChoice!: string
+  @Input() yAxisChoice!: string
+  cards: any[]
+  plotCanBeBuilt = false; // take in input from axis-selection component
 
-  selectedColor: ThemePalette = 'primary'
-
-  buttonsX: Map<string, boolean>
-
-  buttonsY: Map<string, boolean>
-
-  xAxisChoice = ""
-  yAxisChoice = ""
-
-  plotCanBeBuilt= false;
-
-  constructor(private breakpointObserver: BreakpointObserver, private dialog: MatDialog) {
-    this.cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-      map(({ matches }) => {
-        return [
-          { nameChart: 'Scatter Plot', cols: 1, rows: 1 },
-        ];
-      })
-    );
-
-    this.buttonsX = new Map<string, boolean>([
-      ["Netto", false],
-      ["Iva", false],
-      ["FatturatoIvato", false],
-      ["Quantità", false],
-      ["Dimensione", false],
-    ]);
-
-    this.buttonsY = new Map<string, boolean>([
-      ["Netto", false],
-      ["Iva", false],
-      ["FatturatoIvato", false],
-      ["Quantità", false],
-      ["Dimensione", false],
-    ]);
-
-
+  constructor(private dialog: MatDialog) {
+    this.cards = [
+      { nameChart: 'scatterplot', cols: 1, rows: 1 },
+    ]
   }
 
-  openChart(chartName: string) {
-    let dialogRef: MatDialogRef<any, any>
-    switch (chartName) {
-      case 'Scatter Plot': {
-        dialogRef = this.dialog.open(ScatterPlotComponent);
-        break;
+  openChart(nameChart: string) {
+    let dialogRef = this.dialog.open(ZoomChartComponent, {
+      data: {
+        nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
+        dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice
       }
-    }
+    })
     dialogRef!.updateSize('300vw')
   }
 
-  VerifyActiveButtons(){
-    this.UpdateButtonsX()
-    this.UpdateButtonsY()
-    this.TryToGenerateScatter()
+  /**
+   * Checks if plot can be built taking permission from axis-selection component. If it can be
+   * built, axis-selection component sends to this component a json data.
+   * @param evtData json data that contains the boolean permission building and the plotting axis choises
+   */
+  checkIfBuilding(evtData: { plotting: boolean, xAxis: string, yAxis: string }) {
+    this.plotCanBeBuilt = evtData.plotting
+    this.xAxisChoice = evtData.xAxis
+    this.yAxisChoice = evtData.yAxis
   }
-
-  private UpdateButtonsY(){
-      for (const key of this.buttonsY.keys()) {
-        if (this.xAxisChoice !== key)
-          this.buttonsY.set(key, false)
-        else
-          this.buttonsY.set(key, true)
-
-    }
-  }
-
-  private UpdateButtonsX(){
-      for (const key of this.buttonsX.keys()) {
-        if (this.yAxisChoice !== key)
-          this.buttonsX.set(key, false)
-        else
-          this.buttonsX.set(key, true)
-      }
-  }
-
-  private TryToGenerateScatter(){
-    if (this.xAxisChoice !== "" && this.yAxisChoice !== "")
-      this.plotCanBeBuilt = true
-  }
-
-
-  GenerateScatterPlot(){
-    this.plotCanBeBuilt = true;
-  }
-
 
 }
 

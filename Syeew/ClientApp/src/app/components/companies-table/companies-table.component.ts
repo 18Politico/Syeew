@@ -88,63 +88,29 @@ export class CompaniesTableComponent implements OnInit {
   private filterByName(){
     if (this.filteredCompanies == null)
       this.filteredCompanies = Array.from(this.companies);
-    console.log("dim filt = " + this.filteredCompanies.length)
-    // this.dataSource = this.filteredCompanies
-    //                       .filter(c => c.nomeAttivita.toLocaleLowerCase()
-    //                                     .includes(this.filteringName.toLocaleLowerCase()))
-    this.filteredCompanies = this.filteredCompanies
-                                     .filter(c => c.nomeAttivita.toLocaleLowerCase()
-                                                   .includes(this.filteringName.toLocaleLowerCase()))
-    this.dataSource = this.filteredCompanies
-  }
-
-  private filterByCity(){
-    if (this.filteredCompanies == null)
-      this.filteredCompanies = Array.from(this.companies);
-    // this.dataSource = this.filteredCompanies
-    //                       .filter(c => c.citta.toLocaleLowerCase()
-    //                                     .includes(this.filteringCity.toLocaleLowerCase()))
-    this.filteredCompanies = this.filteredCompanies
-                                            .filter(c => c.citta.toLocaleLowerCase()
-                                                          .includes(this.filteringCity.toLocaleLowerCase()))
-    this.dataSource = this.filteredCompanies
-  }
-
-  private filterByNameAndCity(){
-    if (this.filteredCompanies == null)
-      this.filteredCompanies = Array.from(this.companies);
-    // this.dataSource = this.filteredCompanies
-    //                       .filter(c => c.citta.toLocaleLowerCase()
-    //                                     .includes(this.filteringCity.toLocaleLowerCase()))
-    //                       .filter(c => c.nomeAttivita.toLocaleLowerCase()
-    //                                     .includes(this.filteringName.toLocaleLowerCase()))
-    this.filteredCompanies = this.filteredCompanies
-                                  .filter(c => c.nomeAttivita.toLocaleLowerCase()
-                                                .includes(this.filteringName.toLocaleLowerCase())
-                                              && c.citta.toLocaleLowerCase()
-                                                   .includes(this.filteringCity.toLocaleLowerCase()))
-                                  // .filter(c => c.citta.toLocaleLowerCase()
-                                  //               .includes(this.filteringCity.toLocaleLowerCase()))
-    this.dataSource = this.filteredCompanies
-
-  }
-
-  //private
-
-  private filterByProvince(){
-    if (this.filteredCompanies == null)
-      this.filteredCompanies = Array.from(this.companies);
-    this.dataSource = this.filteredCompanies
-                          .filter(c => c.provincia
-                                        .toLocaleLowerCase()
-                                        .includes(this.filteringProvince.toLocaleLowerCase()))
-                          .filter(c => c.citta
-                                        .toLocaleLowerCase()
-                                        .includes(this.filteringCity.toLocaleLowerCase()))
-                          .filter(c => c.nomeAttivita
-                                        .toLocaleLowerCase()
-                                        .includes(this.filteringName.toLocaleLowerCase()))
+    if (this.selTypeOfCmp === undefined
+      || this.selTypeOfCmp.toString() === "TUTTE") {
+      this.filterWithoutDropDowns();
+    } else {
+      this.filterWithDropDowns();
     }
+    console.log(this.selTypeOfCmp)
+  }
+
+  private filterWithDropDowns() {
+    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
+      .includes(this.filteringName.toLocaleLowerCase()))
+      .filter(c => c.citta.toLocaleLowerCase()
+        .includes(this.filteringCity.toLocaleLowerCase()))
+      .filter(c => c.tipoAttivita === this.selTypeOfCmp);
+  }
+
+  private filterWithoutDropDowns() {
+    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
+      .includes(this.filteringName.toLocaleLowerCase()))
+      .filter(c => c.citta.toLocaleLowerCase()
+        .includes(this.filteringCity.toLocaleLowerCase()))
+  }
 
   // filter_OLD() {
   //   if (this.filteredCompanies == null)
