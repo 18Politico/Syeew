@@ -131,6 +131,7 @@ export class QuantitativeDataComponent implements OnInit {
 
   VediDashFunc() {
     this.vediDash = true;
+    setTimeout(() => document.getElementById("dashboard")?.scrollIntoView({ behavior: "smooth" }));
   }
 
   resetDashboard() {
@@ -138,7 +139,7 @@ export class QuantitativeDataComponent implements OnInit {
     this.filtered = []
     this.dateFrom = new FormControl('', [Validators.required]);
     this.dateUntil = new FormControl('', [Validators.required]);
-    
+
   }
 
 }

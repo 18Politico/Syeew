@@ -1,47 +1,30 @@
 <div class="grid-container">
-  <!--<h1 class="mat-h1">Dashboard</h1>-->
+  <h1 class="mat-h1">Dashboard</h1>
   <mat-grid-list cols="2" rowHeight="450px">
-    <!--<mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>help</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Help</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>
-            <label id="example-radio-group-label">X Axis</label>
-            <mat-radio-group #xAxis aria-labelledby="example-radio-group-label" class="example-radio-group"
-              [(ngModel)]="xAxisChoice">
-              <mat-radio-button class="example-radio-button" *ngFor="let choice of choises" [value]="choice"
-                [color]="selectedColor">
-                {{choice}}
-              </mat-radio-button>
-            </mat-radio-group>
-            <div>Selected x axis parameter: {{xAxisChoice}}</div>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile *ngFor="let card of cards;" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-content class="dashboard-card-content">
-          <app-chart [nameChart]="card.nameChart" [selectedCompany]="selectedCompany"
-            [filteredQuantitativeData]="filtered" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
-            [xAxisParameter]="xAxisChoice"></app-chart>
-          <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>-->
-    <app-temporal-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
-      [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-temporal-charts>
-    <app-parameters-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
-      [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-parameters-charts>
-    <app-fixed-parameters-charts></app-fixed-parameters-charts>
+    <mat-tab-group>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">timeline</mat-icon>
+          Grafici Temporali
+        </ng-template>
+        <app-temporal-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
+          [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-temporal-charts>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">scatter_plot</mat-icon>
+          Asse X e asse Y dinamici
+        </ng-template>
+        <app-parameters-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
+          [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-parameters-charts>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon class="example-tab-icon">pie_chart_outline</mat-icon>
+          Grafici fissi
+        </ng-template>
+        <app-fixed-parameters-charts></app-fixed-parameters-charts>
+      </mat-tab>
+    </mat-tab-group>
   </mat-grid-list>
 </div>

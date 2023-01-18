@@ -47,7 +47,9 @@
       <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
       </mat-paginator>
     </div>
-
+    <div id="dashboard">
+      <br><br>
+    </div>
     <app-dashboard *ngIf="vediDash" [selectedCompany]="clickedCompany" [filtered]="filtered"
       [dateFrom]="dateFrom.value!" [dateTo]="dateUntil.value!"></app-dashboard>
   </ng-template>
