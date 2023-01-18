@@ -25,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoadingProgressComponent } from './components/loading-progress/loading-progress.component';
 import { AxisSelectionComponent } from './components/dashboard/axis-selection/axis-selection.component';
 import { ZoomChartComponent } from './components/dashboard/zoom-chart/zoom-chart.component';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { ZoomChartComponent } from './components/dashboard/zoom-chart/zoom-chart
     FixedParametersChartsComponent,
     LoadingProgressComponent,
     AxisSelectionComponent,
-    ZoomChartComponent
+    ZoomChartComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

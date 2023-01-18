@@ -8,6 +8,7 @@ import { QuantitativeDataComponent } from './components/quantitative-data/quanti
 import { ChartComponent } from './components/chart/chart.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'aziende/:companyName', component: QuantitativeDataComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'charts', component: ChartComponent },
+  { path: 'login', component: LoginComponent },
   // {
   //   path: 'navbar', component: NavbarComponent, children: [
   //     { path: 'aziende', component: CompaniesTableComponent },
