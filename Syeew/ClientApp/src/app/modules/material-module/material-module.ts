@@ -16,7 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
@@ -38,7 +38,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatButtonModule,
     MatRadioModule,
     MatDialogModule,
-    MatProgressSpinnerModule,
+    MatProgressBarModule,
     MatTabsModule
   ]
 })

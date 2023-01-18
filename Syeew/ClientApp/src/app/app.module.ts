@@ -22,7 +22,7 @@ import { FixedParametersChartsComponent } from './components/dashboard/fixed-par
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { LoadingProgressComponent } from './components/loading-progress/loading-progress.component';
 import { AxisSelectionComponent } from './components/dashboard/axis-selection/axis-selection.component';
 import { ZoomChartComponent } from './components/dashboard/zoom-chart/zoom-chart.component';
 @NgModule({
@@ -39,7 +39,7 @@ import { ZoomChartComponent } from './components/dashboard/zoom-chart/zoom-chart
     ParametersChartsComponent,
     TemporalChartsComponent,
     FixedParametersChartsComponent,
-    LoadingSpinnerComponent,
+    LoadingProgressComponent,
     AxisSelectionComponent,
     ZoomChartComponent
   ],

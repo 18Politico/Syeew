@@ -1,4 +1,4 @@
-<app-loading-spinner *ngIf="isLoading; else dataTable"></app-loading-spinner>
+<app-loading-progress *ngIf="isLoading; else dataTable"></app-loading-progress>
 <ng-template #dataTable>
   <div *ngIf="!dataSource; else companyTable">
     <h1>Nessun'azienda presente nel sistema</h1>
