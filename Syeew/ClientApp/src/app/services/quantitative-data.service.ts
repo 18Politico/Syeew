@@ -20,4 +20,16 @@ export class QuantitativeDataService {
     return this._http.get<IQuantitativeData[]>(this._url + "/QuantitativeDatasOf?companyWithName=" + companyName);
   }
 
+  getBoxPlotDataDay(companyName: string, dateFrom: Date, dateTo: Date, content: string): Observable<[]> {
+    return this._http.get<[]>(this._url + "/BoxPlotDataDay?companyWithName=" + companyName + "?from=" + dateFrom + "?to=" + dateTo + "?content=" + content)
+  }
+
+  getBoxPlotDataMonth(companyName: string, dateFrom: Date, dateTo: Date, content: string): Observable<[]> {
+    return this._http.get<[]>(this._url + "/BoxPlotDataMonth?companyWithName=" + companyName + "?from=" + dateFrom + "?to=" + dateTo + "?content=" + content)
+  }
+
+  getData(companyName: string, dateFrom: Date, dateTo: Date, content: string): Observable<[]> {
+    return this._http.get<[]>(this._url + "/Data?companyWithName=" + companyName + "?from=" + dateFrom + "?to=" + dateTo + "?content=" + content)
+  }
+
 }
