@@ -14,7 +14,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { QuantitativeDataComponent } from './components/quantitative-data/quantitative-data.component';
 import { ProvaComponent } from './components/prova/prova.component';
 import { CompaniesTableComponent } from './components/companies-table/companies-table.component';
-import { ChartComponent } from './components/chart/chart.component';
+import { ChartGeneratorComponent } from './components/chart-generator/chart-generator.component';
 import { ParametersChartsComponent } from './components/dashboard/parameters-charts/parameters-charts.component';
 import { TemporalChartsComponent } from './components/dashboard/temporal-charts/temporal-charts.component';
 import { FixedParametersChartsComponent } from './components/dashboard/fixed-parameters-charts/fixed-parameters-charts.component';
@@ -34,7 +34,7 @@ import { LoginComponent } from './components/login/login.component';
     QuantitativeDataComponent,
     ProvaComponent,
     CompaniesTableComponent,
-    ChartComponent,
+    ChartGeneratorComponent,
     NavbarComponent,
     DashboardComponent,
     ParametersChartsComponent,

@@ -5,7 +5,7 @@ import { CompaniesTableComponent } from './components/companies-table/companies-
 import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { QuantitativeDataComponent } from './components/quantitative-data/quantitative-data.component';
-import { ChartComponent } from './components/chart/chart.component';
+import { ChartGeneratorComponent } from './components/chart-generator/chart-generator.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'aziende', component: CompaniesTableComponent },
   { path: 'aziende/:companyName', component: QuantitativeDataComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'charts', component: ChartComponent },
+  { path: 'charts', component: ChartGeneratorComponent },
   { path: 'login', component: LoginComponent },
   // {
   //   path: 'navbar', component: NavbarComponent, children: [
