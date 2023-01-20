@@ -61,6 +61,7 @@ export class CompaniesTableComponent implements OnInit {
     this.isLoading = true
   }
 
+
   // filterByName(){
   //   if (this.filteredCompanies == null)
   //     this.filteredCompanies = Array.from(this.companies);
@@ -70,22 +71,31 @@ export class CompaniesTableComponent implements OnInit {
   // }
 
   filter(){
-    this.filteredCompanies = null
-    console.log("dim tutte = " + this.companies.length)
-    if (this.filteringName === "" && this.filteringCity !== "")
-      this.filterByCity()
-    else if (this.filteringName !== "" && this.filteringCity === "")
-      this.filterByName()
-     else
-      this.filterByNameAndCity()
+    this.filteredCompanies = Array.from(this.companies.filter(
+      c => c.nomeAttivita.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase())
+      && c.citta.toLocaleLowerCase().includes(this.filteringCity.toLocaleLowerCase())
+    ))
+
+    this.dataSource = this.filteredCompanies
+
+    // console.log("dim tutte = " + this.companies.length)
+    // if (this.filteringName === "" && this.filteringCity !== "")
+    //   this.filterByCity()
+    // else if (this.filteringName !== "" && this.filteringCity === "")
+    //   this.filterByName()
+    //  else
+    //   this.filterByNameAndCity()
   }
 
   filterByCity(){
-
+    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
+      .includes(this.filteringName.toLocaleLowerCase()))
+      .filter(c => c.citta.toLocaleLowerCase()
+      .includes(this.filteringCity.toLocaleLowerCase()))
   }
 
   private filterByName(){
-
+    this.dataSource.filter(c => c.nomeAttivita.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()))
   }
 
   private filterByNameAndCity(){

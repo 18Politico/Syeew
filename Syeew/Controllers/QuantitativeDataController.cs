@@ -3,6 +3,9 @@ using DataSourceSyeew.Repositories;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MathNet.Numerics.Statistics;
+using Syeew.DTOs;
+using System.Collections;
 
 namespace Syeew.Controllers
 {
@@ -12,6 +15,8 @@ namespace Syeew.Controllers
     {
 
         private readonly IQuantitativeDataRepository _quantitativeDataRepository;
+
+
 
         public QuantitativeDataController (IQuantitativeDataRepository quantitativeDataRepository)
         {
@@ -54,6 +59,7 @@ namespace Syeew.Controllers
                 _quantitativeDataRepository.Dispose();
             }
         }
+        
 
         [HttpPost]
         public async Task<ActionResult<QuantitativeData>> InsertQuantitativeData([FromBody] QuantitativeData quantitativeData)
