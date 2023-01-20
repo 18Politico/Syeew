@@ -15,6 +15,8 @@ namespace DataSourceSyeew
         public DbSet<Company> Companies { get; set; }
         public DbSet<QuantitativeData> QuantitativeDatas { get; set; }
 
+        public DbSet<Admin> Admins { get; set; }
+
         public SyeewContext() { }
         public SyeewContext(DbContextOptions<SyeewContext> options) : base(options) { }
 
