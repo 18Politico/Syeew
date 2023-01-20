@@ -3,11 +3,13 @@ using DataSourceSyeew.Entities;
 using DataSourceSyeew.Entities.InterfacesEntities;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
 using MathNet.Numerics.Statistics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Syeew.DTOs;
 using Syeew.Utils;
 using Syeew.Utils.DTOs;
+using System.Data;
 using System.Text.RegularExpressions;
 
 namespace Syeew.Controllers
@@ -22,6 +24,7 @@ namespace Syeew.Controllers
             _quantitativeDataRepository = quantitativeDataRepository;
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpGet("{companyWithName}/{from}/{to}/{content}")]
         public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataDay([FromQuery] string companyWithName,
                                                                                 [FromQuery] string from,
@@ -91,6 +94,7 @@ namespace Syeew.Controllers
             return statsFromGroup;
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpGet("{companyWithName}/{from}/{to}/{content}")]
         public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataMonth([FromQuery] string companyWithName,
                                                                                          [FromQuery] string from,
@@ -125,6 +129,7 @@ namespace Syeew.Controllers
 
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpGet("{companyWithName}/{from}/{to}/{content}")]
         public async Task<ActionResult<ICollection<DateContentDTO>>> Data([FromQuery] string companyWithName,
                                                                                          [FromQuery] string from,

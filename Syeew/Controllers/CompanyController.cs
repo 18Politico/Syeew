@@ -1,6 +1,7 @@
 ﻿using DataSourceSyeew.Entities;
 using DataSourceSyeew.Repositories;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace Syeew.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
+        private static readonly string V = UserRole.ADMIN.ToString();
         private readonly ICompanyRepository _repository;
 
         public CompanyController(ICompanyRepository repository)
@@ -24,9 +26,9 @@ namespace Syeew.Controllers
             {
                 return Ok(await _repository.GetCompanies());
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error " + e);
             }
             finally
             {
@@ -34,6 +36,7 @@ namespace Syeew.Controllers
             }
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpGet("{companyName}")]
         public async Task<ActionResult<Company>> GetCompanyBy(string companyName)
         {
@@ -45,9 +48,9 @@ namespace Syeew.Controllers
 
                 return Ok(company);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error " + e);
             }
             finally
             {
@@ -55,6 +58,7 @@ namespace Syeew.Controllers
             }
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Company>> InsertCompany([FromBody] Company company)
         {
@@ -62,9 +66,9 @@ namespace Syeew.Controllers
             {
                 return Ok(await _repository.Add(company));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error " + e);
             }
             finally
             {

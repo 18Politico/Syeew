@@ -42,7 +42,7 @@ namespace Syeew.Controllers
 
         private string Generate(Admin admin)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
@@ -84,6 +84,7 @@ namespace Syeew.Controllers
                 return null;
         }
 
+        //[Authorize(Roles = "Admin")]
         [HttpPost("get-admin")]
         public async Task<ActionResult<Admin>> GetUserByJwt([FromBody] string token)
         {

@@ -8,8 +8,9 @@ namespace DataSourceSyeew.Entities.InterfacesEntities
         string Name { get; set; }
         string Password { get; set; }
 
-        [NotMapped]
-        UserRole Role { get; init; }
+        string Role { get; init; }
+
+        //UserRole Role { get; init; }
         string Email { get; set; }
         string Surname { get; set; }
     }

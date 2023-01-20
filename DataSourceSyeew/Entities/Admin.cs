@@ -15,7 +15,9 @@ namespace DataSourceSyeew.Entities
         public string Password { get; set; }
 
         [NotMapped]
-        public UserRole Role { get; init; } = UserRole.ADMIN;
+        public string Role { get; init; } = "Admin";
+
+        //public UserRole Role { get; init; } = UserRole.ADMIN;
         public string Email { get; set; }
         public string Surname { get; set; }
     }
