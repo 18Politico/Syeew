@@ -23,7 +23,8 @@
           <mat-icon class="example-tab-icon">pie_chart_outline</mat-icon>
           Grafici fissi
         </ng-template>
-        <app-fixed-parameters-charts></app-fixed-parameters-charts>
+        <app-fixed-parameters-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
+        [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-fixed-parameters-charts>
       </mat-tab>
     </mat-tab-group>
   </mat-grid-list>

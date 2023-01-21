@@ -18,7 +18,7 @@
           <div *ngIf="plotCanBeBuilt; else elseBlock">
             <app-chart-generator [selectedCompany]="selectedCompany"
               [filteredQuantitativeData]="filteredQuantitativeData" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
-              [nameChart]="card.nameChart" [yAxis]="yAxisChoice!"></app-chart-generator>
+              [nameChart]="card.nameChart" [yAxis]="yAxisChoice!" [showTimeButtons]="true"></app-chart-generator>
             <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
           </div>
           <ng-template #elseBlock>Configura l'asse Y tra le opzioni disponibili per generare il grafico</ng-template>

@@ -26,6 +26,8 @@ import { QuantitativeDataService } from 'src/app/services/quantitative-data.serv
 import { PlotsService } from 'src/app/services/plots.service';
 import { BoxPlotDataDTO } from 'src/app/Utils/DTOs/BoxPlotDataDTO';
 import { lastValueFrom } from 'rxjs';
+import { RequestDataDTO } from 'src/app/Utils/DTOs/RequestDataDTO';
+import { CustomDate } from 'src/app/Utils/CustomDate';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries | ApexNonAxisChartSeries;
@@ -66,6 +68,7 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
   @ViewChild("chart", { static: false }) chart!: ChartComponent;
   chartOptions!: Partial<ChartOptions>;
   public activeOptionButton = "all";
+  @Input() showTimeButtons!: boolean // to show buttons that change a period in a chart (1 month, 6 month, 1 year)
 
   d = [
     [1327359600000, 30.95],
@@ -375,7 +378,13 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
     all: {
       xaxis: {
         min: undefined,
-        max: undefined
+        max: undefined,
+        tickAmount: 10,
+        labels: {
+          formatter: function (val: string) {
+            return parseFloat(val).toFixed(0)
+          }
+        }
       }
     }
   };
@@ -393,7 +402,20 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
   generatePlot(chartName: string) {
     switch (chartName) {
       case 'boxplot': {
-        this.createTemporalChart(this.selectedCompany.nomeAttivita, "boxPlot", this.getDataInYear(new Date(this.dateFrom), new Date(this.dateTo), this.yAxis), this.yAxis)
+        let boxData: BoxPlotDataDTO[] = []
+        //this.createTemporalChart(this.selectedCompany.nomeAttivita, "boxPlot", this.getDataInYear(new Date(this.dateFrom), new Date(this.dateTo), this.yAxis), this.yAxis)
+        this.plotService.getBoxPlotDataMonth(new RequestDataDTO(this.selectedCompany.nomeAttivita,
+          new CustomDate(new Date(this.dateFrom).getDate(), new Date(this.dateFrom).getMonth(), new Date(this.dateFrom).getFullYear()),
+          new CustomDate(new Date(this.dateTo).getDate(), new Date(this.dateTo).getMonth(), new Date(this.dateTo).getFullYear()), this.yAxis)).subscribe((data) => {
+            boxData = data
+          })
+        console.log('data received: ', boxData)
+        let map = new Map<number, number[]>()
+        boxData.forEach(b => {
+          map.set(new Date(b.date.day, b.date.month, b.date.year).getTime(), b.stats)
+        }
+        )
+        this.createTemporalChart(this.selectedCompany.nomeAttivita, "boxPlot", map, this.yAxis)
         break;
       }
       case 'barchart': {
@@ -614,26 +636,29 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
   private createTemporalChart(titleText: string, newType: ChartType, map: Map<number, number[]>, yAxisTitle: string) {
     let months = Array.from(map.keys())
     console.log('map: ', map)
-    let dataFromMap: any
-    months.forEach(m => {
-      //console.log(`{"x" : '${m}' ,"y" : [${map.get(m)}]}`)
-      //var obj = JSON.parse(`{"x" : "${m}" ,"y" : [${map.get(m)}]}`);
-      /*map.get(m)?.forEach(e => {
-        dataFromMap.push(e)
-      })*/
-      let sum = 0.0
-      map.get(m)?.forEach(e => {
-        sum = sum + Number.parseFloat(e.toFixed(2))
-      })
-      dataFromMap.push([m, sum])
+    let dataFromMap: any[] = []
+    //months.forEach(m => {
+    //console.log(`{"x" : '${m}' ,"y" : [${map.get(m)}]}`)
+    //var obj = JSON.parse(`{"x" : "${m}" ,"y" : [${map.get(m)}]}`);
+    /*map.get(m)?.forEach(e => {
+      dataFromMap.push(e)
+    })*/
+    /*let sum = 0.0
+    map.get(m)?.forEach(e => {
+      sum = sum + Number.parseFloat(e.toFixed(2))
     })
+    dataFromMap.push([m, sum])
+  })*/
+    months.forEach(m => {
+      dataFromMap.push([m, map.get(m)])
+    });
     console.log('aaamdedjejjr: ', dataFromMap)
     // PRENDERE GIORNO COME X E DATO COME Y -> FARE 12 TICK PER TUTTI I MESI E FUNZIONERA'
-    let z: any
+    /*let z: any
     if (newType == 'boxPlot') {
       z = [
         ['Jan 2015', [54, 66, 90, 75, 88]]
-        /*{
+        {
           x: 'Jan 2015',
           y: [54, 66, 90, 75, 88]
         },
@@ -660,14 +685,14 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
         {
           x: 'Jan 2021',
           y: [54, 59, 66, 71, 88]
-        }*/
+        }
       ]
       this.d = z
-    }
+    }*/
     this.chartOptions = {
       series: [
         {
-          data: this.d
+          data: dataFromMap
         }
       ],
       chart: {
@@ -819,7 +844,7 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
         dataFromMap.push([x, y])
       })
     })
-    var obj = JSON.parse(`{"name": "${xAxisTitle + ' ' + yAxisTitle}",
+    var obj = JSON.parse(`{"name": "${xAxisTitle}",
     "data": [${dataFromMap}]}`);
     this.chartOptions = {
       series: [obj],
@@ -838,9 +863,6 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
         text: titleText
       },
       xaxis: {
-        title: {
-          text: xAxisTitle
-        },
         tickAmount: 10,
         labels: {
           formatter: function (val) {
@@ -861,97 +883,8 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
 
   // ----------------- Dati fittizi
 
-  /*generateBubbleChart() {
-      this.chartOptions = {
-        series: [
-          {
-            name: 'Product1',
-            data: [[new Date('December 1, 2022').getTime(), 43, 28],
-            [new Date('December 1, 2022').getTime(), 12, 108],
-            [new Date('December 2, 2022').getTime(), 45, 82],
-            [new Date('December 2, 2022').getTime(), 96, 138],
-            [new Date('December 2, 2022').getTime(), 52, 12],
-            [new Date('December 3, 2022').getTime(), 2, 12],
-            [new Date('December 3, 2022').getTime(), 17, 132],
-            [new Date('December 3, 2022').getTime(), 57, 198],
-            [new Date('December 3, 2022').getTime(), 25, 120],
-            [new Date('December 4, 2022').getTime(), 29, 126],
-            [new Date('December 4, 2022').getTime(), 21, 129],
-            [new Date('December 4, 2022').getTime(), 13, 142],
-            [new Date('December 5, 2022').getTime(), 17, 162],
-            [new Date('December 6, 2022').getTime(), 98, 222],
-            [new Date('December 7, 2022').getTime(), 122, 101],
-            [new Date('December 7, 2022').getTime(), 33, 87],
-            [new Date('December 7, 2022').getTime(), 41, 99],
-            [new Date('December 8, 2022').getTime(), 69, 101],
-            [new Date('December 8, 2022').getTime(), 16, 111],
-            [new Date('December 8, 2022').getTime(), 72, 70],
-            [new Date('December 9, 2022').getTime(), 83, 66],
-            [new Date('December 9, 2022').getTime(), 91, 102],
-            [new Date('December 9, 2022').getTime(), 20, 130],
-            [new Date('December 9, 2022').getTime(), 27, 121]
-            ]
-          },
-          {
-            name: 'Product2',
-            data: [[new Date('December 1, 2022').getTime(), 31, 208],
-            [new Date('December 4, 2022').getTime(), 13, 99],
-            [new Date('December 4, 2022').getTime(), 16, 55],
-            [new Date('December 4, 2022').getTime(), 98, 138],
-            [new Date('December 4, 2022').getTime(), 182, 95],
-            [new Date('December 6, 2022').getTime(), 48, 112],
-            [new Date('December 6, 2022').getTime(), 31, 105],
-            [new Date('December 6, 2022').getTime(), 42, 98],
-            [new Date('December 6, 2022').getTime(), 59, 78],
-            [new Date('December 8, 2022').getTime(), 50, 90],
-            [new Date('December 8, 2022').getTime(), 111, 100],
-            [new Date('December 8, 2022').getTime(), 179, 139],
-            [new Date('December 8, 2022').getTime(), 4, 102],
-            [new Date('December 8, 2022').getTime(), 98, 135],
-            [new Date('December 8, 2022').getTime(), 105, 143],
-            [new Date('December 9, 2022').getTime(), 120, 110],
-            [new Date('December 9, 2022').getTime(), 34, 102],
-            [new Date('December 10, 2022').getTime(), 61, 108],
-            [new Date('December 10, 2022').getTime(), 10, 103],
-            [new Date('December 11, 2022').getTime(), 72, 160],
-            [new Date('December 11, 2022').getTime(), 19, 139],
-            [new Date('December 12, 2022').getTime(), 27, 90],
-            [new Date('December 12, 2022').getTime(), 100, 108],
-            [new Date('December 12, 2022').getTime(), 15, 109]
-            ]
-          }
-        ],
-        chart: {
-          height: 350,
-          type: 'bubble',
-        },
-        dataLabels: {
-          enabled: false
-        },
-        fill: {
-          type: 'gradient',
-        },
-        title: {
-          text: '3D Bubble Chart'
-        },
-        xaxis: {
-          tickAmount: 12,
-          type: 'datetime',
-          labels: {
-            rotate: 0,
-          }
-        },
-        yaxis: {
-          max: 70
-        },
-        theme: {
-          palette: 'palette2'
-        }
-      };
-      this._initial = true;
-    }
-  
-    generateColumnChart() {
+
+    /*generateColumnChart() {
       this.chartOptions = {
         chart: {
           height: 350,
@@ -1314,6 +1247,10 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
     }*/
 
   /*async*/ generatePieChart() {
+    console.log('dateFrom: ', this.dateFrom)
+    console.log('dateTo: ', this.dateTo)
+    console.log('nome: ', this.selectedCompany.nomeAttivita)
+    console.log('y: ', this.yAxis)
     let data: BoxPlotDataDTO[] = []
     /*await lastValueFrom(this.plotService.getPieDataMonth(this.selectedCompany.nomeAttivita, new Date(this.dateFrom), new Date(this.dateTo), this.xAxis!)).then((d) => {
       data = d
