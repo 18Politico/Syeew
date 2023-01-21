@@ -1,6 +1,6 @@
 import { CustomDate } from "../CustomDate";
 
-export class BoxPlotData{
+export class BoxPlotDataDTO {
 
   date!: CustomDate
 

@@ -23,6 +23,9 @@ import {
   ApexAnnotations,
 } from "ng-apexcharts";
 import { QuantitativeDataService } from 'src/app/services/quantitative-data.service';
+import { PlotsService } from 'src/app/services/plots.service';
+import { BoxPlotDataDTO } from 'src/app/Utils/DTOs/BoxPlotDataDTO';
+import { lastValueFrom } from 'rxjs';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries | ApexNonAxisChartSeries;
@@ -377,7 +380,7 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
     }
   };
 
-  constructor(private _serviceData: QuantitativeDataService) {
+  constructor(private _serviceData: QuantitativeDataService, private plotService: PlotsService) {
 
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -1310,15 +1313,22 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
       this.initial = true;
     }*/
 
-  generatePieChart() {
+  /*async*/ generatePieChart() {
+    let data: BoxPlotDataDTO[] = []
+    /*await lastValueFrom(this.plotService.getPieDataMonth(this.selectedCompany.nomeAttivita, new Date(this.dateFrom), new Date(this.dateTo), this.xAxis!)).then((d) => {
+      data = d
+    })*/
     this.chartOptions = {
-      series: [44, 55, 13, 43, 22],
+      series: [44, 55, 13, 43, 22], // SOSTITUIRE CON dati passati dal service
       chart: {
         height: 350,
         //width: 380,
         type: "pie"
       },
-      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+      labels: ["Colazione", "Pranzo", "Servizio Bar", "Aperitivo Cena", "After Dinner"],
+      title: {
+        text: this.selectedCompany.nomeAttivita
+      },
       responsive: [
         {
           breakpoint: 480,

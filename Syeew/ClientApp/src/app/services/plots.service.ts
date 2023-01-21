@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BoxPlotData } from '../Utils/DTOs/BoxPlotData';
-import { DateContent } from '../Utils/DTOs/DateContent';
+import { BoxPlotDataDTO } from '../Utils/DTOs/BoxPlotDataDTO';
+import { DateContentDTO } from '../Utils/DTOs/DateContentDTO';
+import { RequestDataDTO } from '../Utils/DTOs/RequestDataDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +14,40 @@ export class PlotsService {
 
   constructor(private _http: HttpClient) { }
 
-  getBoxPlotDataDay(companyName: string, dateFrom: Date, dateTo: Date, content: string): Observable<BoxPlotData[]> {
-    return this._http.get<BoxPlotData[]>(this._url + "/BoxPlotDataDay?companyWithName=" + companyName + "?from=" + dateFrom + "?to=" + dateTo + "?content=" + content)
+  /**
+   * 
+   * @param requestData 
+   * @returns 
+   */
+  getBoxPlotDataDay(requestData: RequestDataDTO): Observable<BoxPlotDataDTO[]> {
+    return this._http.post<BoxPlotDataDTO[]>(this._url + "/BoxPlotDataDay", requestData)
   }
 
-  getBoxPlotDataMonth(companyName: string, dateFrom: Date, dateTo: Date, content: string): Observable<BoxPlotData[]> {
-    return this._http.get<BoxPlotData[]>(this._url + "/BoxPlotDataMonth?companyWithName=" + companyName + "?from=" + dateFrom + "?to=" + dateTo + "?content=" + content)
+  /**
+   * 
+   * @param requestData 
+   * @returns 
+   */
+  getBoxPlotDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataDTO[]> {
+    return this._http.post<BoxPlotDataDTO[]>(this._url + "/BoxPlotDataMonth", requestData)
   }
 
-  getData(companyName: string, dateFrom: Date, dateTo: Date, content: string): Observable<DateContent[]> {
-    return this._http.get<DateContent[]>(this._url + "/Data?companyWithName=" + companyName + "?from=" + dateFrom + "?to=" + dateTo + "?content=" + content)
+  /**
+   * Returns
+   * @param requestData 
+   * @returns 
+   */
+  getPieDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataDTO[]> {
+    return this._http.post<BoxPlotDataDTO[]>(this._url + "/BoxPlotDataDay", requestData)
+  }
+
+  /**
+   * 
+   * @param requestData 
+   * @returns 
+   */
+  getTemporalDataDay(requestData: RequestDataDTO): Observable<DateContentDTO[]> {
+    return this._http.post<[]>(this._url + "/TemporalDataDay", requestData)
   }
 
 }

@@ -19,7 +19,7 @@
     </mat-sidenav-content>
 </mat-sidenav-container>-->
 <div *ngIf="initial" style="text-align:center">
-    <button (click)="updateChartOptions( '1m' )" [class.active]="activeOptionButton=='1m'">
+    <!--<button (click)="updateChartOptions( '1m' )" [class.active]="activeOptionButton=='1m'">
         1M
     </button>
     <button (click)="updateChartOptions( '6m' )" [class.active]="activeOptionButton=='6m'">
@@ -33,7 +33,7 @@
     </button>
     <button (click)="updateChartOptions( 'all' )" [class.active]="activeOptionButton=='all'">
         All
-    </button>
+    </button>-->
     <apx-chart #chart [series]="chartOptions.series!" [labels]="chartOptions.labels!" [chart]="chartOptions.chart!"
         [xaxis]="chartOptions.xaxis!" [yaxis]="chartOptions.yaxis!" [title]="chartOptions.title!"
         [stroke]="chartOptions.stroke!" [plotOptions]="chartOptions.plotOptions!" [legend]="chartOptions.legend!"
