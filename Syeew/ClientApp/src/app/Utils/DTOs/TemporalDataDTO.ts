@@ -1,6 +1,6 @@
 import { CustomDate } from "../CustomDate";
 
-export class DateContentDTO {
+export class TemporalDataDTO {
 
   date!: CustomDate
 

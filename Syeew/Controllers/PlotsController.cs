@@ -1,4 +1,5 @@
 ﻿using Azure;
+using Azure.Core;
 using DataSourceSyeew.Entities;
 using DataSourceSyeew.Entities.InterfacesEntities;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
@@ -25,25 +26,24 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpGet("{companyWithName}/{from}/{to}/{content}")]
-        public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataDay([FromQuery] string companyWithName,
-                                                                                [FromQuery] string from,
-                                                                                [FromQuery] string to,
-                                                                                [FromQuery] string content)
+        [HttpPost("BoxPlotDataDay")]
+        public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataDay([FromBody] RequestDataDTO request)
         {
             try
             {
-                var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(content));
-                if (check.Count() == 0)
+                //var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(request.Content));
+                if (ContentIsNotValid(request))
                     throw new ArgumentException("Content " + "\"content\"" + "non valido");
 
-                var filteredData = await _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(
-                                                                                qD.MatriceNome.ToLower().Equals(companyWithName.ToLower())
-                                                                                && DateIsBetween(DateTime.Parse(from), DateTime.Parse(to), qD.Dt)));
+                //var filteredData = await _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(
+                //                                                                qD.MatriceNome.ToLower().Equals(request.CompanyName.ToLower())
+                //                                                                && DateIsBetween(request.From, request.To, qD.Dt)));
+
+                var filteredData = await this.GetFilteredData(request);
 
                 var grouped = filteredData.GroupBy(d => new CustomDate(d.Dt.Day, d.Dt.Month, d.Dt.Year));
 
-                List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, content);
+                List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, request.Content);
 
                 return Ok(response);
             }
@@ -57,9 +57,25 @@ namespace Syeew.Controllers
             }
         }
 
-        private bool DateIsBetween(DateTime from, DateTime to, DateTime date)
+        private bool ContentIsNotValid(RequestDataDTO request)
         {
-            return DateTime.Compare(date, from) >= 0 && DateTime.Compare(date, to) <= 0;
+            var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(request.Content));
+            if (check.Count() == 0)
+                return true;
+            return false;
+        }
+
+        private Task<ICollection<QuantitativeData>> GetFilteredData(RequestDataDTO request)
+        {
+            return _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.MatriceNome.ToLower().Equals(request.CompanyName.ToLower())
+                                                                               && DateIsBetween(request.From, request.To, qD.Dt)));
+        }
+
+        private bool DateIsBetween(CustomDate customFrom, CustomDate customTo, DateTime dateToCheck)
+        {
+            DateTime from = new DateTime(customFrom.Year, customFrom.Month, customFrom.Day);
+            DateTime to = new DateTime(customTo.Year, customTo.Month, customTo.Day);
+            return DateTime.Compare(dateToCheck, from) >= 0 && DateTime.Compare(dateToCheck, to) <= 0;
         }
 
         private List<BoxPlotDataDTO> ObtainStatsFromGroup(IEnumerable<IGrouping<CustomDate, IQuantitativeData>> groups, string content)
@@ -95,25 +111,19 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpGet("{companyWithName}/{from}/{to}/{content}")]
-        public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataMonth([FromQuery] string companyWithName,
-                                                                                         [FromQuery] string from,
-                                                                                         [FromQuery] string to,
-                                                                                         [FromQuery] string content)
+        [HttpPost("BoxPlotDataMonth")]
+        public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
         {
             try
             {
-                var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(content));
-                if (check.Count() == 0)
+                if (ContentIsNotValid(request))
                     throw new ArgumentException("Content " + "\"content\"" + "non valido");
 
-                var filteredData = await _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(
-                                                                                qD.MatriceNome.ToLower().Equals(companyWithName.ToLower())
-                                                                                && DateIsBetween(DateTime.Parse(from), DateTime.Parse(to), qD.Dt)));
+                var filteredData = await this.GetFilteredData(request);
 
                 var grouped = filteredData.GroupBy(d => new CustomDate(-1, d.Dt.Month, d.Dt.Year));
 
-                List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, content);
+                List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, request.Content);
 
                 return Ok(response);
             }
@@ -130,28 +140,22 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpGet("{companyWithName}/{from}/{to}/{content}")]
-        public async Task<ActionResult<ICollection<DateContentDTO>>> Data([FromQuery] string companyWithName,
-                                                                                         [FromQuery] string from,
-                                                                                         [FromQuery] string to,
-                                                                                         [FromQuery] string content)
+        [HttpPost("TemporalDataDay")]
+        public async Task<ActionResult<ICollection<TemporalDataDTO>>> TemporalDataDay([FromBody] RequestDataDTO request)
         {
             try
             {
-                var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(content));
-                if (check.Count() == 0)
+                if (ContentIsNotValid(request))
                     throw new ArgumentException("Content " + "\"content\"" + "non valido");
 
-                var filteredData = await _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(
-                                                                                qD.MatriceNome.ToLower().Equals(companyWithName.ToLower())
-                                                                                && DateIsBetween(DateTime.Parse(from), DateTime.Parse(to), qD.Dt)));
+                var filteredData = await this.GetFilteredData(request);
 
-                var response = new LinkedList<DateContentDTO>();
+                var response = new LinkedList<TemporalDataDTO>();
 
                 foreach(var data in filteredData)
                 {
-                    response.AddLast(new DateContentDTO(new CustomDate(data.Dt.Day, data.Dt.Month, data.Dt.Year),
-                                                        Double.Parse(data.GetType().GetProperty(content)?.GetValue(data, null)?.ToString()!)));
+                    response.AddLast(new TemporalDataDTO(new CustomDate(data.Dt.Day, data.Dt.Month, data.Dt.Year),
+                                                        Double.Parse(data.GetType().GetProperty(request.Content)?.GetValue(data, null)?.ToString()!)));
                 }
 
                 return Ok(response);
