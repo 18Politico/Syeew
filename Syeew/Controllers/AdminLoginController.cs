@@ -85,10 +85,10 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpPost("get-admin")]
+        [HttpPost("[action]")]
         public async Task<ActionResult<Admin>> GetUserByJwt([FromBody] string token)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
 
             var tokenValidationParameters = new TokenValidationParameters
             {

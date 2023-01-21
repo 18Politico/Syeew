@@ -26,7 +26,7 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpPost("[BoxPlotDataDay]")]
+        [HttpPost("[action]")]
         public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataDay([FromBody] RequestDataDTO request)
         {
             try
@@ -111,7 +111,7 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpPost("[BoxPlotDataMonth]")]
+        [HttpPost("[action]")]
         public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
         {
             try
@@ -140,7 +140,7 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpPost("[TemporalDataDay]")]
+        [HttpPost("[action]")]
         public async Task<ActionResult<ICollection<TemporalDataDTO>>> TemporalDataDay([FromBody] RequestDataDTO request)
         {
             try
