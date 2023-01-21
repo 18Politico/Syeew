@@ -23,6 +23,16 @@ export class PlotsService {
     return this._http.post<BoxPlotDataDTO[]>(this._url + "/BoxPlotDataDay", requestData)
   }
 
+
+  /*{
+
+    monthLabels: string[]; ["Aprile","Giugno"]
+    contentData: number[
+      [1,2,3,4,5],
+      [6,7,8,9,0]
+    ];
+
+  }*/
   /**
    *
    * @param requestData
