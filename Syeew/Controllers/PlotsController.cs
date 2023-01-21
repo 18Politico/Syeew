@@ -26,7 +26,7 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpPost("BoxPlotDataDay")]
+        [HttpPost("[BoxPlotDataDay]")]
         public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataDay([FromBody] RequestDataDTO request)
         {
             try
@@ -41,7 +41,7 @@ namespace Syeew.Controllers
 
                 var filteredData = await this.GetFilteredData(request);
 
-                var grouped = filteredData.GroupBy(d => new CustomDate(d.Dt.Day, d.Dt.Month, d.Dt.Year));
+                var grouped = filteredData.GroupBy(d => new CustomDate(d.Dt.Day, d.Dt.Month + 1, d.Dt.Year));
 
                 List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, request.Content);
 
@@ -73,8 +73,8 @@ namespace Syeew.Controllers
 
         private bool DateIsBetween(CustomDate customFrom, CustomDate customTo, DateTime dateToCheck)
         {
-            DateTime from = new DateTime(customFrom.Year, customFrom.Month, customFrom.Day);
-            DateTime to = new DateTime(customTo.Year, customTo.Month, customTo.Day);
+            DateTime from = new DateTime(customFrom.Year, customFrom.Month+1, customFrom.Day);
+            DateTime to = new DateTime(customTo.Year, customTo.Month+1, customTo.Day);
             return DateTime.Compare(dateToCheck, from) >= 0 && DateTime.Compare(dateToCheck, to) <= 0;
         }
 
@@ -111,7 +111,7 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpPost("BoxPlotDataMonth")]
+        [HttpPost("[BoxPlotDataMonth]")]
         public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
         {
             try
@@ -121,7 +121,7 @@ namespace Syeew.Controllers
 
                 var filteredData = await this.GetFilteredData(request);
 
-                var grouped = filteredData.GroupBy(d => new CustomDate(-1, d.Dt.Month, d.Dt.Year));
+                var grouped = filteredData.GroupBy(d => new CustomDate(-1, d.Dt.Month+1, d.Dt.Year));
 
                 List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, request.Content);
 
@@ -140,7 +140,7 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpPost("TemporalDataDay")]
+        [HttpPost("[TemporalDataDay]")]
         public async Task<ActionResult<ICollection<TemporalDataDTO>>> TemporalDataDay([FromBody] RequestDataDTO request)
         {
             try
@@ -154,7 +154,7 @@ namespace Syeew.Controllers
 
                 foreach(var data in filteredData)
                 {
-                    response.AddLast(new TemporalDataDTO(new CustomDate(data.Dt.Day, data.Dt.Month, data.Dt.Year),
+                    response.AddLast(new TemporalDataDTO(new CustomDate(data.Dt.Day, data.Dt.Month+1, data.Dt.Year),
                                                         Double.Parse(data.GetType().GetProperty(request.Content)?.GetValue(data, null)?.ToString()!)));
                 }
 
