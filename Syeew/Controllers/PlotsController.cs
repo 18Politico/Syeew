@@ -67,7 +67,7 @@ namespace Syeew.Controllers
 
         private Task<ICollection<QuantitativeData>> GetFilteredData(RequestDataDTO request)
         {
-            return _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.MatriceNome.ToLower().Equals(request.CompanyName.ToLower())
+            return _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(qD.MatriceNome.ToLower().Contains(request.CompanyName.ToLower())
                                                                                && DateIsBetween(request.From, request.To, qD.Dt)));
         }
 
@@ -84,6 +84,7 @@ namespace Syeew.Controllers
 
             foreach (var group in groups)
             {
+                group.Key.Month -= 1; 
                 var boxPlotData = new BoxPlotDataDTO(group.Key);
                 var properties = new double[group.Count()];
 
