@@ -399,20 +399,20 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
   ngOnInit(): void {
   }
 
-  generatePlot(chartName: string) {
+  async generatePlot(chartName: string) {
     switch (chartName) {
       case 'boxplot': {
         let boxData: BoxPlotDataDTO[] = []
         //this.createTemporalChart(this.selectedCompany.nomeAttivita, "boxPlot", this.getDataInYear(new Date(this.dateFrom), new Date(this.dateTo), this.yAxis), this.yAxis)
-        this.plotService.getBoxPlotDataMonth(new RequestDataDTO(this.selectedCompany.nomeAttivita,
-          new CustomDate(new Date(this.dateFrom).getDate(), new Date(this.dateFrom).getMonth(), new Date(this.dateFrom).getFullYear()),
-          new CustomDate(new Date(this.dateTo).getDate(), new Date(this.dateTo).getMonth(), new Date(this.dateTo).getFullYear()), this.yAxis)).subscribe((data) => {
+        await lastValueFrom(this.plotService.getBoxPlotDataDay(new RequestDataDTO(this.selectedCompany.nomeAttivita,
+          new CustomDate(new Date(this.dateFrom).getDate(), new Date(this.dateFrom).getMonth() + 1, new Date(this.dateFrom).getFullYear()),
+          new CustomDate(new Date(this.dateTo).getDate(), new Date(this.dateTo).getMonth() + 1, new Date(this.dateTo).getFullYear()), this.yAxis))).then((data) => {
             boxData = data
           })
         console.log('data received: ', boxData)
         let map = new Map<number, number[]>()
         boxData.forEach(b => {
-          map.set(new Date(b.date.day, b.date.month, b.date.year).getTime(), b.stats)
+          map.set(new Date(b.date.year, b.date.month, b.date.day).getTime(), b.stats)
         }
         )
         this.createTemporalChart(this.selectedCompany.nomeAttivita, "boxPlot", map, this.yAxis)
