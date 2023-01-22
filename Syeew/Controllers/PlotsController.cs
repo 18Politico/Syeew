@@ -96,15 +96,15 @@ namespace Syeew.Controllers
                     properties[j] = Double.Parse(property!);
                 }
                 //var Stats = new DescriptiveStatistics(properties);
-                var minimum = Statistics.Minimum(properties);
+                var minimum = Math.Round( Statistics.Minimum(properties), 2);
                 boxPlotData.Stats[0] = minimum;
-                var firstQuartile = Statistics.LowerQuartile(properties);
+                var firstQuartile = Math.Round( Statistics.LowerQuartile(properties), 2);
                 boxPlotData.Stats[1] = firstQuartile;
-                var median = Statistics.Median(properties);
+                var median = Math.Round( Statistics.Median(properties), 2 );
                 boxPlotData.Stats[2] = median;
-                var thirdQuartile = Statistics.UpperQuartile(properties);
+                var thirdQuartile = Math.Round(  Statistics.UpperQuartile(properties), 2);
                 boxPlotData.Stats[3] = thirdQuartile;
-                var maximum = Statistics.Maximum(properties);
+                var maximum = Math.Round( Statistics.Maximum(properties), 2);
                 boxPlotData.Stats[4] = maximum;
                 statsFromGroup.Add(boxPlotData);
             }
@@ -113,6 +113,7 @@ namespace Syeew.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         [HttpPost("[action]")]
         public async Task<ActionResult<BoxPlotDataMonthDTO>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
         {
@@ -144,8 +145,10 @@ namespace Syeew.Controllers
                         //LinkedList<string> months = new();
                         //var stat = stats[j];
                         var date = stat.Date;
-                        var month = new DateTime(date.Year, date.Month, date.Day)
-                                    .ToString("MMM", CultureInfo.InvariantCulture);
+                        Console.WriteLine("anno = " + date.Year + "; mese = " + date.Month + "; giorno = " + date.Day);
+                        var date_converted = new DateTime(date.Year, date.Month + 1, date.Day)
+                                    ; //.ToString("MMM", CultureInfo.InvariantCulture);
+                        var month = date_converted.ToString("MMM", CultureInfo.InvariantCulture) + " " + date.Year.ToString();
 
                         months.AddLast(month);
                         //numbers[i][j] = 
@@ -153,8 +156,9 @@ namespace Syeew.Controllers
                     }
                     
                 }
-
+                Console.WriteLine("QUA OK");
                 var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(), numbers.ToArray());
+                Console.WriteLine("QUA no");
                 response.AddLast(boxPlotData);
 
                 //foreach(var group in groupes) { group = group.OrderBy(d => d.Dt.Month).ToList(); }
@@ -179,9 +183,10 @@ namespace Syeew.Controllers
             }
         }
 
-        private List<BoxPlotDataDayDTO> /*void*/ OrderedGroups(IQuantitativeData[] group, /*ref List<BoxPlotDataDayDTO> list,*/ string content)
+        private List<BoxPlotDataDayDTO> /*void*/ OrderedGroups(IQuantitativeData[] group, /*ref List<BoxPlotDataDayDTO> list,*/ 
+                                                               string content)
         {
-            List<BoxPlotDataDayDTO> list = new List<BoxPlotDataDayDTO>();
+            List<BoxPlotDataDayDTO> list = new();
 
             //for (int i = 0; i < groups.Count(); i++)
             //{
@@ -197,18 +202,18 @@ namespace Syeew.Controllers
                     var property = data.GetType().GetProperty(content)?.GetValue(data, null)?.ToString();
                     properties[j] = Double.Parse(property!);
                 }
-                //var Stats = new DescriptiveStatistics(properties);
-                var minimum = Statistics.Minimum(properties);
-                boxPlotData.Stats[0] = minimum;
-                var firstQuartile = Statistics.LowerQuartile(properties);
-                boxPlotData.Stats[1] = firstQuartile;
-                var median = Statistics.Median(properties);
-                boxPlotData.Stats[2] = median;
-                var thirdQuartile = Statistics.UpperQuartile(properties);
-                boxPlotData.Stats[3] = thirdQuartile;
-                var maximum = Statistics.Maximum(properties);
-                boxPlotData.Stats[4] = maximum;
-                list.Add(boxPlotData);
+            //var Stats = new DescriptiveStatistics(properties);
+            var minimum = Math.Round(Statistics.Minimum(properties), 2);
+            boxPlotData.Stats[0] = minimum;
+            var firstQuartile = Math.Round(Statistics.LowerQuartile(properties), 2);
+            boxPlotData.Stats[1] = firstQuartile;
+            var median = Math.Round(Statistics.Median(properties), 2);
+            boxPlotData.Stats[2] = median;
+            var thirdQuartile = Math.Round(Statistics.UpperQuartile(properties), 2);
+            boxPlotData.Stats[3] = thirdQuartile;
+            var maximum = Math.Round(Statistics.Maximum(properties), 2);
+            boxPlotData.Stats[4] = maximum;
+            list.Add(boxPlotData);
             //}
             return list;
         }
