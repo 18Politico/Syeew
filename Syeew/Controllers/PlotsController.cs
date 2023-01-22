@@ -114,7 +114,7 @@ namespace Syeew.Controllers
 
         //[Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
-        public async Task<ActionResult<ICollection<BoxPlotDataMonthDTO>>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
+        public async Task<ActionResult<BoxPlotDataMonthDTO>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
         {
             try
             {
@@ -127,14 +127,17 @@ namespace Syeew.Controllers
                                           .OrderBy(g => g.First().Dt.Year)
                                           ;//.ThenBy(d => d.First().Dt.Month);
 
-                LinkedList<BoxPlotDataMonthDTO> response = new(); 
+                LinkedList<BoxPlotDataMonthDTO> response = new();
+
+                LinkedList<string> months = new();
+                List<double[]> numbers = new();
+
                 //List<BoxPlotDataDayDTO> list = new();
                 for (int i = 0; i < groupes.Count(); i++) {
                     var group = groupes.ElementAt(i);
                     var orderedGroup = group.OrderBy(d => d.Dt.Month).ToArray();
                     var stats = OrderedGroups(orderedGroup, request.Content);
-                    LinkedList<string> months = new();
-                    List<double[]> numbers = new();
+                    
                     foreach (var stat in stats)
                     {
                         //LinkedList<string> months = new();
@@ -145,12 +148,14 @@ namespace Syeew.Controllers
                         months.AddLast(month);
                         numbers.Add(stat.Stats);
                     }
-                    var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(), numbers);
-                    response.AddLast(boxPlotData);
+                    
                 }
 
+                var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(), numbers);
+                response.AddLast(boxPlotData);
+
                 //foreach(var group in groupes) { group = group.OrderBy(d => d.Dt.Month).ToList(); }
-                 
+
                 //var groups = ObtainStatsFromGroup(grouped, request.Content);
 
                 //List<BoxPlotDataMonthDTO> response = new(); //ObtainStatsFromGroup(grouped, request.Content);
