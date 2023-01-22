@@ -4,9 +4,9 @@
     {
         public string[] Months { get; set; }
 
-        public List<double[]> Stats { get; set; }
+        public double[][] Stats { get; set; }
 
-        public BoxPlotDataMonthDTO(string[] months, List<double[]> stats)
+        public BoxPlotDataMonthDTO(string[] months, double[][] stats)
         {
             this.Months = months;
             this.Stats = stats; 

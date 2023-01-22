@@ -130,28 +130,31 @@ namespace Syeew.Controllers
                 LinkedList<BoxPlotDataMonthDTO> response = new();
 
                 LinkedList<string> months = new();
+                //double[,] numbers = new double[1, 1]; 
                 List<double[]> numbers = new();
-
                 //List<BoxPlotDataDayDTO> list = new();
                 for (int i = 0; i < groupes.Count(); i++) {
                     var group = groupes.ElementAt(i);
                     var orderedGroup = group.OrderBy(d => d.Dt.Month).ToArray();
                     var stats = OrderedGroups(orderedGroup, request.Content);
                     
+                    //for (int j = 0; j < stats.Count(); j++)
                     foreach (var stat in stats)
                     {
                         //LinkedList<string> months = new();
+                        //var stat = stats[j];
                         var date = stat.Date;
                         var month = new DateTime(date.Year, date.Month, date.Day)
                                     .ToString("MMM", CultureInfo.InvariantCulture);
 
                         months.AddLast(month);
+                        //numbers[i][j] = 
                         numbers.Add(stat.Stats);
                     }
                     
                 }
 
-                var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(), numbers);
+                var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(), numbers.ToArray());
                 response.AddLast(boxPlotData);
 
                 //foreach(var group in groupes) { group = group.OrderBy(d => d.Dt.Month).ToList(); }
