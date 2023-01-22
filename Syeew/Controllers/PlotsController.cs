@@ -10,7 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Syeew.DTOs;
 using Syeew.Utils;
 using Syeew.Utils.DTOs;
+using System.Collections;
 using System.Data;
+using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -28,23 +30,18 @@ namespace Syeew.Controllers
 
         //[Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
-        public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataDay([FromBody] RequestDataDTO request)
+        public async Task<ActionResult<ICollection<BoxPlotDataDayDTO>>> BoxPlotDataDay([FromBody] RequestDataDTO request)
         {
             try
             {
-                //var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(request.Content));
                 if (ContentIsNotValid(request))
                     throw new ArgumentException("Content " + "\"content\"" + "non valido");
 
-                //var filteredData = await _quantitativeDataRepository.GetBy(qD => new ValueTask<bool>(
-                //                                                                qD.MatriceNome.ToLower().Equals(request.CompanyName.ToLower())
-                //                                                                && DateIsBetween(request.From, request.To, qD.Dt)));
-
                 var filteredData = await this.GetFilteredData(request);
 
-                var grouped = filteredData.GroupBy(d => new {day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year } ); //new CustomDate(d.Dt.Day, d.Dt.Month + 1, d.Dt.Year));
+                var grouped = filteredData.GroupBy(d => new {day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year } ); 
 
-                List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, request.Content);
+                List<BoxPlotDataDayDTO> response = ObtainStatsFromGroup(grouped, request.Content);
 
                 return Ok(response);
             }
@@ -79,24 +76,17 @@ namespace Syeew.Controllers
             return DateTime.Compare(dateToCheck, from) >= 0 && DateTime.Compare(dateToCheck, to) <= 0;
         }
 
-        //Object keyToObj = group.Key;
-        //int dayrrr = Int32.Parse(keyToObj.GetType().GetProperty("day")?.GetValue(keyToObj, null)?.ToString() !);
-        //int month = Int32.Parse(keyToObj.GetType().GetProperty("month")?.GetValue(keyToObj, null)?.ToString()!);
-        //int year = Int32.Parse(keyToObj.GetType().GetProperty("year")?.GetValue(keyToObj, null)?.ToString()!);
-        //CustomDate date;
-        //PropertyInfo day = keyToObj.GetType().GetProperty("day");
 
-        private List<BoxPlotDataDTO> ObtainStatsFromGroup(IEnumerable<IGrouping<dynamic, IQuantitativeData>> groups, string content)
+        private List<BoxPlotDataDayDTO> ObtainStatsFromGroup(IEnumerable<IGrouping<dynamic, IQuantitativeData>> groups, string content)
         {
-            List<BoxPlotDataDTO> statsFromGroup = new List<BoxPlotDataDTO>();
+            List<BoxPlotDataDayDTO> statsFromGroup = new List<BoxPlotDataDayDTO>();
 
-            for(int i = 0; i < groups.Count(); i++)
-            //foreach (var group in groups)
+            for (int i = 0; i < groups.Count(); i++)
             {
                 var group = groups.ElementAt(i);
                 var firstData = group.ElementAt(0);
                 var customDate = new CustomDate(firstData.Dt.Day, firstData.Dt.Month - 1, firstData.Dt.Year);
-                var boxPlotData = new BoxPlotDataDTO(customDate);
+                var boxPlotData = new BoxPlotDataDayDTO(customDate);
                 var properties = new double[group.Count()];
 
                 for (int j = 0; j < group.Count(); j++)
@@ -124,7 +114,7 @@ namespace Syeew.Controllers
 
         //[Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
-        public async Task<ActionResult<ICollection<BoxPlotDataDTO>>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
+        public async Task<ActionResult<ICollection<BoxPlotDataMonthDTO>>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
         {
             try
             {
@@ -133,9 +123,41 @@ namespace Syeew.Controllers
 
                 var filteredData = await this.GetFilteredData(request);
 
-                var grouped = filteredData.GroupBy(d => new {month = d.Dt.Month, year = d.Dt.Year });//new CustomDate(-1, d.Dt.Month, d.Dt.Year));
+                var groupes = filteredData.GroupBy(d => new { month = d.Dt.Month, year = d.Dt.Year })
+                                          .OrderBy(g => g.First().Dt.Year)
+                                          ;//.ThenBy(d => d.First().Dt.Month);
 
-                List<BoxPlotDataDTO> response = ObtainStatsFromGroup(grouped, request.Content);
+                LinkedList<BoxPlotDataMonthDTO> response = new(); 
+                //List<BoxPlotDataDayDTO> list = new();
+                for (int i = 0; i < groupes.Count(); i++) {
+                    var group = groupes.ElementAt(i);
+                    var orderedGroup = group.OrderBy(d => d.Dt.Month).ToArray();
+                    var stats = OrderedGroups(orderedGroup, request.Content);
+                    LinkedList<string> months = new();
+                    double[] numbers = new double[5];
+                    foreach (var stat in stats)
+                    {
+                        //LinkedList<string> months = new();
+                        var date = stat.Date;
+                        var month = new DateTime(date.Year, date.Month, date.Day)
+                                    .ToString("MMM", CultureInfo.InvariantCulture);
+
+                        months.AddLast(month);
+                        numbers = stat.Stats;
+                    }
+                    var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(),stats: numbers);
+                    response.AddLast(boxPlotData);
+                }
+
+                //foreach(var group in groupes) { group = group.OrderBy(d => d.Dt.Month).ToList(); }
+                 
+                //var groups = ObtainStatsFromGroup(grouped, request.Content);
+
+                //List<BoxPlotDataMonthDTO> response = new(); //ObtainStatsFromGroup(grouped, request.Content);
+
+
+
+                //List<List<IQuantitativeData>> groups = new();
 
                 return Ok(response);
             }
@@ -147,8 +169,40 @@ namespace Syeew.Controllers
             {
                 _quantitativeDataRepository.Dispose();
             }
+        }
 
+        private List<BoxPlotDataDayDTO> /*void*/ OrderedGroups(IQuantitativeData[] group, /*ref List<BoxPlotDataDayDTO> list,*/ string content)
+        {
+            List<BoxPlotDataDayDTO> list = new List<BoxPlotDataDayDTO>();
 
+            //for (int i = 0; i < groups.Count(); i++)
+            //{
+                //var group = group_prmt[0];
+                var firstData = group[0];
+                var customDate = new CustomDate(firstData.Dt.Day, firstData.Dt.Month - 1, firstData.Dt.Year);
+                var boxPlotData = new BoxPlotDataDayDTO(customDate);
+                var properties = new double[group.Length];
+
+                for (int j = 0; j < group.Length; j++)
+                {
+                    var data = group.ElementAt(j);
+                    var property = data.GetType().GetProperty(content)?.GetValue(data, null)?.ToString();
+                    properties[j] = Double.Parse(property!);
+                }
+                //var Stats = new DescriptiveStatistics(properties);
+                var minimum = Statistics.Minimum(properties);
+                boxPlotData.Stats[0] = minimum;
+                var firstQuartile = Statistics.LowerQuartile(properties);
+                boxPlotData.Stats[1] = firstQuartile;
+                var median = Statistics.Median(properties);
+                boxPlotData.Stats[2] = median;
+                var thirdQuartile = Statistics.UpperQuartile(properties);
+                boxPlotData.Stats[3] = thirdQuartile;
+                var maximum = Statistics.Maximum(properties);
+                boxPlotData.Stats[4] = maximum;
+                list.Add(boxPlotData);
+            //}
+            return list;
         }
 
         //[Authorize(Roles = "Admin")]
