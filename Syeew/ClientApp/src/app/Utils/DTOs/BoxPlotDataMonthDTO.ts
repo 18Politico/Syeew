@@ -2,6 +2,6 @@ export class BoxPlotDataMonthDTO{
 
   months!: string[]
 
-  stats!: number[]
+  stats!: number[][]
 
 }

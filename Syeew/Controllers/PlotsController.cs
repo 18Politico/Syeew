@@ -134,7 +134,7 @@ namespace Syeew.Controllers
                     var orderedGroup = group.OrderBy(d => d.Dt.Month).ToArray();
                     var stats = OrderedGroups(orderedGroup, request.Content);
                     LinkedList<string> months = new();
-                    double[] numbers = new double[5];
+                    List<double[]> numbers = new();
                     foreach (var stat in stats)
                     {
                         //LinkedList<string> months = new();
@@ -143,9 +143,9 @@ namespace Syeew.Controllers
                                     .ToString("MMM", CultureInfo.InvariantCulture);
 
                         months.AddLast(month);
-                        numbers = stat.Stats;
+                        numbers.Add(stat.Stats);
                     }
-                    var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(),stats: numbers);
+                    var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(), numbers);
                     response.AddLast(boxPlotData);
                 }
 
