@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { BoxPlotDataDTO } from '../Utils/DTOs/BoxPlotDataDTO';
 import { TemporalDataDTO } from '../Utils/DTOs/TemporalDataDTO';
 import { RequestDataDTO } from '../Utils/DTOs/RequestDataDTO';
+import { BoxPlotDataMonthDTO } from '../Utils/DTOs/BoxPlotDataMonthDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +39,8 @@ export class PlotsService {
    * @param requestData
    * @returns
    */
-  getBoxPlotDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataDTO[]> {
-    return this._http.post<BoxPlotDataDTO[]>(this._url + "/BoxPlotDataMonth", requestData)
+  getBoxPlotDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataMonthDTO[]> {
+    return this._http.post<BoxPlotDataMonthDTO[]>(this._url + "/BoxPlotDataMonth", requestData)
   }
 
   /**
