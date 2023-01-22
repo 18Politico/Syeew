@@ -39,8 +39,8 @@ export class PlotsService {
    * @param requestData
    * @returns
    */
-  getBoxPlotDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataMonthDTO[]> {
-    return this._http.post<BoxPlotDataMonthDTO[]>(this._url + "/BoxPlotDataMonth", requestData)
+  getBoxPlotDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataMonthDTO> {
+    return this._http.post<BoxPlotDataMonthDTO>(this._url + "/BoxPlotDataMonth", requestData)
   }
 
   /**
