@@ -4,12 +4,14 @@ export class RequestDataDTO {
     companyName!: string;
     from!: CustomDate;
     to!: CustomDate;
-    content!: string;
+    contentX!: string;
+    contentY!: string;
 
-    constructor(companyName: string, dateFrom: CustomDate, dateTo: CustomDate, content: string) {
+    constructor(companyName: string, dateFrom: CustomDate, dateTo: CustomDate, contentX: string, contentY: string) {
         this.companyName = companyName
         this.from = dateFrom
         this.to = dateTo
-        this.content = content
+        this.contentX = contentX
+        this.contentY = contentY
     }
 }

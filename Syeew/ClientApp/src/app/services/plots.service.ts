@@ -5,6 +5,8 @@ import { BoxPlotDataDTO } from '../Utils/DTOs/BoxPlotDataDTO';
 import { TemporalDataDTO } from '../Utils/DTOs/TemporalDataDTO';
 import { RequestDataDTO } from '../Utils/DTOs/RequestDataDTO';
 import { BoxPlotDataMonthDTO } from '../Utils/DTOs/BoxPlotDataMonthDTO';
+import { ParameterDataDTO } from '../Utils/DTOs/ParameterDataDTO';
+import { PieDataDTO } from '../Utils/DTOs/PieDataDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +50,8 @@ export class PlotsService {
    * @param requestData
    * @returns
    */
-  getPieDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataDTO[]> {
-    return this._http.post<BoxPlotDataDTO[]>(this._url + "/PieDataMonth", requestData)
+  getPieDataMonth(requestData: RequestDataDTO): Observable<PieDataDTO[]> {
+    return this._http.post<PieDataDTO[]>(this._url + "/PieDataMonth", requestData)
   }
 
   /**
@@ -58,7 +60,29 @@ export class PlotsService {
    * @returns
    */
   getTemporalDataDay(requestData: RequestDataDTO): Observable<TemporalDataDTO[]> {
-    return this._http.post<[]>(this._url + "/TemporalDataDay", requestData)
+    return this._http.post<TemporalDataDTO[]>(this._url + "/TemporalDataDay", requestData)
   }
+
+  /**
+   * [
+   *  {
+   *    x: number;
+   *    y: number[];
+   *  },{
+   *    x: number;
+   *    y: number[];
+   *  },{
+   *    x: number;
+   *    y: number[];
+   *  }
+   * ]
+   * @param requestData 
+   * @returns 
+   */
+  getParametersDataDay(requestData: RequestDataDTO): Observable<ParameterDataDTO[]> {
+    return this._http.post<ParameterDataDTO[]>(this._url + "/ParameterDataDay", requestData)
+  }
+
+  
 
 }
