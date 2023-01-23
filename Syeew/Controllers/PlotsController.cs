@@ -41,7 +41,7 @@ namespace Syeew.Controllers
 
                 var grouped = filteredData.GroupBy(d => new {day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year } ); 
 
-                List<BoxPlotDataDayDTO> response = ObtainStatsFromGroup(grouped, request.Content);
+                List<BoxPlotDataDayDTO> response = ObtainStatsFromGroup(grouped, request.ContentY);
 
                 return Ok(response);
             }
@@ -57,7 +57,7 @@ namespace Syeew.Controllers
 
         private bool ContentIsNotValid(RequestDataDTO request)
         {
-            var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(request.Content));
+            var check = typeof(QuantitativeData).GetProperties().Where(info => info.Name.Equals(request.ContentY));
             if (check.Count() == 0)
                 return true;
             return false;
@@ -95,7 +95,6 @@ namespace Syeew.Controllers
                     var property = data.GetType().GetProperty(content)?.GetValue(data, null)?.ToString();
                     properties[j] = Double.Parse(property!);
                 }
-                //var Stats = new DescriptiveStatistics(properties);
                 var minimum = Math.Round( Statistics.Minimum(properties), 2);
                 boxPlotData.Stats[0] = minimum;
                 var firstQuartile = Math.Round( Statistics.LowerQuartile(properties), 2);
@@ -125,51 +124,26 @@ namespace Syeew.Controllers
                 var filteredData = await this.GetFilteredData(request);
 
                 var groupes = filteredData.GroupBy(d => new { month = d.Dt.Month, year = d.Dt.Year })
-                                          .OrderBy(g => g.First().Dt.Year)
-                                          ;//.ThenBy(d => d.First().Dt.Month);
+                                          .OrderBy(g => g.First().Dt.Year);
 
-                LinkedList<BoxPlotDataMonthDTO> response = new();
-
-                LinkedList<string> months = new();
-                //double[,] numbers = new double[1, 1]; 
-                List<double[]> numbers = new();
-                //List<BoxPlotDataDayDTO> list = new();
+                LinkedList<string> months = new(); 
+                LinkedList<double[]> numbers = new();
                 for (int i = 0; i < groupes.Count(); i++) {
                     var group = groupes.ElementAt(i);
                     var orderedGroup = group.OrderBy(d => d.Dt.Month).ToArray();
-                    var stats = OrderedGroups(orderedGroup, request.Content);
-                    
-                    //for (int j = 0; j < stats.Count(); j++)
+                    var stats = OrderedGroups(orderedGroup, request.ContentY);
                     foreach (var stat in stats)
                     {
-                        //LinkedList<string> months = new();
-                        //var stat = stats[j];
                         var date = stat.Date;
-                        Console.WriteLine("anno = " + date.Year + "; mese = " + date.Month + "; giorno = " + date.Day);
-                        var date_converted = new DateTime(date.Year, date.Month + 1, date.Day)
-                                    ; //.ToString("MMM", CultureInfo.InvariantCulture);
+                        var date_converted = new DateTime(date.Year, date.Month + 1, date.Day);
                         var month = date_converted.ToString("MMM", CultureInfo.InvariantCulture) + " " + date.Year.ToString();
-
                         months.AddLast(month);
-                        //numbers[i][j] = 
-                        numbers.Add(stat.Stats);
+                        numbers.AddLast(stat.Stats);
                     }
                     
                 }
-                Console.WriteLine("QUA OK");
-                var boxPlotData = new BoxPlotDataMonthDTO(months.ToArray(), numbers.ToArray());
-                Console.WriteLine("QUA no");
-                response.AddLast(boxPlotData);
 
-                //foreach(var group in groupes) { group = group.OrderBy(d => d.Dt.Month).ToList(); }
-
-                //var groups = ObtainStatsFromGroup(grouped, request.Content);
-
-                //List<BoxPlotDataMonthDTO> response = new(); //ObtainStatsFromGroup(grouped, request.Content);
-
-
-
-                //List<List<IQuantitativeData>> groups = new();
+                var response = new BoxPlotDataMonthDTO(months.ToArray(), numbers.ToArray());
 
                 return Ok(response);
             }
@@ -183,26 +157,22 @@ namespace Syeew.Controllers
             }
         }
 
-        private List<BoxPlotDataDayDTO> /*void*/ OrderedGroups(IQuantitativeData[] group, /*ref List<BoxPlotDataDayDTO> list,*/ 
-                                                               string content)
+        //Da usare questo anche per le statistiche giornaliere 
+        private List<BoxPlotDataDayDTO> OrderedGroups(IQuantitativeData[] group, string content)
         {
             List<BoxPlotDataDayDTO> list = new();
 
-            //for (int i = 0; i < groups.Count(); i++)
-            //{
-                //var group = group_prmt[0];
-                var firstData = group[0];
-                var customDate = new CustomDate(firstData.Dt.Day, firstData.Dt.Month - 1, firstData.Dt.Year);
-                var boxPlotData = new BoxPlotDataDayDTO(customDate);
-                var properties = new double[group.Length];
+            var firstData = group[0];
+            var customDate = new CustomDate(firstData.Dt.Day, firstData.Dt.Month - 1, firstData.Dt.Year);
+            var boxPlotData = new BoxPlotDataDayDTO(customDate);
+            var properties = new double[group.Length];
 
-                for (int j = 0; j < group.Length; j++)
-                {
-                    var data = group.ElementAt(j);
-                    var property = data.GetType().GetProperty(content)?.GetValue(data, null)?.ToString();
-                    properties[j] = Double.Parse(property!);
-                }
-            //var Stats = new DescriptiveStatistics(properties);
+            for (int j = 0; j < group.Length; j++)
+            {
+                var data = group.ElementAt(j);
+                var property = data.GetType().GetProperty(content)?.GetValue(data, null)?.ToString();
+                properties[j] = Double.Parse(property!);
+            }
             var minimum = Math.Round(Statistics.Minimum(properties), 2);
             boxPlotData.Stats[0] = minimum;
             var firstQuartile = Math.Round(Statistics.LowerQuartile(properties), 2);
@@ -214,7 +184,6 @@ namespace Syeew.Controllers
             var maximum = Math.Round(Statistics.Maximum(properties), 2);
             boxPlotData.Stats[4] = maximum;
             list.Add(boxPlotData);
-            //}
             return list;
         }
 
@@ -234,7 +203,46 @@ namespace Syeew.Controllers
                 foreach(var data in filteredData)
                 {
                     response.AddLast(new TemporalDataDTO(new CustomDate(data.Dt.Day, data.Dt.Month-1, data.Dt.Year),
-                                                        Double.Parse(data.GetType().GetProperty(request.Content)?.GetValue(data, null)?.ToString()!)));
+                                                        Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!)));
+                }
+
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
+            finally
+            {
+                _quantitativeDataRepository.Dispose();
+            }
+
+
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ICollection<TemporalDataDTO>>> PieDataMonth([FromBody] RequestDataDTO request)
+        {
+            try
+            {
+                if (ContentIsNotValid(request))
+                    throw new ArgumentException("Content " + "\"content\"" + "non valido");
+
+                var filteredData = await this.GetFilteredData(request);
+
+                var groups = filteredData.GroupBy(d => new { label = d.Cat1, month = d.Dt.Month, year = d.Dt.Year });
+
+                LinkedList<TemporalDataDTO> response = new();
+
+                foreach (var group in groups)
+                {
+                    double contentData = 0;
+                    foreach(var data in group)
+                    {
+                        contentData += Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!);
+                    }
+                    var toAddInResponse = new PieDataDTO(group.First().Cat1, contentData);
                 }
 
                 return Ok(response);

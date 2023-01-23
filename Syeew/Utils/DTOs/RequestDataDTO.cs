@@ -7,6 +7,8 @@
 
         public CustomDate To { get; set; }
 
-        public string Content { get; set; }
+        public string ContentX { get; set; }
+
+        public string ContentY { get; set; }
     }
 }
