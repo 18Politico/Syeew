@@ -288,31 +288,33 @@ namespace Syeew.Controllers
         {
             try
             {
-                if (ContentIsNotValid(request))     
+                if (ContentIsNotValid(request))
                     throw new ArgumentException("Content " + "\"content\"" + "non valido");
 
                 var filteredData = await this.GetFilteredData(request);
 
-                var groups = filteredData.GroupBy(d => new {  day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year });
+                //var groups = filteredData.GroupBy(d => new {  day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year });
 
                 LinkedList<ParameterDataDTO> response = new();
+
+                //foreach (var group in groups)
+                //{
+
+                var groups = filteredData.GroupBy(d => new { contentX = d.GetType().GetProperty(request.ContentX) });
 
                 foreach (var group in groups)
                 {
                     LinkedList<double> y = new();
-                    var groupsGrouped = group.GroupBy(d => new { contentX = d.GetType().GetProperty(request.ContentX) });
-                    
-                    foreach (var groupGrouped in groupsGrouped)
+                    foreach (var data in group)
                     {
-                        foreach(var data in groupGrouped)
-                        {
-                            y.AddLast(Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!));
-                        }
+                        y.AddLast(Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!));
                     }
                     var d = group.First();
                     var toAddInResponse = new ParameterDataDTO(Double.Parse(d.GetType().GetProperty(request.ContentX)?.GetValue(d, null)?.ToString()!), y.ToArray());
                     response.AddLast(toAddInResponse);
                 }
+
+                //}
 
                 return Ok(response);
             }
