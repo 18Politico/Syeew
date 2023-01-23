@@ -300,7 +300,7 @@ namespace Syeew.Controllers
                 //foreach (var group in groups)
                 //{
 
-                var groups = filteredData.GroupBy(d => new { contentX = d.GetType().GetProperty(request.ContentX) });
+                var groups = filteredData.GroupBy(d =>  d.GetType().GetProperty(request.ContentX)?.Name );
 
                 foreach (var group in groups)
                 {
