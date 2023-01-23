@@ -26,6 +26,7 @@ export class FixedParametersChartsComponent {
   constructor(private dialog: MatDialog) {
     this.cards = [
       { nameChart: 'piechart', cols: 1, rows: 1 },
+      { nameChart: 'area', cols: 1, rows: 1 },
     ];
   }
 

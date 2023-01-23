@@ -1,5 +1,5 @@
 <div *ngIf="initial" style="text-align:center">
-    <div *ngIf="showTimeButtons"><button (click)="updateChartOptions( '1m' )" [class.active]="activeOptionButton=='1m'">
+    <!--<div *ngIf="showTimeButtons"><button (click)="updateChartOptions( '1m' )" [class.active]="activeOptionButton=='1m'">
             1M
         </button>
         <button (click)="updateChartOptions( '6m' )" [class.active]="activeOptionButton=='6m'">
@@ -14,7 +14,7 @@
         <button (click)="updateChartOptions( 'all' )" [class.active]="activeOptionButton=='all'">
             All
         </button>
-    </div>
+    </div>-->
     <apx-chart #chart [series]="chartOptions.series!" [labels]="chartOptions.labels!" [chart]="chartOptions.chart!"
         [xaxis]="chartOptions.xaxis!" [yaxis]="chartOptions.yaxis!" [title]="chartOptions.title!"
         [stroke]="chartOptions.stroke!" [plotOptions]="chartOptions.plotOptions!" [legend]="chartOptions.legend!"

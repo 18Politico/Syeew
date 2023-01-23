@@ -17,6 +17,7 @@ export class ParametersChartsComponent {
   @Input() filteredQuantitativeData!: IQuantitativeData[]
   @Input() xAxisChoice!: string
   @Input() yAxisChoice!: string
+  @Input() yAxisTitle!: string
   cards: any[]
   plotCanBeBuilt = false; // take in input from axis-selection component
 
@@ -30,7 +31,7 @@ export class ParametersChartsComponent {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
         nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
-        dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice
+        dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice, yAxisTitle: this.yAxisTitle
       }
     })
     dialogRef!.updateSize('300vw')
@@ -41,10 +42,11 @@ export class ParametersChartsComponent {
    * built, axis-selection component sends to this component a json data.
    * @param evtData json data that contains the boolean permission building and the plotting axis choises
    */
-  checkIfBuilding(evtData: { plotting: boolean, xAxis: string, yAxis: string }) {
+  checkIfBuilding(evtData: { plotting: boolean, xAxis: string, yAxis: string, yAxisTitle: string }) {
     this.plotCanBeBuilt = evtData.plotting
     this.xAxisChoice = evtData.xAxis
     this.yAxisChoice = evtData.yAxis
+    this.yAxisTitle = this.yAxisTitle
   }
 
 }

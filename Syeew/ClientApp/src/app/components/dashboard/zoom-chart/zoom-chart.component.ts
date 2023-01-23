@@ -10,6 +10,7 @@ export interface ChartData {
   dateFrom: string;
   dateTo: string;
   yAxisChoice: string;
+  yAxisTitle: string;
   xAxisChoice?: string
 }
 

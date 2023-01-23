@@ -12,10 +12,11 @@ export class AxisSelectionComponent {
   buttonsY: Map<string, boolean>
   xAxisChoice = ""
   yAxisChoice = ""
+  yAxisTitle = ""
   selectedColor: ThemePalette = 'primary'
   @Input() isXAxisEnabled!: boolean
   @Input() isYAxisEnabled!: boolean
-  @Output() plotBuilding = new EventEmitter<{ plotting: boolean, xAxis: string, yAxis: string }>() // from axis-selection to parameters-chart, temporal-charts...
+  @Output() plotBuilding = new EventEmitter<{ plotting: boolean, xAxis: string, yAxis: string, yAxisTitle: string }>() // from axis-selection to parameters-chart, temporal-charts...
   plotCanBeBuilt = false;
 
   constructor() {
@@ -53,9 +54,39 @@ export class AxisSelectionComponent {
   }
 
   private tryToGenerateScatter() {
-    if ((!this.isXAxisEnabled && this.yAxisChoice !== "") || (this.xAxisChoice !== "" && this.yAxisChoice !== ""))
+    if ((!this.isXAxisEnabled && this.yAxisChoice !== "") || (this.xAxisChoice !== "" && this.yAxisChoice !== "")) {
       this.plotCanBeBuilt = true
-    this.plotBuilding.emit({ plotting: this.plotCanBeBuilt, xAxis: this.xAxisChoice, yAxis: this.yAxisChoice })
+      this.plotBuilding.emit({ plotting: this.plotCanBeBuilt, xAxis: this.mappingIntoReflectionVariable(this.xAxisChoice), yAxis: this.mappingIntoReflectionVariable(this.yAxisChoice), yAxisTitle: this.yAxisTitle })
+    }
+  }
+
+  private mappingIntoReflectionVariable(content: string): string {
+    switch (content) {
+      case "Netto": {
+        this.yAxisChoice = "Netto"
+        break;
+      }
+      case "Iva": {
+        this.yAxisChoice = "Iva"
+        break;
+      }
+      case "FatturatoIvato": {
+        this.yAxisChoice = "FattIvato"
+        break;
+      }
+      case "Quantità": {
+        this.yAxisChoice = "Qta"
+        break;
+      }
+      case "N. Dipendenti": {
+        this.yAxisChoice = "Dim"
+        break;
+      }
+      default:
+        return ""
+    }
+    this.yAxisTitle = content
+    return this.yAxisChoice
   }
 
 }

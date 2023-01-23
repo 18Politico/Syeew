@@ -15,15 +15,17 @@ export class TemporalChartsComponent implements OnInit {
   @Input() dateFrom!: string
   @Input() dateTo!: string
   @Input() filteredQuantitativeData!: IQuantitativeData[]
-  @Input() yAxisChoice?: string
+  @Input() yAxisChoice!: string
+  @Input() yAxisTitle!: string
   cards: any[]
   plotCanBeBuilt = false; // take in input from axis-selection component
 
   constructor(private dialog: MatDialog) {
     this.cards = [
-      { nameChart: 'boxplot', cols: 1, rows: 1 },
-      { nameChart: 'barchart', cols: 1, rows: 1 },
-      { nameChart: 'linechart', cols: 1, rows: 1 },
+      { nameChart: 'boxplotDay', cols: 1, rows: 1 },
+      { nameChart: 'boxplotMonth', cols: 1, rows: 1 },
+      { nameChart: 'bar', cols: 1, rows: 1 },
+      { nameChart: 'line', cols: 1, rows: 1 },
     ]
   }
 
@@ -36,16 +38,17 @@ export class TemporalChartsComponent implements OnInit {
    * built, axis-selection component sends to this component a json data.
    * @param evtData json data that contains the boolean permission building and the plotting axis choises
    */
-  checkIfBuilding(evtData: { plotting: boolean, xAxis: string, yAxis: string }) {
+  checkIfBuilding(evtData: { plotting: boolean, xAxis: string, yAxis: string, yAxisTitle: string }) {
     this.plotCanBeBuilt = evtData.plotting
     this.yAxisChoice = evtData.yAxis
+    this.yAxisTitle = evtData.yAxisTitle
   }
 
   openChart(nameChart: string) {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
         nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
-        dateFrom: this.dateFrom, dateTo: this.dateTo, yAxisChoice: this.yAxisChoice
+        dateFrom: this.dateFrom, dateTo: this.dateTo, yAxisChoice: this.yAxisChoice, yAxisTitle: this.yAxisTitle
       }
     })
     dialogRef!.updateSize('300vw')
