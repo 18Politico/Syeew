@@ -202,10 +202,15 @@ namespace Syeew.Controllers
                     double contentData = 0;
                     foreach (var data in group)
                     {
-                        if(request.ContentY == "Iva")
+                        if (request.ContentY == "Iva")
+                        {
                             contentData = data.Iva;
+                            break;
+                        }
                         else
+                        {
                             contentData += Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!);
+                        }
                     }
                     var dateOfTheGroup = group.First().Dt;
                     var date = new CustomDate(dateOfTheGroup.Day, dateOfTheGroup.Month, dateOfTheGroup.Year);
@@ -294,12 +299,20 @@ namespace Syeew.Controllers
 
                 foreach (var group in groups)
                 {
-                    double contentData = 0;
-                    foreach (var data in group)
+                    LinkedList<double> y = new();
+                    var groupsGrouped = group.GroupBy(d => new { contentX = d.GetType().GetProperty(request.ContentX) });
+                    
+                    foreach (var groupGrouped in groupsGrouped)
                     {
-                        contentData += Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!);
+                        foreach(var data in groupGrouped)
+                        {
+                            y.AddLast(Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!));
+                        }
                     }
-                    var toAddInResponse = new PieDataDTO(group.First().Cat1, contentData);
+
+                    var d = group.First();
+
+                    var toAddInResponse = new ParameterDataDTO(Double.Parse(d.GetType().GetProperty(request.ContentX)?.GetValue(d, null)?.ToString()!), y.ToArray());   
                 }
 
                 return Ok(response);
