@@ -9,6 +9,7 @@ using Syeew.Utils;
 using Syeew.Utils.DTOs;
 using System.Data;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Syeew.Controllers
 {
@@ -192,15 +193,30 @@ namespace Syeew.Controllers
 
                 var filteredData = await this.GetFilteredData(request);
 
-
+                var groups = filteredData.GroupBy(d => new { day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year });
 
                 var response = new LinkedList<TemporalDataDTO>();
 
-                foreach(var data in filteredData)
+                foreach (var group in groups)
                 {
-                    response.AddLast(new TemporalDataDTO(new CustomDate(data.Dt.Day, data.Dt.Month-1, data.Dt.Year),
-                                                        Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!)));
+                    double contentData = 0;
+                    foreach (var data in group)
+                    {
+                        if(request.ContentY == "Iva")
+                            contentData = data.Iva;
+                        else
+                            contentData += Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!);
+                    }
+                    var dateOfTheGroup = group.First().Dt;
+                    var date = new CustomDate(dateOfTheGroup.Day, dateOfTheGroup.Month, dateOfTheGroup.Year);
+                    var toAddInResponse = new TemporalDataDTO(date, contentData);
                 }
+
+                //foreach (var data in filteredData)
+                //{
+                //    response.AddLast(new TemporalDataDTO(new CustomDate(data.Dt.Day, data.Dt.Month-1, data.Dt.Year),
+                //                                        Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!)));
+                //}
 
                 return Ok(response);
             }
@@ -227,12 +243,11 @@ namespace Syeew.Controllers
 
                 var filteredData = await this.GetFilteredData(request);
 
-                var groups = filteredData.GroupBy(d => new { label = d.Cat1, month = d.Dt.Month, year = d.Dt.Year });
+                var groups = filteredData.GroupBy(d => new { label = d.Cat1});
 
                 Console.WriteLine("numero di gruppi = " + groups.Count());
 
-
-                LinkedList<TemporalDataDTO> response = new();
+                LinkedList<PieDataDTO> response = new();
 
                 foreach (var group in groups)
                 {
