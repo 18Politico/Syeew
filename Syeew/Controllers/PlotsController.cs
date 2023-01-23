@@ -293,14 +293,9 @@ namespace Syeew.Controllers
 
                 var filteredData = await this.GetFilteredData(request);
 
-                //var groups = filteredData.GroupBy(d => new {  day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year });
-
                 LinkedList<ParameterDataDTO> response = new();
 
-                //foreach (var group in groups)
-                //{
-
-                var groups = filteredData.GroupBy(d =>  d.GetType().GetProperty(request.ContentX)?.Name );
+                var groups = filteredData.GroupBy(d => new { x = Convert.ToDouble(d.GetType().GetProperty(request.ContentX)?.GetValue(d, null)) } );
 
                 Console.WriteLine(groups.Count());
 
