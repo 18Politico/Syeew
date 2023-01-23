@@ -210,6 +210,7 @@ namespace Syeew.Controllers
                     var dateOfTheGroup = group.First().Dt;
                     var date = new CustomDate(dateOfTheGroup.Day, dateOfTheGroup.Month, dateOfTheGroup.Year);
                     var toAddInResponse = new TemporalDataDTO(date, contentData);
+                    response.AddLast(toAddInResponse);
                 }
 
                 //foreach (var data in filteredData)
@@ -259,6 +260,7 @@ namespace Syeew.Controllers
                         contentData += Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!);
                     }
                     var toAddInResponse = new PieDataDTO(group.First().Cat1, contentData);
+                    response.AddLast(toAddInResponse);
                 }
 
                 return Ok(response);
