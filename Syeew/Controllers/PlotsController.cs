@@ -229,10 +229,15 @@ namespace Syeew.Controllers
 
                 var groups = filteredData.GroupBy(d => new { label = d.Cat1, month = d.Dt.Month, year = d.Dt.Year });
 
+                Console.WriteLine("numero di gruppi = " + groups.Count());
+
+
                 LinkedList<TemporalDataDTO> response = new();
 
                 foreach (var group in groups)
                 {
+                    Console.WriteLine("numero di elementi nel gruppo = " + group.Count());
+
                     double contentData = 0;
                     foreach(var data in group)
                     {
