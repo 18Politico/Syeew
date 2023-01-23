@@ -1,20 +1,14 @@
-﻿using Azure;
-using Azure.Core;
-using DataSourceSyeew.Entities;
+﻿using DataSourceSyeew.Entities;
 using DataSourceSyeew.Entities.InterfacesEntities;
 using DataSourceSyeew.Repositories.InterfacesRepositories;
 using MathNet.Numerics.Statistics;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Syeew.DTOs;
 using Syeew.Utils;
 using Syeew.Utils.DTOs;
-using System.Collections;
 using System.Data;
 using System.Globalization;
-using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace Syeew.Controllers
 {
@@ -198,6 +192,8 @@ namespace Syeew.Controllers
 
                 var filteredData = await this.GetFilteredData(request);
 
+
+
                 var response = new LinkedList<TemporalDataDTO>();
 
                 foreach(var data in filteredData)
@@ -222,7 +218,7 @@ namespace Syeew.Controllers
 
         //[Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
-        public async Task<ActionResult<ICollection<TemporalDataDTO>>> PieDataMonth([FromBody] RequestDataDTO request)
+        public async Task<ActionResult<ICollection<PieDataDTO>>> PieDataMonth([FromBody] RequestDataDTO request)
         {
             try
             {
@@ -239,6 +235,45 @@ namespace Syeew.Controllers
                 {
                     double contentData = 0;
                     foreach(var data in group)
+                    {
+                        contentData += Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!);
+                    }
+                    var toAddInResponse = new PieDataDTO(group.First().Cat1, contentData);
+                }
+
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
+            }
+            finally
+            {
+                _quantitativeDataRepository.Dispose();
+            }
+
+
+        }
+
+        //[Authorize(Roles = "Admin")]
+        [HttpPost("[action]")]
+        public async Task<ActionResult<ICollection<ParameterDataDTO>>> ParameterDataDay([FromBody] RequestDataDTO request)
+        {
+            try
+            {
+                if (ContentIsNotValid(request))     
+                    throw new ArgumentException("Content " + "\"content\"" + "non valido");
+
+                var filteredData = await this.GetFilteredData(request);
+
+                var groups = filteredData.GroupBy(d => new {  day = d.Dt.Day, month = d.Dt.Month, year = d.Dt.Year });
+
+                LinkedList<TemporalDataDTO> response = new();
+
+                foreach (var group in groups)
+                {
+                    double contentData = 0;
+                    foreach (var data in group)
                     {
                         contentData += Double.Parse(data.GetType().GetProperty(request.ContentY)?.GetValue(data, null)?.ToString()!);
                     }
