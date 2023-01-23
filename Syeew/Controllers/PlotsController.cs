@@ -302,6 +302,8 @@ namespace Syeew.Controllers
 
                 var groups = filteredData.GroupBy(d =>  d.GetType().GetProperty(request.ContentX)?.Name );
 
+                Console.WriteLine(groups.Count());
+
                 foreach (var group in groups)
                 {
                     LinkedList<double> y = new();
