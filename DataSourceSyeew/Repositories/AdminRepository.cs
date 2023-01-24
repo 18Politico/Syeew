@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataSourceSyeew.Repositories
 {
-    public class CompanyRepository : ICompanyRepository
+    public class AdminRepository : IAdminRepository
     {
 
         private readonly SyeewContext _context;
 
         private bool _disposed;
 
-        public CompanyRepository(SyeewContext context)
+        public AdminRepository(SyeewContext context)
         {
             _context = context;
             _disposed = false;
@@ -33,22 +33,22 @@ namespace DataSourceSyeew.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public async Task<Company> Add(Company company)
+        public async Task<Admin> Add(Admin admin)
         {
-            var added = await _context.Companies.AddAsync(company);
+            var added = await _context.Admins.AddAsync(admin);
             await _context.SaveChangesAsync();
             return added.Entity;
         }
 
-        public async Task<ICollection<Company>> GetBy(Func<Company, ValueTask<bool>> predicate)
+        public async Task<ICollection<Admin>> GetAdmins()
         {
-            return await _context.Companies.AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
+            return await _context.Admins.ToListAsync();
         }
 
-
-        public async Task<ICollection<Company>> GetCompanies()
+        public Task<ICollection<Admin>> GetBy(Func<Admin, ValueTask<bool>> predicate)
         {
-            return await _context.Companies.ToListAsync();
+            throw new NotImplementedException();
         }
+
     }
 }

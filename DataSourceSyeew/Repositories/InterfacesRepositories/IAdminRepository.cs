@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace DataSourceSyeew.Repositories.InterfacesRepositories
 {
     public interface IAdminRepository : IRepository<Admin>
-    {
+    {   
+        Task<ICollection<Admin>> GetAdmins();
         Task<Admin> Add(Admin admin);
     }
 }
