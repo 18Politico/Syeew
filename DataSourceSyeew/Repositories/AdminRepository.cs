@@ -40,18 +40,14 @@ namespace DataSourceSyeew.Repositories
             await _context.SaveChangesAsync();
             return added.Entity;
         }
-
-
-
-
         public async Task<ICollection<Admin>> GetAdmins()
         {
             return await _context.Admins.ToListAsync();
         }
 
-        public Task<ICollection<Admin>> GetBy(Func<Admin, ValueTask<bool>> predicate)
+        public async Task<ICollection<Admin>> GetBy(Func<Admin, ValueTask<bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _context.Admins.AsAsyncEnumerable().WhereAwait(predicate).ToListAsync();
         }
 
     }
