@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
-import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
-import { ChartData, ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
+import { ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
 
 @Component({
   selector: 'app-temporal-charts',
@@ -14,7 +13,6 @@ export class TemporalChartsComponent implements OnInit {
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
   @Input() dateTo!: string
-  @Input() filteredQuantitativeData!: IQuantitativeData[]
   @Input() yAxisChoice!: string
   @Input() yAxisTitle!: string
   cards: any[]
@@ -26,6 +24,7 @@ export class TemporalChartsComponent implements OnInit {
       { nameChart: 'boxplotMonth', cols: 1, rows: 1 },
       { nameChart: 'bar', cols: 1, rows: 1 },
       { nameChart: 'line', cols: 1, rows: 1 },
+      { nameChart: 'brush', cols: 1, rows: 1 },
     ]
   }
 
@@ -47,7 +46,7 @@ export class TemporalChartsComponent implements OnInit {
   openChart(nameChart: string) {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
-        nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
+        nameChart: nameChart, selectedCompany: this.selectedCompany,
         dateFrom: this.dateFrom, dateTo: this.dateTo, yAxisChoice: this.yAxisChoice, yAxisTitle: this.yAxisTitle
       }
     })

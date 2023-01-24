@@ -15,7 +15,6 @@ export class FixedParametersChartsComponent {
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
   @Input() dateTo!: string
-  @Input() filteredQuantitativeData!: IQuantitativeData[]
   @Input() xAxisChoice?: string
   @Input() yAxisChoice?: string
   cards: any[]
@@ -25,15 +24,15 @@ export class FixedParametersChartsComponent {
 
   constructor(private dialog: MatDialog) {
     this.cards = [
-      { nameChart: 'piechart', cols: 1, rows: 1 },
-      { nameChart: 'area', cols: 1, rows: 1 },
+      { nameChart: 'pie', cols: 1, rows: 1 },
+      //{ nameChart: 'area', cols: 1, rows: 1 },
     ];
   }
 
   openChart(nameChart: string) {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
-        nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
+        nameChart: nameChart, selectedCompany: this.selectedCompany,
         dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice
       }
     })

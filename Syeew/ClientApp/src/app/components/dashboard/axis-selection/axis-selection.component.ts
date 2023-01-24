@@ -56,11 +56,40 @@ export class AxisSelectionComponent {
   private tryToGenerateScatter() {
     if ((!this.isXAxisEnabled && this.yAxisChoice !== "") || (this.xAxisChoice !== "" && this.yAxisChoice !== "")) {
       this.plotCanBeBuilt = true
-      this.plotBuilding.emit({ plotting: this.plotCanBeBuilt, xAxis: this.mappingIntoReflectionVariable(this.xAxisChoice), yAxis: this.mappingIntoReflectionVariable(this.yAxisChoice), yAxisTitle: this.yAxisTitle })
+      this.plotBuilding.emit({ plotting: this.plotCanBeBuilt, xAxis: this.mappingIntoReflectionXVariable(this.xAxisChoice), yAxis: this.mappingIntoReflectionYVariable(this.yAxisChoice), yAxisTitle: this.yAxisTitle })
     }
   }
 
-  private mappingIntoReflectionVariable(content: string): string {
+  private mappingIntoReflectionXVariable(content: string): string {
+    switch (content) {
+      case "Netto": {
+        this.xAxisChoice = "Netto"
+        break;
+      }
+      case "Iva": {
+        this.xAxisChoice = "Iva"
+        break;
+      }
+      case "FatturatoIvato": {
+        this.xAxisChoice = "FattIvato"
+        break;
+      }
+      case "Quantità": {
+        this.xAxisChoice = "Qta"
+        break;
+      }
+      case "N. Dipendenti": {
+        this.xAxisChoice = "Dim"
+        break;
+      }
+      default:
+        return ""
+    }
+    return this.xAxisChoice
+  }
+
+
+  private mappingIntoReflectionYVariable(content: string): string {
     switch (content) {
       case "Netto": {
         this.yAxisChoice = "Netto"
@@ -88,5 +117,4 @@ export class AxisSelectionComponent {
     this.yAxisTitle = content
     return this.yAxisChoice
   }
-
 }

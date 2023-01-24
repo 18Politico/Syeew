@@ -7,24 +7,24 @@
           <mat-icon class="example-tab-icon">timeline</mat-icon>
           Grafici Temporali
         </ng-template>
-        <app-temporal-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
-          [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-temporal-charts>
+        <app-temporal-charts [selectedCompany]="selectedCompany" [dateFrom]="dateFrom!"
+          [dateTo]="dateTo!"></app-temporal-charts>
       </mat-tab>
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">scatter_plot</mat-icon>
           Asse X e asse Y dinamici
         </ng-template>
-        <app-parameters-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
-          [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-parameters-charts>
+        <app-parameters-charts [selectedCompany]="selectedCompany" [dateFrom]="dateFrom!"
+          [dateTo]="dateTo!"></app-parameters-charts>
       </mat-tab>
       <mat-tab>
         <ng-template mat-tab-label>
           <mat-icon class="example-tab-icon">pie_chart_outline</mat-icon>
           Grafici fissi
         </ng-template>
-        <app-fixed-parameters-charts [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filtered"
-        [dateFrom]="dateFrom!" [dateTo]="dateTo!"></app-fixed-parameters-charts>
+        <app-fixed-parameters-charts [selectedCompany]="selectedCompany" [dateFrom]="dateFrom!"
+          [dateTo]="dateTo!"></app-fixed-parameters-charts>
       </mat-tab>
     </mat-tab-group>
   </mat-grid-list>
