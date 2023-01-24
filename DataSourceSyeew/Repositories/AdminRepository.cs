@@ -35,6 +35,7 @@ namespace DataSourceSyeew.Repositories
 
         public async Task<Admin> Add(Admin admin)
         {
+            //prova
             var added = await _context.Admins.AddAsync(admin);
             await _context.SaveChangesAsync();
             return added.Entity;
