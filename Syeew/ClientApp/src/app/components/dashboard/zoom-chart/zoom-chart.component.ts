@@ -1,12 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
-import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 
 export interface ChartData {
   nameChart: string;
   selectedCompany: ICompany;
-  filteredQuantitativeData: IQuantitativeData[];
   dateFrom: string;
   dateTo: string;
   yAxisChoice: string;

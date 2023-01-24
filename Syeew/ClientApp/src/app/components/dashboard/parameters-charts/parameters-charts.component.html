@@ -16,9 +16,9 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div *ngIf="plotCanBeBuilt; else elseBlock">
-            <app-chart-generator [selectedCompany]="selectedCompany" [filteredQuantitativeData]="filteredQuantitativeData"
-              [dateFrom]="dateFrom!" [dateTo]="dateTo!" [nameChart]="card.nameChart" [xAxis]="xAxisChoice!"
-              [yAxis]="yAxisChoice!" [yAxisTitle]="yAxisTitle" [showTimeButtons]="true"></app-chart-generator>
+            <app-chart-generator [selectedCompany]="selectedCompany" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
+              [nameChart]="card.nameChart" [xAxis]="xAxisChoice!" [yAxis]="yAxisChoice!" [yAxisTitle]="yAxisTitle"
+              [showTimeButtons]="true"></app-chart-generator>
             <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
           </div>
           <ng-template #elseBlock>Configura gli assi X e Y tra le opzioni disponibili per generare il

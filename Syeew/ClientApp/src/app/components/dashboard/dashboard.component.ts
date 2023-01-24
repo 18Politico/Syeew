@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
   @Input() dateFrom!: string
   @Input() dateTo!: string
   dateFromProva = new Date(this.dateFrom)
-  @Input() filtered!: IQuantitativeData[]
 
   ngOnInit(): void {
 

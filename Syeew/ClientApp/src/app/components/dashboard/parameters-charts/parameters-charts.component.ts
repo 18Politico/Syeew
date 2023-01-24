@@ -14,7 +14,6 @@ export class ParametersChartsComponent {
   @Input() selectedCompany!: ICompany
   @Input() dateFrom!: string
   @Input() dateTo!: string
-  @Input() filteredQuantitativeData!: IQuantitativeData[]
   @Input() xAxisChoice!: string
   @Input() yAxisChoice!: string
   @Input() yAxisTitle!: string
@@ -23,14 +22,14 @@ export class ParametersChartsComponent {
 
   constructor(private dialog: MatDialog) {
     this.cards = [
-      { nameChart: 'scatterplot', cols: 1, rows: 1 },
+      { nameChart: 'scatter', cols: 1, rows: 1 },
     ]
   }
 
   openChart(nameChart: string) {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
-        nameChart: nameChart, selectedCompany: this.selectedCompany, filteredQuantitativeData: this.filteredQuantitativeData,
+        nameChart: nameChart, selectedCompany: this.selectedCompany,
         dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice, yAxisTitle: this.yAxisTitle
       }
     })
