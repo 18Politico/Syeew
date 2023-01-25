@@ -86,7 +86,7 @@ namespace Syeew.Controllers
 
         //[Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
-        public async Task<ActionResult<Admin>> GetUserByJwt([FromBody] string token)
+        public async Task<ActionResult<Admin>> GetUserByJwt([FromBody] JwtDTO jwt)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
 
@@ -106,7 +106,7 @@ namespace Syeew.Controllers
 
             SecurityToken securityToken;
 
-            var principle = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+            var principle = tokenHandler.ValidateToken(jwt.Token, tokenValidationParameters, out securityToken);
             var jwtSecurityToken = (JwtSecurityToken)securityToken;
 
             if (jwtSecurityToken != null && jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
