@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Dimention } from 'src/app/models/Dimention';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
-import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 import { ManegementSystem } from 'src/app/models/ManegementSystem';
 import { TypeOfCompany } from 'src/app/models/TypeOfCompany';
 import { CompaniesService } from 'src/app/services/companies.service';
@@ -30,9 +29,7 @@ export class CompaniesTableComponent implements OnInit {
 
   filteringProvince = "";
 
-  //@ViewChild('refTypeOfCmp') refCmp!: ElementRef;
-
-  //selTypeOfCmp!: string | undefined;
+  filteringActivity = "";
 
   selManSystem!: ManegementSystem;
 
@@ -62,84 +59,27 @@ export class CompaniesTableComponent implements OnInit {
   }
 
 
-  // filterByName(){
-  //   if (this.filteredCompanies == null)
-  //     this.filteredCompanies = Array.from(this.companies);
-  //   this.dataSource = this.filteredCompanies.filter(c =>
-  //     c.companyName.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()));
-
-  // }
-
-  filter(){
-    this.filteredCompanies = Array.from(this.companies.filter(
+  filter() {
+    this.dataSource = this.companies.filter(
       c => c.nomeAttivita.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase())
-      && c.citta.toLocaleLowerCase().includes(this.filteringCity.toLocaleLowerCase())
-    ))
-
-    this.dataSource = this.filteredCompanies
-
-    // console.log("dim tutte = " + this.companies.length)
-    // if (this.filteringName === "" && this.filteringCity !== "")
-    //   this.filterByCity()
-    // else if (this.filteringName !== "" && this.filteringCity === "")
-    //   this.filterByName()
-    //  else
-    //   this.filterByNameAndCity()
+        && c.citta.toLocaleLowerCase().includes(this.filteringCity.toLocaleLowerCase())
+        && c.tipoAttivita.toLocaleLowerCase().includes(this.filteringActivity.toLocaleLowerCase())
+        && c.provincia.toLocaleLowerCase().includes(this.filteringProvince.toLocaleLowerCase())
+    )
   }
-
-  filterByCity(){
-    this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-      .includes(this.filteringName.toLocaleLowerCase()))
-      .filter(c => c.citta.toLocaleLowerCase()
-      .includes(this.filteringCity.toLocaleLowerCase()))
-  }
-
-  private filterByName(){
-    this.dataSource.filter(c => c.nomeAttivita.toLocaleLowerCase().includes(this.filteringName.toLocaleLowerCase()))
-  }
-
-  private filterByNameAndCity(){
-
-  }
-
-
-  // filter_OLD() {
-  //   if (this.filteredCompanies == null)
-  //     this.filteredCompanies = Array.from(this.companies);
-  //   if (this.selTypeOfCmp === undefined
-  //     || this.selTypeOfCmp.toString() === "TUTTE") {
-  //     this.filterWithoutDropDowns();
-  //   } else {
-  //     this.filterWithDropDowns();
-  //   }
-  //   console.log(this.selTypeOfCmp)
-  // }
-
-  // private filterWithDropDowns() {
-  //   this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-  //     .includes(this.filteringName.toLocaleLowerCase()))
-  //     .filter(c => c.citta.toLocaleLowerCase()
-  //     .includes(this.filteringCity.toLocaleLowerCase()))
-  //     .filter(c => c.tipoAttivita === this.selTypeOfCmp);
-  // }
-
-  // private filterWithoutDropDowns() {
-  //   this.dataSource = this.companies.filter(c => c.nomeAttivita.toLocaleLowerCase()
-  //     .includes(this.filteringName.toLocaleLowerCase()))
-  //     .filter(c => c.citta.toLocaleLowerCase()
-  //     .includes(this.filteringCity.toLocaleLowerCase()))
-  // }
-
 
   deleteNameFilter() {
     this.filteringName = "";
-    this.filteredCompanies = null;
     this.filter();
   }
 
   deleteCityFilter() {
     this.filteringCity = "";
-    this.filteredCompanies = null
+    this.filter();
+  }
+
+  deleteActivityFilter() {
+    this.filteringActivity = "";
     this.filter();
   }
 
@@ -155,13 +95,25 @@ export class CompaniesTableComponent implements OnInit {
   ngOnInit(): void {
     this._service.AllCompanies("Company")
       .subscribe((cmp: ICompany[]) => {
+        this.initICompanyFields(cmp)
         this.companies = cmp;
         this.dataSource = this.companies;
         this.displayedColumns = Object.keys(this.dataSource[0]).slice(1, this.displayedColumns.length - 1);
-        //setTimeout(() => this.dataSource.paginator = this.paginator); // set timeout for loading with spinner
         this.isLoading = false // for loading-spinner
       });
   }
 
+  private initICompanyFields(companies: ICompany[]) {
+    companies.forEach(c => {
+      if (c.nomeAttivita === null)
+        c.nomeAttivita = ''
+      if (c.tipoAttivita === null)
+        c.tipoAttivita = ''
+      if (c.citta === null)
+        c.citta = ''
+      if (c.provincia === null)
+        c.provincia = ''
+    })
+  }
 
 }

@@ -20,4 +20,19 @@ export class CompaniesService {
     return this._http.get<ICompany>(this._url + "Company/" + name);
   }
 
+  /**
+   * Gets all the companies
+   */
+  getCompanies(): Observable<ICompany[]> {
+    return this._http.get<ICompany[]>(this._url + 'Company');
+  }
+
+  /**
+   * CAMBIARE E SPOSTARE SUL BACK-END
+   * returns all possibles activity types of companies
+   */
+  getActivityTypes(companies: ICompany[]): string[] {
+    return Array.from(new Set(companies.filter(c => c.tipoAttivita.length > 0).map(c => c.tipoAttivita.trim())))
+  }
+
 }
