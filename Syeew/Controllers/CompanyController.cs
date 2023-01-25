@@ -19,7 +19,7 @@ namespace Syeew.Controllers
             _repository = repository;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<ICollection<Company>>> GetCompanies()
         {
