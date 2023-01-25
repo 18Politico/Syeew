@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataSourceSyeew.Migrations
 {
     [DbContext(typeof(SyeewContext))]
-    [Migration("20230124153746_AdminAdded")]
-    partial class AdminAdded
+    [Migration("20230125080754_Admin")]
+    partial class Admin
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
