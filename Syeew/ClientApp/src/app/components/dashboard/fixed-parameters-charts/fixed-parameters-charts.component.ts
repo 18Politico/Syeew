@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
@@ -10,7 +10,7 @@ import { ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
   templateUrl: './fixed-parameters-charts.component.html',
   styleUrls: ['./fixed-parameters-charts.component.css']
 })
-export class FixedParametersChartsComponent {
+export class FixedParametersChartsComponent implements OnInit {
 
   @Input() selectedCompanies!: ICompany[]
   @Input() dateFrom!: string
@@ -22,11 +22,17 @@ export class FixedParametersChartsComponent {
 
   selectedColor: ThemePalette = 'primary'
 
+  @Input() pieCategories?: string[]
+
   constructor(private dialog: MatDialog) {
     this.cards = [
       { nameChart: 'area', cols: 1, rows: 1 },
       { nameChart: 'pie', cols: 1, rows: 1 },
     ];
+  }
+
+  ngOnInit() {
+    console.log('piec in fixed: ', this.pieCategories)
   }
 
   openChart(nameChart: string) {

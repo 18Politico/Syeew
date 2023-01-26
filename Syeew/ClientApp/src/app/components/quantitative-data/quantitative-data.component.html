@@ -31,7 +31,8 @@
         </mat-error>
       </mat-form-field>
     </form>
-    <button mat-raised-button (click)="VediDashFunc()" color="primary">Genera Dashboard</button>
+    <button [disabled]="!dateFrom.valid || !dateUntil.valid" mat-raised-button (click)="VediDashFunc()"
+      color="primary">Genera Dashboard</button>
     <button mat-raised-button (click)="resetDashboard()" color="warn">Reset Dashboard</button>
     <div class="mat-elevation-z8">
 

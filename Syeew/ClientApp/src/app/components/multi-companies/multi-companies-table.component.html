@@ -86,7 +86,8 @@
             </mat-error>
         </mat-form-field>
     </form>
-    <button mat-raised-button (click)="vediDashFunc()" color="primary">Genera Dashboard</button>
+    <button mat-raised-button [disabled]="!dateFrom.valid || !dateUntil.valid" (click)="vediDashFunc()"
+        color="primary">Genera Dashboard</button>
     <button mat-raised-button (click)="resetDashboard()" color="warn">Reset Dashboard</button>
     <app-dashboard *ngIf="vediDash" [selectedCompanies]="getSelectedCompanies()" [dateFrom]="dateFrom.value!"
         [dateTo]="dateUntil.value!"></app-dashboard>

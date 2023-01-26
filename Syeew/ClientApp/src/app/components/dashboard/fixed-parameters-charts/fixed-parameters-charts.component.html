@@ -10,26 +10,53 @@ o meglio il numero di cards, io fare che:
 -->
 <div class="grid-container">
   <h1>Grafici con Parametri Fissi</h1>
-  <mat-grid-list cols="2" rowHeight="450px">
-    <mat-grid-tile [colspan]="1" [rowspan]="1">
-      <mat-card class="dashboard-card">
-        <!-- Assi -->
-        <mat-card-content class="dashboard-card-content">
-          <app-axis-selection [isXAxisEnabled]="false" [isYAxisEnabled]="true"
-            (plotBuilding)="checkIfBuilding($event)"></app-axis-selection>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
-        <mat-card-header>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <app-chart-generator [selectedCompanies]="selectedCompanies" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
-            [nameChart]="card.nameChart" [yAxis]="yAxisChoice!" [showTimeButtons]="false"></app-chart-generator>
-          <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
-        </mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div *ngIf="selectedCompanies.length == 1; else moreCompanies">
+    <mat-grid-list cols="2" rowHeight="450px">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card class="dashboard-card">
+          <!-- Assi -->
+          <mat-card-content class="dashboard-card-content">
+            <app-axis-selection [isXAxisEnabled]="false" [isYAxisEnabled]="true"
+              (plotBuilding)="checkIfBuilding($event)"></app-axis-selection>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <app-chart-generator [selectedCompanies]="selectedCompanies" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
+              [nameChart]="card.nameChart" [yAxis]="yAxisChoice!" [showTimeButtons]="false"></app-chart-generator>
+            <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <ng-template #moreCompanies>
+    <mat-grid-list *ngFor="let cat of pieCategories" cols="2" rowHeight="450px">
+      <mat-grid-tile [colspan]="1" [rowspan]="1">
+        <mat-card class="dashboard-card">
+          <!-- Assi -->
+          <mat-card-content class="dashboard-card-content">
+            <app-axis-selection [isXAxisEnabled]="false" [isYAxisEnabled]="true"
+              (plotBuilding)="checkIfBuilding($event)"></app-axis-selection>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+      <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
+        <mat-card class="dashboard-card">
+          <mat-card-header>
+          </mat-card-header>
+          <mat-card-content class="dashboard-card-content">
+            <app-chart-generator [selectedCompanies]="selectedCompanies" [pieCategory]="cat" [dateFrom]="dateFrom!"
+              [dateTo]="dateTo!" [nameChart]="card.nameChart" [yAxis]="yAxisChoice!"
+              [showTimeButtons]="false"></app-chart-generator>
+            <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </ng-template>
 </div>

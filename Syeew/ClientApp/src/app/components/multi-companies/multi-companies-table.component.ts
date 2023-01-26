@@ -2,12 +2,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { MatTableDataSource } from '@angular/material/table';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IndexedCompany } from 'src/app/models/interfaces/IndexedCompany'
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 import { CompaniesService } from 'src/app/services/companies.service';
+import { WarningAlertComponent } from './warning-alert/warning-alert.component';
 
 /**
  * @title Table with selection
@@ -47,7 +49,7 @@ export class MultiCompaniesTable {
   dateUntil = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
-  constructor(private _serviceCmp: CompaniesService) {
+  constructor(private _serviceCmp: CompaniesService, public dialog: MatDialog) {
     this.isLoading = true
     this.activityNameFilter = ''
     this.activityTypeFilter = ''
@@ -145,8 +147,12 @@ export class MultiCompaniesTable {
 
   // dashboard button generation and reset
   vediDashFunc() {
-    this.vediDash = true;
-    setTimeout(() => document.getElementById("dashboard")?.scrollIntoView({ behavior: "smooth" }));
+    if (this.getSelectedCompanies().length < 2)
+      this.openWarningAlert()
+    else {
+      this.vediDash = true;
+      setTimeout(() => document.getElementById("dashboard")?.scrollIntoView({ behavior: "smooth" }));
+    }
   }
 
   resetDashboard() {
@@ -154,6 +160,11 @@ export class MultiCompaniesTable {
     this.dateFrom = new FormControl('', [Validators.required]);
     this.dateUntil = new FormControl('', [Validators.required]);
 
+  }
+
+  // warning alert
+  openWarningAlert() {
+    this.dialog.open(WarningAlertComponent)
   }
 
 }

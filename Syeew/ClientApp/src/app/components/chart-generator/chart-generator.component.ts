@@ -1,4 +1,4 @@
-import { OnChanges, Component, Input, OnInit, SimpleChanges, ViewChild, Output, EventEmitter } from '@angular/core';
+import { OnChanges, Component, Input, OnInit, SimpleChanges, ViewChild, } from '@angular/core';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 
@@ -77,6 +77,9 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
   @Input() showTimeButtons!: boolean // to show buttons that change a period in a chart (1 month, 6 month, 1 year)
   isBrush!: boolean
 
+  // for pie chart
+  @Input() pieCategory?: string
+
 
   // TODO: pensarci dopo e pensare bene ai controlli
   /*public updateOptionsData: any = {
@@ -129,6 +132,7 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    console.log('pcat: ', this.pieCategory)
   }
 
   async generatePlot(chartName: string) {
@@ -194,17 +198,22 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
               pieData.push(data)
             })
         }
-        let map = this.preparePieChartData(companyNames, pieData)
+        // check if is one company
+        let map = new Map<string, any[]>()
         let contents: any[] = []
-        map.forEach(v => contents.push(v[1])) // preparazione dati singola azienda
-        this.createPieChart(contents, Array.from(map.keys()))
-        /*console.log('map: ', map)
-        map.forEach(e => {
-          this.addingCards.emit({ adding: true })
-        })*/
+        if (this.pieCategory == undefined) {
+          console.log('boccato')
+          map = this.preparePieChartData(companyNames, pieData)
+          map.forEach(v => contents.push(v[1])) // preparazione dati singola azienda
+          this.createPieChart(contents, Array.from(map.keys()))
+        }
+        else { // more companies
+          map = this.preparePieChartData(companyNames, pieData)
+          console.log('map: ', map)
+        }
         break;
       }
-      case 'area': {
+      /*case 'area': {
         let pieData: PieDataDTO[][] = []
         for (var c of this.selectedCompanies) {
           await lastValueFrom(this.plotService.getPieDataMonth(new RequestDataDTO(c.nomeAttivita,
@@ -217,7 +226,7 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
         map.forEach(v => contents.push(v[1])) // preparazione dati singola azienda
         this.generateAreaChart(this.prepareAreaChartData(Array.from(map.keys()), contents))
         break;
-      }
+      }*/
     }
   }
 
@@ -576,9 +585,7 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
     this._initial = true;
   }
 
-
-
-  createPieChart(series: any[], labels: string[]) {
+  createPieChart(series: any[], labels: string[], pieTitle?: string) {
     this.chartOptions = {
       series: series,
       chart: {
@@ -587,6 +594,9 @@ export class ChartGeneratorComponent implements OnInit, OnChanges {
         type: "pie"
       },
       labels: labels,
+      title: {
+        text: pieTitle
+      },
       responsive: [
         {
           breakpoint: 480,
