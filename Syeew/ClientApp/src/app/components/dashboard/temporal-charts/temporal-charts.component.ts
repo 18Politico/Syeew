@@ -10,7 +10,7 @@ import { ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
 })
 export class TemporalChartsComponent implements OnInit {
 
-  @Input() selectedCompany!: ICompany
+  @Input() selectedCompanies!: ICompany[]
   @Input() dateFrom!: string
   @Input() dateTo!: string
   @Input() yAxisChoice!: string
@@ -46,7 +46,7 @@ export class TemporalChartsComponent implements OnInit {
   openChart(nameChart: string) {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
-        nameChart: nameChart, selectedCompany: this.selectedCompany,
+        nameChart: nameChart, selectedCompanies: this.selectedCompanies,
         dateFrom: this.dateFrom, dateTo: this.dateTo, yAxisChoice: this.yAxisChoice, yAxisTitle: this.yAxisTitle
       }
     })

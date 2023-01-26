@@ -4,7 +4,7 @@ import { ICompany } from 'src/app/models/interfaces/ICompany';
 
 export interface ChartData {
   nameChart: string;
-  selectedCompany: ICompany;
+  selectedCompanies: ICompany[];
   dateFrom: string;
   dateTo: string;
   yAxisChoice: string;

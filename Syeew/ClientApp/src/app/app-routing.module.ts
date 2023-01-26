@@ -10,17 +10,17 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminLoginService } from './services/admin-login.service';
-import { TableSelectionComponent } from './components/table-selection/table-selection.component';
+import { MultiCompaniesTable } from './components/multi-companies/multi-companies-table.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, /*canActivate: [AdminLoginService]*/},
+  { path: 'home', component: HomeComponent, /*canActivate: [AdminLoginService]*/ },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'aziende', component: CompaniesTableComponent, /*canActivate: [AdminLoginService]*/  },
-  { path: 'aziende/:companyName', component: QuantitativeDataComponent, /*canActivate: [AdminLoginService] */},
+  { path: 'aziende', component: CompaniesTableComponent, /*canActivate: [AdminLoginService]*/ },
+  { path: 'aziende/:companyName', component: QuantitativeDataComponent, /*canActivate: [AdminLoginService] */ },
   //{ path: 'dashboard', component: DashboardComponent },
   //{ path: 'charts', component: ChartGeneratorComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'companies-selection', component: TableSelectionComponent},
+  { path: 'companies-selection', component: MultiCompaniesTable },
   // {
   //   path: 'navbar', component: NavbarComponent, children: [
   //     { path: 'aziende', component: CompaniesTableComponent },

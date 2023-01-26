@@ -11,7 +11,7 @@ import { ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
 })
 export class ParametersChartsComponent {
 
-  @Input() selectedCompany!: ICompany
+  @Input() selectedCompanies!: ICompany[]
   @Input() dateFrom!: string
   @Input() dateTo!: string
   @Input() xAxisChoice!: string
@@ -29,7 +29,7 @@ export class ParametersChartsComponent {
   openChart(nameChart: string) {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
-        nameChart: nameChart, selectedCompany: this.selectedCompany,
+        nameChart: nameChart, selectedCompanies: this.selectedCompanies,
         dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice, yAxisTitle: this.yAxisTitle
       }
     })

@@ -16,7 +16,7 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div *ngIf="plotCanBeBuilt; else elseBlock">
-            <app-chart-generator [selectedCompany]="selectedCompany" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
+            <app-chart-generator [selectedCompanies]="selectedCompanies" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
               [nameChart]="card.nameChart" [yAxis]="yAxisChoice!" [yAxisTitle]="yAxisTitle"
               [showTimeButtons]="true"></app-chart-generator>
             <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>

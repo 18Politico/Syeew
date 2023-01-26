@@ -12,7 +12,7 @@ import { ZoomChartComponent } from '../zoom-chart/zoom-chart.component';
 })
 export class FixedParametersChartsComponent {
 
-  @Input() selectedCompany!: ICompany
+  @Input() selectedCompanies!: ICompany[]
   @Input() dateFrom!: string
   @Input() dateTo!: string
   @Input() xAxisChoice?: string
@@ -24,15 +24,15 @@ export class FixedParametersChartsComponent {
 
   constructor(private dialog: MatDialog) {
     this.cards = [
+      { nameChart: 'area', cols: 1, rows: 1 },
       { nameChart: 'pie', cols: 1, rows: 1 },
-      //{ nameChart: 'area', cols: 1, rows: 1 },
     ];
   }
 
   openChart(nameChart: string) {
     let dialogRef = this.dialog.open(ZoomChartComponent, {
       data: {
-        nameChart: nameChart, selectedCompany: this.selectedCompany,
+        nameChart: nameChart, selectedCompanies: this.selectedCompanies,
         dateFrom: this.dateFrom, dateTo: this.dateTo, xAxisChoice: this.xAxisChoice, yAxisChoice: this.yAxisChoice
       }
     })
@@ -49,5 +49,4 @@ export class FixedParametersChartsComponent {
     this.xAxisChoice = evtData.xAxis
     this.yAxisChoice = evtData.yAxis
   }
-
 }

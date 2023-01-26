@@ -1,3 +1,13 @@
+<!-- PROPOSTA: dato che il fixed deve sapere a priori il numero di chart da creare, 
+o meglio il numero di cards, io fare che:
+
+  1. una volta selezionate le aziende, si prendono le categorie (colazione, pranzo, cena...) dai
+  dati quantitativi di ogni azienda, che tanto sono le stesse categorie.
+  
+  2. si aggiunge a cards[] un oggetto per ogni categoria ricevuta.
+
+  3. si invia al chart-generator il titolo della cetagoria così il fixed imposta tutto e bella
+-->
 <div class="grid-container">
   <h1>Grafici con Parametri Fissi</h1>
   <mat-grid-list cols="2" rowHeight="450px">
@@ -15,7 +25,7 @@
         <mat-card-header>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <app-chart-generator [selectedCompany]="selectedCompany" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
+          <app-chart-generator [selectedCompanies]="selectedCompanies" [dateFrom]="dateFrom!" [dateTo]="dateTo!"
             [nameChart]="card.nameChart" [yAxis]="yAxisChoice!" [showTimeButtons]="false"></app-chart-generator>
           <button mat-raised-button (click)="openChart(card.nameChart)" color="primary">Zoom</button>
         </mat-card-content>

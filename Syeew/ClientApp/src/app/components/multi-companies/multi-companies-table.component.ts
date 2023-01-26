@@ -1,20 +1,23 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, ViewChild } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { MatTableDataSource } from '@angular/material/table';
 import { ICompany } from 'src/app/models/interfaces/ICompany';
 import { IndexedCompany } from 'src/app/models/interfaces/IndexedCompany'
+import { IQuantitativeData } from 'src/app/models/interfaces/IQuantitativeData';
 import { CompaniesService } from 'src/app/services/companies.service';
 
 /**
  * @title Table with selection
  */
 @Component({
-  selector: 'app-table-selection',
-  templateUrl: './table-selection.component.html',
-  styleUrls: ['./table-selection.component.css']
+  selector: 'app-multi-companies-table',
+  templateUrl: './multi-companies-table.component.html',
+  styleUrls: ['./multi-companies-table.component.css']
 })
-export class TableSelectionComponent{
+export class MultiCompaniesTable {
   // selector
   @ViewChild('activitySelector') activitySelector!: MatSelect
 
@@ -35,7 +38,17 @@ export class TableSelectionComponent{
   cityFilter: string
   provinceFilter: string
 
+  // spinner
+  isLoading!: boolean
+  vediDash: boolean = false;
+
+  // dates
+  dateFrom = new FormControl('', [Validators.required]);
+  dateUntil = new FormControl('', [Validators.required]);
+  matcher = new MyErrorStateMatcher();
+
   constructor(private _serviceCmp: CompaniesService) {
+    this.isLoading = true
     this.activityNameFilter = ''
     this.activityTypeFilter = ''
     this.cityFilter = ''
@@ -61,6 +74,7 @@ export class TableSelectionComponent{
         this.companies.forEach((element, index) => element.position = index)
         this.dataSource = new MatTableDataSource<IndexedCompany>(this.companies)
         this.dataSource.filterPredicate = (data: IndexedCompany, filter: string) => data.nomeAttivita.trim().toLocaleLowerCase().indexOf(filter) != -1;
+        this.isLoading = false  // stop the spinner
       })
   }
 
@@ -85,7 +99,6 @@ export class TableSelectionComponent{
    * Gets all selected companies
    */
   getSelectedCompanies(): ICompany[] {
-    console.log(this.selection.selected as ICompany[])
     return this.selection.selected as ICompany[]
   }
 
@@ -113,7 +126,7 @@ export class TableSelectionComponent{
     this.provinceFilter = ''
   }
 
-  
+
   /**
    * Initialize fields of Icompany if it is null, this is needed to avoid null pointer errors
    */
@@ -130,5 +143,25 @@ export class TableSelectionComponent{
     })
   }
 
+  // dashboard button generation and reset
+  vediDashFunc() {
+    this.vediDash = true;
+    setTimeout(() => document.getElementById("dashboard")?.scrollIntoView({ behavior: "smooth" }));
+  }
 
+  resetDashboard() {
+    this.vediDash = false
+    this.dateFrom = new FormControl('', [Validators.required]);
+    this.dateUntil = new FormControl('', [Validators.required]);
+
+  }
+
+}
+
+// dates checking
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
 }

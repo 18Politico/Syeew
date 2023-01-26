@@ -25,7 +25,7 @@ import { LoadingProgressComponent } from './components/loading-progress/loading-
 import { AxisSelectionComponent } from './components/dashboard/axis-selection/axis-selection.component';
 import { ZoomChartComponent } from './components/dashboard/zoom-chart/zoom-chart.component';
 import { LoginComponent } from './components/login/login.component';
-import { TableSelectionComponent } from './components/table-selection/table-selection.component';
+import { MultiCompaniesTable } from './components/multi-companies/multi-companies-table.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProvaComponent } from './components/prova/prova.component';
 @NgModule({
@@ -46,7 +46,7 @@ import { ProvaComponent } from './components/prova/prova.component';
     AxisSelectionComponent,
     ZoomChartComponent,
     LoginComponent,
-    TableSelectionComponent,
+    MultiCompaniesTable,
     ProvaComponent
   ],
   imports: [

@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   selectedColor: ThemePalette = 'primary'
   choises: string[] = ['Line Chart', 'Bar Chart', 'Summer', 'Autumn'];
   cards!: any[]
-  @Input() selectedCompany!: ICompany
+  @Input() selectedCompanies!: ICompany[]
   @Input() dateFrom!: string
   @Input() dateTo!: string
   dateFromProva = new Date(this.dateFrom)

@@ -50,7 +50,7 @@
     <div id="dashboard">
       <br><br>
     </div>
-    <app-dashboard *ngIf="vediDash" [selectedCompany]="clickedCompany" [dateFrom]="dateFrom.value!"
+    <app-dashboard *ngIf="vediDash" [selectedCompanies]="[clickedCompany]" [dateFrom]="dateFrom.value!"
       [dateTo]="dateUntil.value!"></app-dashboard>
   </ng-template>
 </ng-template>
