@@ -1,6 +1,3 @@
-export class JwtDTO{
-
+export class JwtDTO {
   token!: string;
-
-
 }

@@ -27,6 +27,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MultiCompaniesTable } from './components/multi-companies/multi-companies-table.component';
 import { ProvaComponent } from './components/prova/prova.component';
 import { WarningAlertComponent } from './components/multi-companies/warning-alert/warning-alert.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { WarningAlertComponent } from './components/multi-companies/warning-aler
     LoginComponent,
     MultiCompaniesTable,
     WarningAlertComponent,
-    ProvaComponent
+    ProvaComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

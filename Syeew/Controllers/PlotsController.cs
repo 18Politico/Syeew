@@ -23,7 +23,7 @@ namespace Syeew.Controllers
             _quantitativeDataRepository = quantitativeDataRepository;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public async Task<ActionResult<ICollection<BoxPlotDataDayDTO>>> BoxPlotDataDay([FromBody] RequestDataDTO request)
         {
@@ -106,7 +106,7 @@ namespace Syeew.Controllers
             return statsFromGroup;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [AllowAnonymous]
         [HttpPost("[action]")]
         public async Task<ActionResult<BoxPlotDataMonthDTO>> BoxPlotDataMonth([FromBody] RequestDataDTO request)
@@ -182,7 +182,7 @@ namespace Syeew.Controllers
             return list;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public async Task<ActionResult<ICollection<TemporalDataDTO>>> TemporalDataDay([FromBody] RequestDataDTO request)
         {
@@ -238,7 +238,7 @@ namespace Syeew.Controllers
 
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public async Task<ActionResult<ICollection<PieDataDTO>>> PieDataMonth([FromBody] RequestDataDTO request)
         {
@@ -282,7 +282,7 @@ namespace Syeew.Controllers
 
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("[action]")]
         public async Task<ActionResult<ICollection<ParameterDataDTO>>> ParameterDataDay([FromBody] RequestDataDTO request)
         {

@@ -2,9 +2,7 @@
     <mat-card-content>
         <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
             <h2>Accedi</h2>
-            <mat-error *ngIf="!loginValid">
-                Username o Password errati
-            </mat-error>
+
             <mat-form-field>
                 <input matInput placeholder="Email" [(ngModel)]="username" name="username" required>
                 <mat-error>
@@ -17,7 +15,11 @@
                     Inserire una password
                 </mat-error>
             </mat-form-field>
+            <a class="left" [routerLink]="['/register']">Non hai un account?</a>
+            <br>
+            <br>
             <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
         </form>
+
     </mat-card-content>
 </mat-card>

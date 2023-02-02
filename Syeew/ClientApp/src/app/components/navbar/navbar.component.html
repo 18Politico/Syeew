@@ -19,8 +19,7 @@
       </button>
       <span>Statistical Analysis for Micro-Enterprises</span>
       <span class="space"></span>
-      <button mat-icon-button routerLink="/login"><mat-icon>login</mat-icon></button>
-      <button mat-icon-button ><mat-icon>logout</mat-icon></button>
+      <button *ngIf="isAuthenticated()" mat-icon-button (click)="logout()"><mat-icon>logout</mat-icon></button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

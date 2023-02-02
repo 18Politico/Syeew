@@ -7,6 +7,7 @@ import { RequestDataDTO } from '../Utils/DTOs/RequestDataDTO';
 import { BoxPlotDataMonthDTO } from '../Utils/DTOs/BoxPlotDataMonthDTO';
 import { ParameterDataDTO } from '../Utils/DTOs/ParameterDataDTO';
 import { PieDataDTO } from '../Utils/DTOs/PieDataDTO';
+import { AdminLoginService } from './admin-login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class PlotsService {
 
   private readonly _url = "https://localhost:7290/api/Plots"
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _loginService: AdminLoginService) { }
 
   /**
    *
@@ -23,7 +24,7 @@ export class PlotsService {
    * @returns
    */
   getBoxPlotDataDay(requestData: RequestDataDTO): Observable<BoxPlotDataDTO[]> {
-    return this._http.post<BoxPlotDataDTO[]>(this._url + "/BoxPlotDataDay", requestData)
+    return this._http.post<BoxPlotDataDTO[]>(this._url + "/BoxPlotDataDay", requestData, { headers: this._loginService.getRequiredHeaders() })
   }
 
 
@@ -43,7 +44,7 @@ export class PlotsService {
    */
   // TODO: ricambiare da BoxPlotDataMonthDTO[] a BoxPlotDataMonthDTO 
   getBoxPlotDataMonth(requestData: RequestDataDTO): Observable<BoxPlotDataMonthDTO> {
-    return this._http.post<BoxPlotDataMonthDTO>(this._url + "/BoxPlotDataMonth", requestData)
+    return this._http.post<BoxPlotDataMonthDTO>(this._url + "/BoxPlotDataMonth", requestData, { headers: this._loginService.getRequiredHeaders() })
   }
 
   /**
@@ -52,7 +53,7 @@ export class PlotsService {
    * @returns
    */
   getPieDataMonth(requestData: RequestDataDTO): Observable<PieDataDTO[]> {
-    return this._http.post<PieDataDTO[]>(this._url + "/PieDataMonth", requestData)
+    return this._http.post<PieDataDTO[]>(this._url + "/PieDataMonth", requestData, { headers: this._loginService.getRequiredHeaders() })
   }
 
   /**
@@ -61,7 +62,7 @@ export class PlotsService {
    * @returns
    */
   getTemporalDataDay(requestData: RequestDataDTO): Observable<TemporalDataDTO[]> {
-    return this._http.post<TemporalDataDTO[]>(this._url + "/TemporalDataDay", requestData)
+    return this._http.post<TemporalDataDTO[]>(this._url + "/TemporalDataDay", requestData, { headers: this._loginService.getRequiredHeaders() })
   }
 
   /**
@@ -81,7 +82,7 @@ export class PlotsService {
    * @returns 
    */
   getParametersDataDay(requestData: RequestDataDTO): Observable<ParameterDataDTO[]> {
-    return this._http.post<ParameterDataDTO[]>(this._url + "/ParameterDataDay", requestData)
+    return this._http.post<ParameterDataDTO[]>(this._url + "/ParameterDataDay", requestData, { headers: this._loginService.getRequiredHeaders() })
   }
 
 

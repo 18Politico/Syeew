@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using MathNet.Numerics.Statistics;
 using Syeew.DTOs;
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Syeew.Controllers
 {
@@ -23,7 +25,7 @@ namespace Syeew.Controllers
             _quantitativeDataRepository = quantitativeDataRepository;
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<ICollection<QuantitativeData>>> GetQuantitativeDatas()
         {
@@ -41,7 +43,7 @@ namespace Syeew.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{companyWithName}")]
         public async Task<ActionResult<ICollection<QuantitativeData>>> QuantitativeDatasOf([FromQuery] string companyWithName)
         {
@@ -62,7 +64,7 @@ namespace Syeew.Controllers
             }
         }
 
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<QuantitativeData>> InsertQuantitativeData([FromBody] QuantitativeData quantitativeData)
         {
